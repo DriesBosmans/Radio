@@ -94,3 +94,52 @@ https://adityadeshpandeadi.wordpress.com/2018/01/14/search-through-listview-item
 
 orkney font
 https://www.1001fonts.com/orkney-font.html
+
+## Eerdere commits
+
+Commits on Oct 29, 2021
+deleted the expander
+
+Worked on the expander with filter options
+
+Implemented search functionality
+
+Commits on Oct 28, 2021
+worked on the searchbar
+
+Commits on Oct 27, 2021
+Implemented new api DarFMApi
+ 
+Commits on Oct 26, 2021
+Deleted some commented code
+ 
+implemented pull to refresh
+ 
+created a new splash screen, migrated to a more mvvm approach
+ 
+Commits on Oct 23, 2021
+added refreshview, started migration to mvvm
+
+Commits on Oct 21, 2021
+Started working on the collectionview
+
+Add project files.
+ 
+Add .gitignore and .gitattributes.
+
+Commits on Oct 20, 2021
+Been working on the tabbar. It turned out I can't use TabView with Sh… …
+ 
+Animated image zoom
+ 
+Splashpage tweaked
+ 
+Commits on Oct 19, 2021
+styled splash page
+
+Worked on colors
+
+Add project files.
+ 
+Add .gitignore and .gitattributes.
+
