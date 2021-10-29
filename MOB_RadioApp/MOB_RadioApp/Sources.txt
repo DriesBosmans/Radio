@@ -1,0 +1,61 @@
+UI design inspiration
+grialkit.com
+
+api
+https://api.radio-browser.info/
+
+Colors
+https://coolors.co/a53182-6c38d7-5e1dae-ffffff-39116e
+https://devblogs.microsoft.com/xamarin/xamarinforms-4-8-gradients-brushes/
+https://www.gradientmagic.com/
+Magic gradients NuGet package
+
+Animated background
+https://www.youtube.com/watch?v=ejDwwc1Iq1s&ab_channel=OludayoAlli
+
+set background status bar
+https://stackoverflow.com/questions/37993741/xamarin-forms-change-statusbar-color
+
+Fixed navigation issue
+https://www.youtube.com/watch?v=f1uYhDjvem4&ab_channel=DavidOrtinau
+
+Animated Image
+https://www.andrewhoefling.com/Blog/Post/scaling-animations-in-xamarin-forms
+
+xamarin community toolkit
+https://docs.microsoft.com/en-us/xamarin/community-toolkit/
+
+ffimageloading library
+https://devlinduldulao.pro/how-to-use-ffimageloading/
+
+ObservableCollection.AddRange()
+https://nugetmusthaves.com/Package/RangedObservableCollection
+
+RefreshView
+https://devblogs.microsoft.com/xamarin/refreshview-xamarin-forms/
+
+SplashScreen
+https://www.serkanseker.com/animated-splash-screen/
+https://lottiefiles.com/81568-vpn-metro
+https://lottiefiles.com/82130-radio
+
+MVVMhelpers
+https://github.com/jamesmontemagno/mvvm-helpers
+
+for data analysis
+https://www.convertcsv.com/json-to-csv.htm
+
+NEW API
+https://docs.google.com/document/d/12HNoXI-z40QLQiSi30g2qSWb8U9YbMd4u5_jrre-YTw/edit
+
+custom search bar
+https://gist.github.com/kevinmutlow/77cf36ff2b3ddeabddeda5115020bb8e
+custom renderer
+https://www.youtube.com/watch?v=iRwR87j3Sfc&ab_channel=SPTutorials
+remove searchbar underline
+https://stackoverflow.com/questions/42845478/xamarin-remove-searchbar-underline-in-android
+Search method
+https://adityadeshpandeadi.wordpress.com/2018/01/14/search-through-listview-items-in-xamarin-forms/
+
+orkney font
+https://www.1001fonts.com/orkney-font.html

@@ -1,0 +1,14 @@
+﻿28-10-2021
+Ik ben op 18 oktober aan mijn project begonnen. 
+Ik heb 7 commits gedaan op mijn eerste repo, en 7 op mijn tweede. Mijn eerste project was gebouwd in een shell,
+tot bleek dat ik geen tabview kon gebruiken, dus ben ik een nieuw project begonnen zonder shell.
+Mijn eerste versie was gebouwd rond de api van radio-browser.info. Er ontbraken veel afbeeldingen.
+Ik heb contact opgenomen met de eigenaar of ik ze kon aanvullen. Dit kon niet, dus heb ik gezocht naar een nieuwe api.
+Die heb ik gevonden: OnRad.io. Tot nu toe heb ik een splash en een collectionview van radiozenders.
+
+28-10-2021
+Ik heb aan de zoekbalk in het mainwindow gewerkt.
+
+29-10-2021
+De zoekfunctie is in orde. Nu ga ik kijken of ik ook een filterfunctie kan fixen.
+Expander krijg ik niet geregeld, ik ga proberen settings te maken in een pop up.

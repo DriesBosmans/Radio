@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:magic="http://magic.com/schemas/gradients" xmlns:viewmodels="clr-namespace:MOB_RadioApp.ViewModels"
+             x:Class="MOB_RadioApp.Views.SplashPage">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="150"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="550"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        
+        <magic:GradientView x:Name="PurpleView" Scale="1.5" AnchorX="0.5" AnchorY="1" Grid.ColumnSpan="3" Grid.RowSpan="3" VerticalOptions="FillAndExpand">
+            <magic:GradientView.GradientSource>
+                <magic:CssGradientSource>
+                    <x:String>
+                        <![CDATA[
+                        radial-gradient(circle at 47% 14%, rgba(205, 205, 205,0.04) 0%, rgba(205, 205, 205,0.04) 43%,transparent 43%, transparent 100%),
+                        radial-gradient(circle at 35% 12%, rgba(215, 215, 215,0.04) 0%, rgba(215, 215, 215,0.04) 4%,transparent 4%, transparent 100%),
+                        radial-gradient(circle at 1% 35%, rgba(24, 24, 24,0.04) 0%, rgba(24, 24, 24,0.04) 37%,transparent 37%, transparent 100%),
+                        radial-gradient(circle at 21% 1%, rgba(0, 0, 0,0.04) 0%, rgba(0, 0, 0,0.04) 26%,transparent 26%, transparent 100%),
+                        radial-gradient(circle at 23% 82%, rgba(249, 249, 249,0.04) 0%, rgba(249, 249, 249,0.04) 60%,transparent 60%, transparent 100%),
+                        radial-gradient(circle at 11% 54%, rgba(251, 251, 251,0.04) 0%, rgba(251, 251, 251,0.04) 23%,transparent 23%, transparent 100%),
+                        radial-gradient(circle at 69% 68%, rgba(234, 234, 234,0.04) 0%, rgba(234, 234, 234,0.04) 10%,transparent 10%, transparent 100%),
+                        linear-gradient(160deg, rgb(228, 46, 222),rgb(63, 61, 215))  ]]>
+                    </x:String>
+                </magic:CssGradientSource>
+            </magic:GradientView.GradientSource>
+        </magic:GradientView>
+        <BoxView x:Name="Whitescreen" BackgroundColor="White" Scale="2" Grid.ColumnSpan="3" Opacity="0" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"></BoxView>
+        <Image x:Name="img"  Grid.Column="1" Source="radio.png" BackgroundColor="Transparent">
+            <Image.GestureRecognizers>
+                <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"></TapGestureRecognizer>
+            </Image.GestureRecognizers>
+        </Image>
+        <!--<Frame x:Name="frame"  BorderColor="White" BackgroundColor="Black" Scale="2" Grid.Column="1" Grid.ColumnSpan="3" Grid.RowSpan="2" Grid.Row="0"
+               VerticalOptions="Center" HorizontalOptions="Center">
+            <Label Text="test" TextColor="White"
+                   HorizontalTextAlignment="Center" FontSize="30"/>
+        </Frame>-->
+    </Grid>
+</ContentPage>
