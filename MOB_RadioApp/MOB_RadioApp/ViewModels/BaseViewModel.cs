@@ -17,4 +17,15 @@ namespace MOB_RadioApp.ViewModels
             OnPropertyChanged(propertyName);
         }
     }
+    #region Fields
+    #endregion Fields
+    #region Constructors
+    #endregion Constructors
+    #region Properties
+    #endregion Properties
+    #region Commands
+    #endregion Commands
+    #region Private Methods
+    #endregion Private Methods
+
 }

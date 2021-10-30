@@ -41,6 +41,7 @@ namespace MOB_RadioApp.Api
                 deserializedObject = JsonConvert.DeserializeObject<Root>(response.Content);
                 deserializedObject.Result[0].Stations.ForEach(x => stations.Add(x));
             }
+            AllStations.Stations = stations;
             return stations;
         }
     }

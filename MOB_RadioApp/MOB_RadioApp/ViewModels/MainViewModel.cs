@@ -1,5 +1,6 @@
 ﻿using MOB_RadioApp.Api;
 using MOB_RadioApp.Models;
+using MOB_RadioApp.Popups;
 using MOB_RadioApp.Services;
 using MvvmHelpers;
 using System;
@@ -25,12 +26,18 @@ namespace MOB_RadioApp.ViewModels
         {
             InitializeAsync();
             //Navigation = navigation;
-            
+            ShowPopupCommand = new Command(async _ => await ExecuteShowPopupCommand());
+          
         }
+
+
+
         const string countryCode = "countrycode";
         ApiService _apiService = new ApiService();
         DarFmApiCall _darfmapi = new DarFmApiCall();
         private readonly INavigation Navigation;
+        public string SelectedGenre = Preferences.Get(ProjectSettings.selectedGenre, "");
+        public string SelectedLanguage = Preferences.Get(ProjectSettings.selectedLanguage, "");
 
         
 
@@ -66,8 +73,10 @@ namespace MOB_RadioApp.ViewModels
 
         #region Commands
         public ICommand SearchCommand => new Command(SearchAction);
-        public ICommand FilterTappedCommand => new Command(FilterTappedAction);
+        public ICommand FilterTappedCommand => new Command(async _ => await ExecuteShowPopupCommand());
         public ICommand RefreshCommand => new Command(ExecuteRefreshCommand);
+        public ICommand ShowPopupCommand { get; }
+        public ICommand GenreSelectedCommand { get; }
         #endregion
 
 
@@ -89,7 +98,7 @@ namespace MOB_RadioApp.ViewModels
 
         void FilterTappedAction()
         {
-            Debug.WriteLine("FilterTappedAction");
+         
         }
         async void ExecuteRefreshCommand()
         {
@@ -135,6 +144,14 @@ namespace MOB_RadioApp.ViewModels
             }
             return currentRegion = "be";
         }
+
+        private Task ExecuteShowPopupCommand()
+        {
+            var popup = new FilterPopup();
+         
+            return Rg.Plugins.Popup.Services.PopupNavigation.Instance.PushAsync(popup);
+        }
+      
         #endregion
     }
 }
