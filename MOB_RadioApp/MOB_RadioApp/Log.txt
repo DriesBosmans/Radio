@@ -12,3 +12,6 @@ Ik heb aan de zoekbalk in het mainwindow gewerkt.
 29-10-2021
 De zoekfunctie is in orde. Nu ga ik kijken of ik ook een filterfunctie kan fixen.
 Expander krijg ik niet geregeld, ik ga proberen settings te maken in een pop up.
+
+31-10-2021
+Ben twee dagen aan de filter functie bezig geweest, maar het werkt nu

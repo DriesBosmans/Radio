@@ -30,7 +30,7 @@ namespace MOB_RadioApp.Droid
 
         public void OnAnimationEnd(Animator animation)
         {
-            StartActivity(new Intent(Application.Context, typeof(MainActivity)));
+            
         }
 
         public void OnAnimationRepeat(Animator animation)
@@ -40,8 +40,8 @@ namespace MOB_RadioApp.Droid
 
         public void OnAnimationStart(Animator animation)
         {
-            
-            
+            StartActivity(new Intent(Application.Context, typeof(MainActivity)));
+
         }
 
         protected override void OnCreate(Bundle savedInstanceState)

@@ -13,8 +13,9 @@
             HasBackgroundAnimation="True"/>
     </popups:PopupPage.Animation>
     <pancakeView:PancakeView
-        CornerRadius="10,10,0,0"
+        CornerRadius="4,4,4,4"
         VerticalOptions="Center"
+        
         HorizontalOptions="FillAndExpand"
         Margin="0,40,0,0"
         Padding="16"
@@ -28,27 +29,27 @@
                         TextColor="Indigo"
                         BackgroundColor="Transparent"
                         Clicked="BtnCancel_Clicked"
-                        HorizontalOptions="Start" />
-                <Label Text="Select your country"
-                       FontSize="18"
-                       FontAttributes="Bold"
-                       VerticalTextAlignment="Center"
-                       HorizontalTextAlignment="Center"
-                       HeightRequest="60"
-                       HorizontalOptions="CenterAndExpand" />
+                        HorizontalOptions="StartAndExpand" />
+
                 <Button x:Name="BtnConfirm"
                     Text="Done" 
                         BackgroundColor="Transparent"
                         TextColor="Indigo"
                         Clicked="BtnConfirm_Clicked"
-                        HorizontalOptions="End" />
+                        HorizontalOptions="EndAndExpand" />
             </StackLayout>
-            <Picker x:Name="PckrGenre"
-                   
+            <StackLayout Margin="10">
+                <Label Text="Genre: " />
+                <Picker x:Name="PckrGenre"
+                    
+                        WidthRequest="600"
                     SelectedIndexChanged="PckrGenre_SelectedIndexChanged"/>
-            <Picker x:Name="PckrLanguage"
+            </StackLayout>
+            <StackLayout Margin="10">
+                <Label Text="Language: "/>
+                <Picker x:Name="PckrLanguage" 
                   SelectedIndexChanged="PckrLanguage_SelectedIndexChanged" />
-            
+            </StackLayout>
         </StackLayout>
     </pancakeView:PancakeView>
 </popups:PopupPage>

@@ -199,7 +199,7 @@ namespace MOB_RadioApp.ViewModels
         {
             var popup = new FilterPopup(ChoicesSelected)
             {
-                ChoisesSelectedCommand = ChoicesSelectedCommand
+                ChoicesSelectedCommand = ChoicesSelectedCommand
             };
          
             return Rg.Plugins.Popup.Services.PopupNavigation.Instance.PushAsync(popup);

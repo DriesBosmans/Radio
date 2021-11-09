@@ -59,3 +59,6 @@ https://adityadeshpandeadi.wordpress.com/2018/01/14/search-through-listview-item
 
 orkney font
 https://www.1001fonts.com/orkney-font.html
+
+Popup page
+https://medium.com/nerd-for-tech/xamarin-forms-country-picker-with-rg-plugins-popup-fec1a045f7c

@@ -25,20 +25,21 @@
                 
                     FontSize="12">
                 <Grid  >
-                    <magic:GradientView x:Name="PurpleView"  
-                                        VerticalOptions="FillAndExpand">
+                    <magic:GradientView x:Name="BlueView" Scale="1.5" AnchorX="0.5" AnchorY="1" 
+                                         VerticalOptions="FillAndExpand">
                         <magic:GradientView.GradientSource>
                             <magic:CssGradientSource>
                                 <x:String>
-                                    
                                     <![CDATA[
-                                    radial-gradient(circle at 28% 90%, rgba(113, 113, 113,0.03) 0%, rgba(113, 113, 113,0.03) 24%,transparent 24%, transparent 100%),
-                                    radial-gradient(circle at 84% 65%, rgba(173, 173, 173,0.03) 0%, rgba(173, 173, 173,0.03) 45%,transparent 45%, transparent 100%),
-                                    radial-gradient(circle at 46% 12%, rgba(141, 141, 141,0.03) 0%, rgba(141, 141, 141,0.03) 22%,transparent 22%, transparent 100%),
-                                    radial-gradient(circle at 26% 14%, rgba(119, 119, 119,0.03) 0%, rgba(119, 119, 119,0.03) 35%,transparent 35%, transparent 100%),
-                                    radial-gradient(circle at 81% 90%, rgba(42, 42, 42,0.03) 0%, rgba(42, 42, 42,0.03) 40%,transparent 40%, transparent 100%),
-                                    radial-gradient(circle at 28% 100%, rgba(234, 234, 234,0.03) 0%, rgba(234, 234, 234,0.03) 56%,transparent 56%, transparent 100%),
-                                    linear-gradient(45deg, #a53182, #6C38D7)  ]]>
+                                        radial-gradient(circle at 53% 25%, rgba(203, 203, 203,0.04) 0%, rgba(203, 203, 203,0.04) 36%,transparent 36%, transparent 100%),
+                                        radial-gradient(circle at 48% 27%, rgba(22, 22, 22,0.04) 0%, rgba(22, 22, 22,0.04) 45%,transparent 45%, transparent 100%),
+                                        radial-gradient(circle at 65% 50%, rgba(219, 219, 219,0.04) 0%, rgba(219, 219, 219,0.04) 61%,transparent 61%, transparent 100%),
+                                        radial-gradient(circle at 78% 82%, rgba(229, 229, 229,0.04) 0%, rgba(229, 229, 229,0.04) 26%,transparent 26%, transparent 100%),
+                                        radial-gradient(circle at 99% 75%, rgba(96, 96, 96,0.04) 0%, rgba(96, 96, 96,0.04) 31%,transparent 31%, transparent 100%),
+                                        radial-gradient(circle at 17% 28%, rgba(188, 188, 188,0.04) 0%, rgba(188, 188, 188,0.04) 15%,transparent 15%, transparent 100%),
+                                        radial-gradient(circle at 19% 19%, rgba(25, 25, 25,0.04) 0%, rgba(25, 25, 25,0.04) 68%,transparent 68%, transparent 100%),
+                                        radial-gradient(circle at 35% 23%, rgba(31, 31, 31,0.04) 0%, rgba(31, 31, 31,0.04) 18%,transparent 18%, transparent 100%),
+                                        linear-gradient(326deg, rgb(138, 193, 238),rgb(20, 21, 171) ]]>
                                 </x:String>
                             </magic:CssGradientSource>
                         </magic:GradientView.GradientSource>
@@ -68,7 +69,8 @@
                             <CollectionView 
                                            ItemsSource="{Binding FilteredStations}"
                                         Margin="7"
-                                        SelectionMode="Single">
+                                        SelectionMode="Single"
+                                >
                                 <CollectionView.ItemsLayout>
                                     <GridItemsLayout Orientation="Vertical"
                                                  Span="4"
@@ -100,7 +102,7 @@
                                             </VisualStateManager.VisualStateGroups>
                                             <Grid.RowDefinitions>
                                                 <RowDefinition Height="4*"/>
-                                                <RowDefinition Height="2*"/>
+                                                <RowDefinition Height="2.9*"/>
                                             </Grid.RowDefinitions>
                                             <BoxView x:Name="BVbox"
                                             Background="{StaticResource NotSelected}"
@@ -142,29 +144,32 @@
                     TextColorSelected="{StaticResource Primary}"
                     FontSize="12">
                 <Grid >
-                    <magic:GradientView x:Name="BlueView" Scale="1.5" AnchorX="0.5" AnchorY="1" 
-                                         VerticalOptions="FillAndExpand">
+                    <magic:GradientView x:Name="PurpleView"  
+                                        VerticalOptions="FillAndExpand">
                         <magic:GradientView.GradientSource>
                             <magic:CssGradientSource>
                                 <x:String>
+
                                     <![CDATA[
-                                        radial-gradient(circle at 53% 25%, rgba(203, 203, 203,0.04) 0%, rgba(203, 203, 203,0.04) 36%,transparent 36%, transparent 100%),
-                                        radial-gradient(circle at 48% 27%, rgba(22, 22, 22,0.04) 0%, rgba(22, 22, 22,0.04) 45%,transparent 45%, transparent 100%),
-                                        radial-gradient(circle at 65% 50%, rgba(219, 219, 219,0.04) 0%, rgba(219, 219, 219,0.04) 61%,transparent 61%, transparent 100%),
-                                        radial-gradient(circle at 78% 82%, rgba(229, 229, 229,0.04) 0%, rgba(229, 229, 229,0.04) 26%,transparent 26%, transparent 100%),
-                                        radial-gradient(circle at 99% 75%, rgba(96, 96, 96,0.04) 0%, rgba(96, 96, 96,0.04) 31%,transparent 31%, transparent 100%),
-                                        radial-gradient(circle at 17% 28%, rgba(188, 188, 188,0.04) 0%, rgba(188, 188, 188,0.04) 15%,transparent 15%, transparent 100%),
-                                        radial-gradient(circle at 19% 19%, rgba(25, 25, 25,0.04) 0%, rgba(25, 25, 25,0.04) 68%,transparent 68%, transparent 100%),
-                                        radial-gradient(circle at 35% 23%, rgba(31, 31, 31,0.04) 0%, rgba(31, 31, 31,0.04) 18%,transparent 18%, transparent 100%),
-                                        linear-gradient(326deg, rgb(138, 193, 238),rgb(20, 21, 171) ]]>
+                                    radial-gradient(circle at 28% 90%, rgba(113, 113, 113,0.03) 0%, rgba(113, 113, 113,0.03) 24%,transparent 24%, transparent 100%),
+                                    radial-gradient(circle at 84% 65%, rgba(173, 173, 173,0.03) 0%, rgba(173, 173, 173,0.03) 45%,transparent 45%, transparent 100%),
+                                    radial-gradient(circle at 46% 12%, rgba(141, 141, 141,0.03) 0%, rgba(141, 141, 141,0.03) 22%,transparent 22%, transparent 100%),
+                                    radial-gradient(circle at 26% 14%, rgba(119, 119, 119,0.03) 0%, rgba(119, 119, 119,0.03) 35%,transparent 35%, transparent 100%),
+                                    radial-gradient(circle at 81% 90%, rgba(42, 42, 42,0.03) 0%, rgba(42, 42, 42,0.03) 40%,transparent 40%, transparent 100%),
+                                    radial-gradient(circle at 28% 100%, rgba(234, 234, 234,0.03) 0%, rgba(234, 234, 234,0.03) 56%,transparent 56%, transparent 100%),
+                                    linear-gradient(45deg, #a53182, #6C38D7)  ]]>
                                 </x:String>
                             </magic:CssGradientSource>
                         </magic:GradientView.GradientSource>
                     </magic:GradientView>
-                    <StackLayout>
-                        <Label Text="Orkney" FontFamily="OrkneyMed" TextColor="White"></Label>
-                        <Label Text="Orkney" FontFamily="Orkney" TextColor="White"></Label>
-                    </StackLayout>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="5*"/>
+                            <RowDefinition Height="3*"/>
+                        </Grid.RowDefinitions>
+                        <ffimageloading1:CachedImage />
+                    </Grid>
+                    
                 </Grid>
             </xct:TabViewItem>
             
