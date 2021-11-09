@@ -20,7 +20,7 @@ namespace MOB_RadioApp
         {
             InitializeComponent();
             //AnimationService.AnimateBackground(BlueView);
-            AnimationService.AnimateBackground(PurpleView);
+            //AnimationService.AnimateBackground(PurpleView);
             //AnimationService.AnimateBackground(GreenView);
         }
     }

@@ -10,5 +10,6 @@ namespace MOB_RadioApp.Models
         public string Password { get; set; }   
         public List<int> FavoriteStations { get; set; }
         public Dictionary<int,int> HistoryStations { get; set; }
+        
     }
 }

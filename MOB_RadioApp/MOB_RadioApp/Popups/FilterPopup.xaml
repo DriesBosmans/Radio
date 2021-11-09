@@ -1,10 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <popups:PopupPage  xmlns:popups="http://rotorgames.com" xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:pancakeView="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView" xmlns:vm="clr-namespace:MOB_RadioApp.ViewModels"
-                   x:Class="MOB_RadioApp.Popups.FilterPopup">
-    <popups:PopupPage.BindingContext>
-        <vm:FilterPopupViewModel/>
-    </popups:PopupPage.BindingContext>
+                   x:Class="MOB_RadioApp.Popups.FilterPopup"
+                  >
+   
     <popups:PopupPage.Animation>
         <popups:MoveAnimation
             PositionIn="Top"
@@ -21,13 +20,14 @@
         Padding="16"
         IsClippedToBounds="True"
         BackgroundColor="White">
-        <StackLayout>
+        <StackLayout >
             <StackLayout Orientation="Horizontal" 
                          HorizontalOptions="FillAndExpand">
-                <Button Text="Cancel"
+                <Button x:Name="BtnCancel" 
+                    Text="Cancel"
                         TextColor="Indigo"
                         BackgroundColor="Transparent"
-                      
+                        Clicked="BtnCancel_Clicked"
                         HorizontalOptions="Start" />
                 <Label Text="Select your country"
                        FontSize="18"
@@ -36,14 +36,19 @@
                        HorizontalTextAlignment="Center"
                        HeightRequest="60"
                        HorizontalOptions="CenterAndExpand" />
-                <Button Text="Done" 
+                <Button x:Name="BtnConfirm"
+                    Text="Done" 
                         BackgroundColor="Transparent"
                         TextColor="Indigo"
-                        Command="{Binding }"
+                        Clicked="BtnConfirm_Clicked"
                         HorizontalOptions="End" />
             </StackLayout>
-            <Picker ItemsSource="{Binding AvailableGenres}"/>
-            <Picker ItemsSource="{Binding AvailableLanguages}"/>
+            <Picker x:Name="PckrGenre"
+                   
+                    SelectedIndexChanged="PckrGenre_SelectedIndexChanged"/>
+            <Picker x:Name="PckrLanguage"
+                  SelectedIndexChanged="PckrLanguage_SelectedIndexChanged" />
+            
         </StackLayout>
     </pancakeView:PancakeView>
 </popups:PopupPage>

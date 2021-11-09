@@ -55,7 +55,7 @@
                                     Grid.Column="0"
                 Placeholder="Zoek..."
                 Text="{ Binding SearchText }"
-                TextChangedDelay="550"
+                TextChangedDelay="450"
                 TextChangedCommand="{ Binding SearchCommand }"
                 SearchCommand="{ Binding SearchCommand }"
                 HasFilterIcon="True"
@@ -66,7 +66,7 @@
                                      Command="{Binding RefreshCommand}"
                                      Grid.Row="1">
                             <CollectionView 
-                                           ItemsSource="{Binding Stations}"
+                                           ItemsSource="{Binding FilteredStations}"
                                         Margin="7"
                                         SelectionMode="Single">
                                 <CollectionView.ItemsLayout>
