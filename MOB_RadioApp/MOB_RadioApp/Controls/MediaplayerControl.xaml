@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:magic="http://magic.com/schemas/gradients" xmlns:ffimageloading1="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms" xmlns:viewmodels="clr-namespace:MOB_RadioApp.ViewModels"
+             x:Class="MOB_RadioApp.Controls.MediaplayerControl">
+    <ContentView.BindingContext>
+        <viewmodels:MediaplayerViewModel/>
+    </ContentView.BindingContext>
+    <Grid >
+        <magic:GradientView x:Name="PurpleView"  
+                                        VerticalOptions="FillAndExpand">
+            <magic:GradientView.GradientSource>
+                <magic:CssGradientSource>
+                    <x:String>
+
+                        <![CDATA[
+                                    radial-gradient(circle at 28% 90%, rgba(113, 113, 113,0.03) 0%, rgba(113, 113, 113,0.03) 24%,transparent 24%, transparent 100%),
+                                    radial-gradient(circle at 84% 65%, rgba(173, 173, 173,0.03) 0%, rgba(173, 173, 173,0.03) 45%,transparent 45%, transparent 100%),
+                                    radial-gradient(circle at 46% 12%, rgba(141, 141, 141,0.03) 0%, rgba(141, 141, 141,0.03) 22%,transparent 22%, transparent 100%),
+                                    radial-gradient(circle at 26% 14%, rgba(119, 119, 119,0.03) 0%, rgba(119, 119, 119,0.03) 35%,transparent 35%, transparent 100%),
+                                    radial-gradient(circle at 81% 90%, rgba(42, 42, 42,0.03) 0%, rgba(42, 42, 42,0.03) 40%,transparent 40%, transparent 100%),
+                                    radial-gradient(circle at 28% 100%, rgba(234, 234, 234,0.03) 0%, rgba(234, 234, 234,0.03) 56%,transparent 56%, transparent 100%),
+                                    linear-gradient(45deg, #a53182, #6C38D7)  ]]>
+                    </x:String>
+                </magic:CssGradientSource>
+            </magic:GradientView.GradientSource>
+        </magic:GradientView>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="5*"/>
+                <RowDefinition Height="3*"/>
+            </Grid.RowDefinitions>
+            <ffimageloading1:CachedImage Source="{Binding }"/>
+        </Grid>
+
+    </Grid>
+</ContentView>

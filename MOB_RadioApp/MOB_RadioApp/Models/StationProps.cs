@@ -8,5 +8,6 @@ namespace MOB_RadioApp.Models
     {
         public bool IsFavorite { get; set; } = false;
         public int Order { get; set; } = 4;
+        public bool IsSelected { get; set; } = false;
     }
 }

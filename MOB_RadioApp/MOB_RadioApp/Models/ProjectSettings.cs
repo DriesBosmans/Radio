@@ -15,7 +15,9 @@ namespace MOB_RadioApp.Models
         //Authentication for DarFm API
         public const uint Token = 3360242197;
 
+        //These strings are Preferences properties
         public static string selectedGenre = "selectedGenre";
         public static string selectedLanguage = "selectedLanguage";
+        public static string selectedStation = "selectedStation";
     }
 }

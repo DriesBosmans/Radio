@@ -4,10 +4,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:xct="http://xamarin.com/schemas/2020/toolkit" xmlns:magic="http://magic.com/schemas/gradients"
              x:Class="MOB_RadioApp.MainPage"
              xmlns:viewmodels="clr-namespace:MOB_RadioApp.ViewModels" xmlns:controls="clr-namespace:App.Core.Controls"
-             xmlns:custom="clr-namespace:MOB_RadioApp;assembly=MOB_RadioApp">
-    <ContentPage.BindingContext>
-        <viewmodels:MainViewModel/>
-    </ContentPage.BindingContext>
+             xmlns:custom="clr-namespace:MOB_RadioApp;assembly=MOB_RadioApp" xmlns:controls1="clr-namespace:MOB_RadioApp.Controls">
+
     
     <Grid>
         <xct:TabView
@@ -22,119 +20,8 @@
                     Text="Zenders"
                     TextColor="{StaticResource NotSelected}"
                     TextColorSelected="{StaticResource Primary}"
-                
                     FontSize="12">
-                <Grid  >
-                    <magic:GradientView x:Name="BlueView" Scale="1.5" AnchorX="0.5" AnchorY="1" 
-                                         VerticalOptions="FillAndExpand">
-                        <magic:GradientView.GradientSource>
-                            <magic:CssGradientSource>
-                                <x:String>
-                                    <![CDATA[
-                                        radial-gradient(circle at 53% 25%, rgba(203, 203, 203,0.04) 0%, rgba(203, 203, 203,0.04) 36%,transparent 36%, transparent 100%),
-                                        radial-gradient(circle at 48% 27%, rgba(22, 22, 22,0.04) 0%, rgba(22, 22, 22,0.04) 45%,transparent 45%, transparent 100%),
-                                        radial-gradient(circle at 65% 50%, rgba(219, 219, 219,0.04) 0%, rgba(219, 219, 219,0.04) 61%,transparent 61%, transparent 100%),
-                                        radial-gradient(circle at 78% 82%, rgba(229, 229, 229,0.04) 0%, rgba(229, 229, 229,0.04) 26%,transparent 26%, transparent 100%),
-                                        radial-gradient(circle at 99% 75%, rgba(96, 96, 96,0.04) 0%, rgba(96, 96, 96,0.04) 31%,transparent 31%, transparent 100%),
-                                        radial-gradient(circle at 17% 28%, rgba(188, 188, 188,0.04) 0%, rgba(188, 188, 188,0.04) 15%,transparent 15%, transparent 100%),
-                                        radial-gradient(circle at 19% 19%, rgba(25, 25, 25,0.04) 0%, rgba(25, 25, 25,0.04) 68%,transparent 68%, transparent 100%),
-                                        radial-gradient(circle at 35% 23%, rgba(31, 31, 31,0.04) 0%, rgba(31, 31, 31,0.04) 18%,transparent 18%, transparent 100%),
-                                        linear-gradient(326deg, rgb(138, 193, 238),rgb(20, 21, 171) ]]>
-                                </x:String>
-                            </magic:CssGradientSource>
-                        </magic:GradientView.GradientSource>
-                    </magic:GradientView>
-                    <Grid >
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="50"/>
-                            <RowDefinition Height="Auto"/>
-                        </Grid.RowDefinitions>
-
-                       
-                                    
-                                <controls:ExtSearchBar     
-                                    Grid.Column="0"
-                Placeholder="Zoek..."
-                Text="{ Binding SearchText }"
-                TextChangedDelay="450"
-                TextChangedCommand="{ Binding SearchCommand }"
-                SearchCommand="{ Binding SearchCommand }"
-                HasFilterIcon="True"
-                FilterCommand="{ Binding FilterTappedCommand }" 
-                            xct:IconTintColorEffect.TintColor="White"
-                            />
-                        <RefreshView IsRefreshing="{Binding IsRefreshing, Mode=OneWay}"
-                                     Command="{Binding RefreshCommand}"
-                                     Grid.Row="1">
-                            <CollectionView 
-                                           ItemsSource="{Binding FilteredStations}"
-                                        Margin="7"
-                                        SelectionMode="Single"
-                                >
-                                <CollectionView.ItemsLayout>
-                                    <GridItemsLayout Orientation="Vertical"
-                                                 Span="4"
-                                                 VerticalItemSpacing="5"
-                                                 HorizontalItemSpacing="6"/>
-                                </CollectionView.ItemsLayout>
-                                <CollectionView.ItemTemplate>
-                                    <DataTemplate >
-                                        <Grid HeightRequest="100"
-                                          Padding="7"
-                                          >
-                                            <VisualStateManager.VisualStateGroups>
-                                                <VisualStateGroup>
-                                                    <VisualState Name="Selected">
-                                                        <VisualState.Setters>
-                                                            <Setter Property="BackgroundColor" Value="Transparent"/>
-                                                            <Setter TargetName="LblStation" Property="Label.TextColor" Value="#FFCF70"/>
-                                                            <Setter TargetName="LblStation" Property="Label.FontAttributes" Value="Bold"/>
-
-                                                            <Setter TargetName="BVbox" Property="BoxView.Opacity" Value="0.9"/>
-                                                        </VisualState.Setters>
-                                                    </VisualState>
-                                                    <VisualState Name="Normal">
-                                                        <VisualState.Setters>
-
-                                                        </VisualState.Setters>
-                                                    </VisualState>
-                                                </VisualStateGroup>
-                                            </VisualStateManager.VisualStateGroups>
-                                            <Grid.RowDefinitions>
-                                                <RowDefinition Height="4*"/>
-                                                <RowDefinition Height="2.9*"/>
-                                            </Grid.RowDefinitions>
-                                            <BoxView x:Name="BVbox"
-                                            Background="{StaticResource NotSelected}"
-                                                 Opacity="0.3"
-                                                 CornerRadius="5"
-                                                 Grid.Row="0"
-                                                 ></BoxView>
-                                            <ffimageloading1:CachedImage 
-                                                        Source="{Binding Imageurl}"
-                                                                     ErrorPlaceholder="radio_96px.png"
-                                                                     LoadingPlaceholder="radio_96px.png"
-                                               HorizontalOptions="Center"
-                                               HeightRequest="50"
-                                               Grid.Row="0"
-                                               />
-                                            <Label x:Name="LblStation" 
-                                               HorizontalOptions="CenterAndExpand"
-                                                  Text="{Binding Callsign}"
-                                               VerticalOptions="Start"
-                                               Grid.Row="1"
-                                               TextColor="{StaticResource NotSelected}"
-                                               LineBreakMode="WordWrap"
-                                               HorizontalTextAlignment="Center"
-                                               FontFamily="Orkney"
-                                               FontSize="13"/>
-                                        </Grid>
-                                    </DataTemplate>
-                                </CollectionView.ItemTemplate>
-                            </CollectionView>
-                        </RefreshView>
-                    </Grid>
-                </Grid>
+                <controls1:MainView/>
             </xct:TabViewItem>
 
             <xct:TabViewItem
@@ -143,34 +30,7 @@
                     TextColor="{StaticResource NotSelected}"
                     TextColorSelected="{StaticResource Primary}"
                     FontSize="12">
-                <Grid >
-                    <magic:GradientView x:Name="PurpleView"  
-                                        VerticalOptions="FillAndExpand">
-                        <magic:GradientView.GradientSource>
-                            <magic:CssGradientSource>
-                                <x:String>
-
-                                    <![CDATA[
-                                    radial-gradient(circle at 28% 90%, rgba(113, 113, 113,0.03) 0%, rgba(113, 113, 113,0.03) 24%,transparent 24%, transparent 100%),
-                                    radial-gradient(circle at 84% 65%, rgba(173, 173, 173,0.03) 0%, rgba(173, 173, 173,0.03) 45%,transparent 45%, transparent 100%),
-                                    radial-gradient(circle at 46% 12%, rgba(141, 141, 141,0.03) 0%, rgba(141, 141, 141,0.03) 22%,transparent 22%, transparent 100%),
-                                    radial-gradient(circle at 26% 14%, rgba(119, 119, 119,0.03) 0%, rgba(119, 119, 119,0.03) 35%,transparent 35%, transparent 100%),
-                                    radial-gradient(circle at 81% 90%, rgba(42, 42, 42,0.03) 0%, rgba(42, 42, 42,0.03) 40%,transparent 40%, transparent 100%),
-                                    radial-gradient(circle at 28% 100%, rgba(234, 234, 234,0.03) 0%, rgba(234, 234, 234,0.03) 56%,transparent 56%, transparent 100%),
-                                    linear-gradient(45deg, #a53182, #6C38D7)  ]]>
-                                </x:String>
-                            </magic:CssGradientSource>
-                        </magic:GradientView.GradientSource>
-                    </magic:GradientView>
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="5*"/>
-                            <RowDefinition Height="3*"/>
-                        </Grid.RowDefinitions>
-                        <ffimageloading1:CachedImage />
-                    </Grid>
-                    
-                </Grid>
+                
             </xct:TabViewItem>
             
             <xct:TabViewItem
