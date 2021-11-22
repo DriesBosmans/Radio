@@ -30,7 +30,7 @@
                     TextColor="{StaticResource NotSelected}"
                     TextColorSelected="{StaticResource Primary}"
                     FontSize="12">
-                
+                <controls1:MediaplayerControl/>
             </xct:TabViewItem>
             
             <xct:TabViewItem
