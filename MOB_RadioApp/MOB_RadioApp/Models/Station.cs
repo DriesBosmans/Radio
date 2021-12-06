@@ -28,9 +28,15 @@ namespace MOB_RadioApp.Models
         [JsonProperty("websiteurl")]
         public string Websiteurl { get; set; }
 
+        private string _imageUrl;
         [JsonProperty("imageurl")]
-        public string Imageurl { get; set; }
-
+        public string Imageurl
+        {
+            get { return _imageUrl; }
+            set { SetValue(ref _imageUrl, value);
+                OnPropertyChanged(nameof(Imageurl));
+                    }
+        }
         [JsonProperty("description")]
         public string Description { get; set; }
 

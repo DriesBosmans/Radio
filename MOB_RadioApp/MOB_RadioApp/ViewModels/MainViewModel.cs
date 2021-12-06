@@ -25,14 +25,16 @@ namespace MOB_RadioApp.ViewModels
         public MainViewModel()
         {
             InitializeAsync();
-            //Navigation = navigation;
+            
             ShowPopupCommand = new Command(async _ => await ExecuteShowPopupCommand());
-            _filterChoices = new FilterChoices(Preferences.Get(ProjectSettings.selectedGenre, ""), Preferences.Get(ProjectSettings.selectedLanguage, ""));
+            _filterChoices = new FilterChoices(Preferences.Get(ProjectSettings.selectedGenre, ""), 
+                Preferences.Get(ProjectSettings.selectedLanguage, ""));
             ChoicesSelectedCommand = new Command(_filterchoices => ExecuteFilterChoicesSelectedCommand(_filterchoices as FilterChoices));
+            StationSelectedCommand = new Command<Station>(stat => StationSelected(stat));
+
             MessagingCenter.Subscribe<FilterPopup>(this, "x", (sender) =>
             {
                 _filteredStations = Filter(_unfilteredStations, Preferences.Get(ProjectSettings.selectedGenre, ""), Preferences.Get(ProjectSettings.selectedLanguage, ""));
-
                 FilteredStations = _filteredStations;
                 OnPropertyChanged(nameof(FilteredStations));
             });
@@ -43,7 +45,6 @@ namespace MOB_RadioApp.ViewModels
         const string countryCode = "countrycode";
         ApiService _apiService = new ApiService();
         DarFmApiCall _darfmapi = new DarFmApiCall();
-        private readonly INavigation Navigation;
         public string SelectedGenre = Preferences.Get(ProjectSettings.selectedGenre, "");
         public string SelectedLanguage = Preferences.Get(ProjectSettings.selectedLanguage, "");
         private FilterChoices _filterChoices; 
@@ -51,7 +52,11 @@ namespace MOB_RadioApp.ViewModels
         private RangedObservableCollection<Station> _filteredbylanguage = new RangedObservableCollection<Station>();
         private RangedObservableCollection<Station> _filteredStations;
         private RangedObservableCollection<Station> _unfilteredStations;
-        private Station _isSelected;
+        private Station _activeStation;
+        private string _activeImg;
+        private string _activeCallsign;
+        
+
 
         #region Properties
 
@@ -61,19 +66,13 @@ namespace MOB_RadioApp.ViewModels
             get { return _searchText; }
             set { SetValue(ref _searchText, value); }
         }
+        //filter selected
         public FilterChoices ChoicesSelected
         {
             get {  return _filterChoices; }
             set { SetValue(ref _filterChoices, value);}
         }
-
-        public Station IsSelected
-        {
-            get { return _isSelected; }
-            set { SetValue(ref _isSelected, value); }
-        }
-        
-        
+  
         public RangedObservableCollection<Station> FilteredStations
         {
             get { return _filteredStations; }
@@ -86,6 +85,23 @@ namespace MOB_RadioApp.ViewModels
             get => isRefreshing;
             set { SetValue(ref isRefreshing, value); }
         }
+
+        public Station ActiveStation
+        {
+            get { return _activeStation; }
+            set { SetValue(ref _activeStation, value);
+                OnPropertyChanged(nameof(ActiveImg));
+            }
+            
+        }
+        
+
+        public string ActiveImg
+        {
+            get {  return ActiveStation.Imageurl; }
+      
+        }
+
         #endregion
 
 
@@ -95,8 +111,9 @@ namespace MOB_RadioApp.ViewModels
         public ICommand RefreshCommand => new Command(ExecuteRefreshCommand);
         public ICommand ShowPopupCommand { get; }
         public ICommand ChoicesSelectedCommand { get; }
-        public ICommand StationTappedCommand { get; }
-      
+//        public ICommand StationTappedCommand { get; }
+        public ICommand StationSelectedCommand { get; }
+
         #endregion
 
 
@@ -104,18 +121,45 @@ namespace MOB_RadioApp.ViewModels
 
         //private void StationTapped()
         //{
-            
+
         //    if (station.IsSelected == false)
         //    {
         //        station.IsSelected = true;
         //        Preferences.Set(ProjectSettings.selectedStation, station.StationId);
-                
+
         //    }
         //    else
         //    {
         //        station.IsSelected = false;
         //    }
         //}
+        private void StationSelected(Station station)
+        {
+            
+            if (station == null)
+            {
+                return;
+            }
+            if (station.IsSelected == true)
+            {
+                station.IsSelected = false;
+                Preferences.Set(ProjectSettings.selectedStation, null);
+                OnPropertyChanged(Preferences.Get(ProjectSettings.selectedStation, ""));
+                _activeStation = null;
+            }
+            else
+            {
+                foreach (Station s in _filteredStations)
+                {
+                    s.IsSelected = false;
+                }
+                station.IsSelected = true;
+                ActiveStation = station; 
+                OnPropertyChanged(nameof(ActiveImg));
+                Preferences.Set(ProjectSettings.selectedStation, station.StationId);
+                OnPropertyChanged(Preferences.Get(ProjectSettings.selectedStation, ""));              
+            }
+        }
 
         void SearchAction()
         {
@@ -156,11 +200,17 @@ namespace MOB_RadioApp.ViewModels
 
             FilteredStations = _filteredStations;
             OnPropertyChanged(nameof(FilteredStations));
-           
+            if (Preferences.Get(ProjectSettings.selectedStation, "") != null)
+            {
+                ActiveStation = GetStation(Preferences.Get(ProjectSettings.selectedStation, ""));
+            }
+            else
+                ActiveStation = null;
             IsBusy = false;
         }
 
-        private RangedObservableCollection<Station> Filter(RangedObservableCollection<Station> unfiltered, string genre, string language)
+        private RangedObservableCollection<Station> Filter(
+            RangedObservableCollection<Station> unfiltered, string genre, string language)
         {
             
             if(genre == "")
@@ -225,7 +275,20 @@ namespace MOB_RadioApp.ViewModels
          
             return Rg.Plugins.Popup.Services.PopupNavigation.Instance.PushAsync(popup);
         }
-      
+        private Station GetStation(string id)
+        {if (id != null)
+            {
+                foreach (Station s in AllStations.Stations)
+                {
+                    if (id == s.StationId)
+                    {
+                        return s;
+                    }
+                }
+                return null;
+            }
+            return null;
+        }
         #endregion
     }
 }

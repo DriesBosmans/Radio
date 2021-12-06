@@ -51,10 +51,9 @@
                                            ItemsSource="{Binding FilteredStations}"
                                         Margin="7"
                                         SelectionMode="Single"
-                    SelectedItem="{Binding IsSelected}"
-                    
+                                        x:Name="Coll"
                                 >
-                   
+                    
                     <CollectionView.ItemsLayout>
                         <GridItemsLayout Orientation="Vertical"
                                                  Span="4"
@@ -64,12 +63,8 @@
                     <CollectionView.ItemTemplate>
                     
                     <DataTemplate>
-                           
-                            <Grid HeightRequest="100"
-                                          Padding="7"
-                                >
-                             
-                                <VisualStateManager.VisualStateGroups>
+                            <StackLayout>
+                                <!--<VisualStateManager.VisualStateGroups>
                                     <VisualStateGroup>
                                         <VisualState Name="Selected">
                                             <VisualState.Setters>
@@ -86,14 +81,27 @@
                                             </VisualState.Setters>
                                         </VisualState>
                                     </VisualStateGroup>
-                                </VisualStateManager.VisualStateGroups>
+                                </VisualStateManager.VisualStateGroups>-->
+                                <StackLayout.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding Source={RelativeSource 
+                                        AncestorType={x:Type viewmodels:MainViewModel}}, 
+                                        Path=StationSelectedCommand}" 
+                                              CommandParameter="{Binding .}"
+                                              NumberOfTapsRequired="1"
+                                             />
+                                </StackLayout.GestureRecognizers>
+                            <Grid HeightRequest="100"
+                                          Padding="7"
+                                >
+                                
+                                
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="4*"/>
                                     <RowDefinition Height="2.9*"/>
                                 </Grid.RowDefinitions>
                                 <BoxView x:Name="BVbox"
                                             Background="{StaticResource NotSelected}"
-                                                 Opacity="0.3"
+                                                 Opacity="{Binding Opacity}"
                                                  CornerRadius="5"
                                                  Grid.Row="0"
                                                  
@@ -112,13 +120,15 @@
                                                   Text="{Binding Callsign}"
                                                VerticalOptions="Start"
                                                Grid.Row="1"
-                                               TextColor="{StaticResource NotSelected}"
+                                               TextColor="{Binding TextColor}"
+                                               
                                                LineBreakMode="WordWrap"
                                                HorizontalTextAlignment="Center"
                                                FontFamily="Orkney"
                                                FontSize="13"
                                        />
                             </Grid>
+                            </StackLayout>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>
                 </CollectionView>

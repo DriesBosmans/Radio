@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:magic="http://magic.com/schemas/gradients" xmlns:ffimageloading1="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms" xmlns:viewmodels="clr-namespace:MOB_RadioApp.ViewModels"
              x:Class="MOB_RadioApp.Controls.MediaplayerControl">
     <ContentView.BindingContext>
-        <viewmodels:MediaplayerViewModel/>
+        <viewmodels:MainViewModel/>
     </ContentView.BindingContext>
     <Grid >
         <magic:GradientView x:Name="PurpleView"  
@@ -29,8 +29,11 @@
                 <RowDefinition Height="5*"/>
                 <RowDefinition Height="3*"/>
             </Grid.RowDefinitions>
-            <ffimageloading1:CachedImage Source="{Binding }"/>
+            <ffimageloading1:CachedImage Source="{Binding ActiveImg}"
+                                         Grid.Row="0"/>
+            <Label Text=""/>
+            
         </Grid>
-
+        
     </Grid>
 </ContentView>

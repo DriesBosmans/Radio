@@ -34,7 +34,7 @@ namespace MOB_RadioApp.Api
                 partnerToken;
             _client = new RestClient(url);
             Root deserializedObject;
-            var request = new RestRequest(Method.GET);
+            RestRequest request = new RestRequest(Method.GET);
             IRestResponse response = await _client.ExecuteAsync(request);
             if(response.IsSuccessful)
             {
