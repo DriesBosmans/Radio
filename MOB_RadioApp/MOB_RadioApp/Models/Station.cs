@@ -69,9 +69,13 @@ namespace MOB_RadioApp.Models
 
         [JsonProperty("address2")]
         public string Address2 { get; set; }
-
+        private string _callSign;
         [JsonProperty("callsign")]
-        public string Callsign { get; set; }
+        public string Callsign 
+        { 
+            get { return _callSign; }
+            set { SetValue(ref _callSign, value); } 
+            }
 
         [JsonProperty("dial")]
         public string Dial { get; set; }

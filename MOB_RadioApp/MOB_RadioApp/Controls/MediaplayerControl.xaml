@@ -1,10 +1,9 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:magic="http://magic.com/schemas/gradients" xmlns:ffimageloading1="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms" xmlns:viewmodels="clr-namespace:MOB_RadioApp.ViewModels"
-             x:Class="MOB_RadioApp.Controls.MediaplayerControl">
-    <ContentView.BindingContext>
-        <viewmodels:MainViewModel/>
-    </ContentView.BindingContext>
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:magic="http://magic.com/schemas/gradients" xmlns:ffimageloading1="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms" xmlns:viewmodels="clr-namespace:MOB_RadioApp.ViewModels" xmlns:models="clr-namespace:MOB_RadioApp.Models" xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+             x:Class="MOB_RadioApp.Controls.MediaplayerControl" 
+            >
+    
     <Grid >
         <magic:GradientView x:Name="PurpleView"  
                                         VerticalOptions="FillAndExpand">
@@ -26,13 +25,26 @@
         </magic:GradientView>
         <Grid>
             <Grid.RowDefinitions>
+                <RowDefinition Height="0.5*"/>
                 <RowDefinition Height="5*"/>
-                <RowDefinition Height="3*"/>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <ffimageloading1:CachedImage Source="{Binding ActiveImg}"
-                                         Grid.Row="0"/>
-            <Label Text=""/>
-            
+            <Image Source="{Binding ActiveStation.Imageurl}"
+                                         Grid.Row="1"/>
+            <Label Text="{Binding ActiveStation.Callsign}" 
+                   Grid.Row="2"
+                   TextColor="White"
+                   FontSize="40"
+                   HorizontalOptions="Center"
+                   />
+            <xct:MediaElement ShowsPlaybackControls="True"
+                              Grid.Row="4"
+                             
+                              AutoPlay="True"
+                            
+                              HorizontalOptions="Fill"
+                              VerticalOptions="Center"/>
         </Grid>
         
     </Grid>

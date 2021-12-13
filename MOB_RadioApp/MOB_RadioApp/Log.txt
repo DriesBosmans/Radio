@@ -18,3 +18,6 @@ Ben twee dagen aan de filter functie bezig geweest, maar het werkt nu
 
 22-11-2021
 Joke geholpen
+
+6-12-2021
+Debuggen: error ivm databinding

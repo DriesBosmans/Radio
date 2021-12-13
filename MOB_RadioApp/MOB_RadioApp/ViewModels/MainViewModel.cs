@@ -98,10 +98,15 @@ namespace MOB_RadioApp.ViewModels
 
         public string ActiveImg
         {
-            get {  return ActiveStation.Imageurl; }
-      
+            get {  return ActiveStation?.Imageurl; }
+            set { SetValue( ref _activeImg, value); }
         }
-
+        
+        public string ActiveCallSign
+        {
+            get { return ActiveStation?.Callsign; }
+            set { SetValue( ref _activeCallsign, value); }
+        }
         #endregion
 
 
@@ -154,10 +159,11 @@ namespace MOB_RadioApp.ViewModels
                     s.IsSelected = false;
                 }
                 station.IsSelected = true;
-                ActiveStation = station; 
-                OnPropertyChanged(nameof(ActiveImg));
+                station.PlayUrl = DarFmApiStreaming.GetFuckingStreamAsync(station).Result;
+                ActiveStation = station;
+                
                 Preferences.Set(ProjectSettings.selectedStation, station.StationId);
-                OnPropertyChanged(Preferences.Get(ProjectSettings.selectedStation, ""));              
+                        
             }
         }
 
@@ -200,13 +206,13 @@ namespace MOB_RadioApp.ViewModels
 
             FilteredStations = _filteredStations;
             OnPropertyChanged(nameof(FilteredStations));
-            if (Preferences.Get(ProjectSettings.selectedStation, "") != null)
-            {
-                ActiveStation = GetStation(Preferences.Get(ProjectSettings.selectedStation, ""));
-            }
-            else
-                ActiveStation = null;
-            IsBusy = false;
+            //if (Preferences.Get(ProjectSettings.selectedStation, "") != null)
+            //{
+            //    ActiveStation = GetStation(Preferences.Get(ProjectSettings.selectedStation, ""));
+            //}
+            //else
+            //    ActiveStation = null;
+            //IsBusy = false;
         }
 
         private RangedObservableCollection<Station> Filter(

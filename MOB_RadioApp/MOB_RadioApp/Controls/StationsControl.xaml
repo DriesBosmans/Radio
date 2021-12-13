@@ -2,9 +2,7 @@
 <ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:ffimageloading1="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms" xmlns:controls="clr-namespace:App.Core.Controls" xmlns:magic="http://magic.com/schemas/gradients"
              x:Class="MOB_RadioApp.Controls.MainView" xmlns:xct="http://xamarin.com/schemas/2020/toolkit" xmlns:viewmodels="clr-namespace:MOB_RadioApp.ViewModels">
-    <ContentView.BindingContext>
-        <viewmodels:MainViewModel/>
-    </ContentView.BindingContext>
+
     <Grid  >
         <magic:GradientView x:Name="BlueView" Scale="1.5" AnchorX="0.5" AnchorY="1" 
                                          VerticalOptions="FillAndExpand">
@@ -64,24 +62,7 @@
                     
                     <DataTemplate>
                             <StackLayout>
-                                <!--<VisualStateManager.VisualStateGroups>
-                                    <VisualStateGroup>
-                                        <VisualState Name="Selected">
-                                            <VisualState.Setters>
-                                                <Setter Property="BackgroundColor" Value="Transparent"/>
-                                                <Setter TargetName="LblStation" Property="Label.TextColor" Value="#FFCF70"/>
-                                                <Setter TargetName="LblStation" Property="Label.FontAttributes" Value="Bold"/>
 
-                                                <Setter TargetName="BVbox" Property="BoxView.Opacity" Value="0.9"/>
-                                            </VisualState.Setters>
-                                        </VisualState>
-                                        <VisualState Name="Normal">
-                                            <VisualState.Setters>
-
-                                            </VisualState.Setters>
-                                        </VisualState>
-                                    </VisualStateGroup>
-                                </VisualStateManager.VisualStateGroups>-->
                                 <StackLayout.GestureRecognizers>
                                     <TapGestureRecognizer Command="{Binding Source={RelativeSource 
                                         AncestorType={x:Type viewmodels:MainViewModel}}, 
@@ -106,10 +87,9 @@
                                                  Grid.Row="0"
                                                  
                                                  ></BoxView>
-                                <ffimageloading1:CachedImage 
+                                <Image
                                                         Source="{Binding Imageurl}"
-                                                                     ErrorPlaceholder="radio_96px.png"
-                                                                     LoadingPlaceholder="radio_96px.png"
+                                                                   
                                                HorizontalOptions="Center"
                                                HeightRequest="50"
                                                Grid.Row="0"

@@ -8,6 +8,9 @@
 
     
     <Grid>
+        <Grid.BindingContext>
+            <viewmodels:MainViewModel/>
+        </Grid.BindingContext>
         <xct:TabView
                 TabStripPlacement="Bottom"
                 TabStripBackgroundColor="{StaticResource Black}"
@@ -21,7 +24,7 @@
                     TextColor="{StaticResource NotSelected}"
                     TextColorSelected="{StaticResource Primary}"
                     FontSize="12">
-                <controls1:MainView/>
+                <controls1:MainView BindingContext="{Binding .}"/>
             </xct:TabViewItem>
 
             <xct:TabViewItem
@@ -30,7 +33,7 @@
                     TextColor="{StaticResource NotSelected}"
                     TextColorSelected="{StaticResource Primary}"
                     FontSize="12">
-                <controls1:MediaplayerControl/>
+                <controls1:MediaplayerControl BindingContext="{Binding .}"/>
             </xct:TabViewItem>
             
             <xct:TabViewItem
