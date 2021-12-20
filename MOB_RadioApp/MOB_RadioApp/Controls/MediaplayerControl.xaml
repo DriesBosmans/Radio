@@ -32,7 +32,7 @@
             </Grid.RowDefinitions>
             <Image Source="{Binding ActiveStation.Imageurl}"
                                          Grid.Row="1"/>
-            <Label Text="{Binding ActiveStation.Callsign}" 
+            <Label Text="{Binding ActiveStation.PlayUrl}" 
                    Grid.Row="2"
                    TextColor="White"
                    FontSize="40"
@@ -40,11 +40,13 @@
                    />
             <xct:MediaElement ShowsPlaybackControls="True"
                               Grid.Row="4"
-                             
+                             x:Name="xctMedia"
                               AutoPlay="True"
-                            
-                              HorizontalOptions="Fill"
-                              VerticalOptions="Center"/>
+                            Source="http://stream.dar.fm/26959"
+                              HorizontalOptions="Center"
+                              VerticalOptions="Center"
+                              HeightRequest="200"
+                              WidthRequest="200"/>
         </Grid>
         
     </Grid>

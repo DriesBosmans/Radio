@@ -30,7 +30,7 @@ namespace MOB_RadioApp.ViewModels
             _filterChoices = new FilterChoices(Preferences.Get(ProjectSettings.selectedGenre, ""), 
                 Preferences.Get(ProjectSettings.selectedLanguage, ""));
             ChoicesSelectedCommand = new Command(_filterchoices => ExecuteFilterChoicesSelectedCommand(_filterchoices as FilterChoices));
-            StationSelectedCommand = new Command<Station>(stat => StationSelected(stat));
+            StationSelectedCommand = new Command<Station>(stat => StationSelectedAsync(stat));
 
             MessagingCenter.Subscribe<FilterPopup>(this, "x", (sender) =>
             {
@@ -138,7 +138,7 @@ namespace MOB_RadioApp.ViewModels
         //        station.IsSelected = false;
         //    }
         //}
-        private void StationSelected(Station station)
+        private async Task StationSelectedAsync(Station station)
         {
             
             if (station == null)
@@ -159,7 +159,8 @@ namespace MOB_RadioApp.ViewModels
                     s.IsSelected = false;
                 }
                 station.IsSelected = true;
-                station.PlayUrl = DarFmApiStreaming.GetFuckingStreamAsync(station).Result;
+               
+                station.PlayUrl = await DarFmApiStreaming.GetStreamAsync(station);
                 ActiveStation = station;
                 
                 Preferences.Set(ProjectSettings.selectedStation, station.StationId);
