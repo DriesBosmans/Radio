@@ -33,21 +33,21 @@ namespace MOB_RadioApp.Services
             return countries;
         }
 
-        public async Task<ObservableCollection<Tag>> GetTagsAsync()
-        {
-            OpenRadioInfo<ObservableCollection<Tag>> _openRadioInfo = new OpenRadioInfo<ObservableCollection<Tag>>();
-            string type = "tags";
-            var tags = await _openRadioInfo.ApiCall(type);
-            return tags;
-        }
+        //public async Task<ObservableCollection<Tag>> GetTagsAsync()
+        //{
+        //    OpenRadioInfo<ObservableCollection<Tag>> _openRadioInfo = new OpenRadioInfo<ObservableCollection<Tag>>();
+        //    string type = "tags";
+        //    var tags = await _openRadioInfo.ApiCall(type);
+        //    return tags;
+        //}
 
-        public async Task<ObservableCollection<Codec>> GetCodecsAsync()
-        {
-            OpenRadioInfo<ObservableCollection<Codec>> _openRadioInfo = new OpenRadioInfo<ObservableCollection<Codec>>();
-            string type = "codecs";
-            var codecs = await _openRadioInfo.ApiCall(type);
-            return codecs;
-        }
+        //public async Task<ObservableCollection<Codec>> GetCodecsAsync()
+        //{
+        //    OpenRadioInfo<ObservableCollection<Codec>> _openRadioInfo = new OpenRadioInfo<ObservableCollection<Codec>>();
+        //    string type = "codecs";
+        //    var codecs = await _openRadioInfo.ApiCall(type);
+        //    return codecs;
+        //}
 
     }
 }

@@ -1,4 +1,5 @@
-﻿using MOB_RadioApp.Api;
+﻿using MediaManager;
+using MOB_RadioApp.Api;
 using MOB_RadioApp.Models;
 using MOB_RadioApp.Popups;
 using MOB_RadioApp.Services;
@@ -12,10 +13,12 @@ using System.Globalization;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Essentials;
 using Xamarin.Forms;
+using static MOB_RadioApp.Models.MetaInfo;
 
 namespace MOB_RadioApp.ViewModels
 {
@@ -31,7 +34,7 @@ namespace MOB_RadioApp.ViewModels
                 Preferences.Get(ProjectSettings.selectedLanguage, ""));
             ChoicesSelectedCommand = new Command(_filterchoices => ExecuteFilterChoicesSelectedCommand(_filterchoices as FilterChoices));
             StationSelectedCommand = new Command<Station>(stat => StationSelectedAsync(stat));
-
+            
             MessagingCenter.Subscribe<FilterPopup>(this, "x", (sender) =>
             {
                 _filteredStations = Filter(_unfilteredStations, Preferences.Get(ProjectSettings.selectedGenre, ""), Preferences.Get(ProjectSettings.selectedLanguage, ""));
@@ -55,8 +58,9 @@ namespace MOB_RadioApp.ViewModels
         private Station _activeStation;
         private string _activeImg;
         private string _activeCallsign;
-        
-
+        private bool _isPlaying = false;
+        private string _activeSong;
+        private string _activeArtist;
 
         #region Properties
 
@@ -107,6 +111,25 @@ namespace MOB_RadioApp.ViewModels
             get { return ActiveStation?.Callsign; }
             set { SetValue( ref _activeCallsign, value); }
         }
+        public string ActiveArtist
+        {
+            get { return _activeArtist; }
+            set { SetValue( ref _activeArtist, value); }
+        }
+        public string ActiveSong
+        {
+            get { return _activeSong; }
+            set { SetValue( ref _activeSong, value); }
+        }
+        public string PlayButton { get => _isPlaying ? "stop.png" : "play.png"; }
+
+        public bool IsPlaying
+        {
+            get { return _isPlaying; }
+            set { SetValue( ref _isPlaying, value);
+                OnPropertyChanged(nameof(PlayButton));
+            }
+        }
         #endregion
 
 
@@ -118,26 +141,27 @@ namespace MOB_RadioApp.ViewModels
         public ICommand ChoicesSelectedCommand { get; }
 //        public ICommand StationTappedCommand { get; }
         public ICommand StationSelectedCommand { get; }
+        public ICommand PlayCommand => new Command(async () => await PlayAsync());
 
         #endregion
 
 
         #region Methods
 
-        //private void StationTapped()
-        //{
-
-        //    if (station.IsSelected == false)
-        //    {
-        //        station.IsSelected = true;
-        //        Preferences.Set(ProjectSettings.selectedStation, station.StationId);
-
-        //    }
-        //    else
-        //    {
-        //        station.IsSelected = false;
-        //    }
-        //}
+        private async Task PlayAsync()
+        {
+            if (IsPlaying)
+            {
+                await CrossMediaManager.Current.Stop();
+                IsPlaying = false;
+            }
+            else
+            {
+                await CrossMediaManager.Current.Play(ActiveStation.PlayUrl);
+                IsPlaying = true;
+            }
+        }
+ 
         private async Task StationSelectedAsync(Station station)
         {
             
@@ -159,10 +183,14 @@ namespace MOB_RadioApp.ViewModels
                     s.IsSelected = false;
                 }
                 station.IsSelected = true;
-               
+                station.PlayUrl = null;
                 station.PlayUrl = await DarFmApiStreaming.GetStreamAsync(station);
                 ActiveStation = station;
-                
+                var item = await CrossMediaManager.Current.Extractor.CreateMediaItem(ActiveStation.PlayUrl);
+                item.MediaType = MediaManager.Library.MediaType.Audio;
+                await CrossMediaManager.Current.Play(item);
+                IsPlaying = true;
+                //await CheckForMetaAsync();
                 Preferences.Set(ProjectSettings.selectedStation, station.StationId);
                         
             }
@@ -203,17 +231,17 @@ namespace MOB_RadioApp.ViewModels
         {
             IsBusy = true;
             _unfilteredStations = await _darfmapi.GetStationsAsync(await GetCountry());
-            _filteredStations = Filter(_unfilteredStations, Preferences.Get(ProjectSettings.selectedGenre, ""), Preferences.Get(ProjectSettings.selectedLanguage, ""));
-
+            _filteredStations = Filter(_unfilteredStations, Preferences.Get(ProjectSettings.selectedGenre, ""), 
+                Preferences.Get(ProjectSettings.selectedLanguage, ""));
+    
             FilteredStations = _filteredStations;
             OnPropertyChanged(nameof(FilteredStations));
-            //if (Preferences.Get(ProjectSettings.selectedStation, "") != null)
-            //{
-            //    ActiveStation = GetStation(Preferences.Get(ProjectSettings.selectedStation, ""));
-            //}
-            //else
-            //    ActiveStation = null;
-            //IsBusy = false;
+            Device.StartTimer(TimeSpan.FromSeconds(10), () =>
+            {
+                //CheckForMetaAsync();
+
+                return true; // True = Repeat again, False = Stop the timer
+            });
         }
 
         private RangedObservableCollection<Station> Filter(
@@ -244,7 +272,14 @@ namespace MOB_RadioApp.ViewModels
            
         }
        
-
+        private async Task CheckForMetaAsync()
+        {
+            MetaData metadata = await _darfmapi.GetCurrentlyPlayingAsync(ActiveStation);
+            ActiveSong = metadata.Title;
+            ActiveArtist = metadata.Artist;
+            OnPropertyChanged(nameof(ActiveSong));
+            OnPropertyChanged(nameof(ActiveArtist));
+        }
         private async Task<string> GetCountry()
         {
             //var currentRegion = RegionInfo.CurrentRegion.TwoLetterISORegionName;
@@ -273,6 +308,11 @@ namespace MOB_RadioApp.ViewModels
         {
             ChoicesSelected = filterChoices;
         }
+        //private MediaManager.Library.MediaType GetMediaType( item)
+        //{
+
+        //    return item.MediaType;
+        //}
         private Task ExecuteShowPopupCommand()
         {
             var popup = new FilterPopup(ChoicesSelected)

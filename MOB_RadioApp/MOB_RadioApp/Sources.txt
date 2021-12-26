@@ -62,3 +62,6 @@ https://www.1001fonts.com/orkney-font.html
 
 Popup page
 https://medium.com/nerd-for-tech/xamarin-forms-country-picker-with-rg-plugins-popup-fec1a045f7c
+
+Xamarin Media Manager: 
+https://github.com/Baseflow/XamarinMediaManager

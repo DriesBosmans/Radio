@@ -21,3 +21,10 @@ Joke geholpen
 
 6-12-2021
 Debuggen: error ivm databinding
+
+20-12-2021
+Api probleem opgelost, media-element geimplementeerd.
+26-12-2021
+Ben gestopt met het gebruik van het MediaElement van Xamarin communitytoolkit wegens niet mogelijk om op achtergrond te spelen
+en verschillende formaten niet ondersteund.
+Nu gebruiken we de Xamarin Media Manager, wat geen view is, dus werken we met custom transportknoppen.

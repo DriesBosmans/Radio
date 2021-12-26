@@ -14,10 +14,11 @@ namespace MOB_RadioApp
     {
         public App()
         {
+            Preferences.Set(ProjectSettings.selectedStation, null);
             InitializeComponent();
             Device.SetFlags(new[] { "Brush_Experimental" });
-            Preferences.Set(ProjectSettings.selectedStation, null);
-            Preferences.Set(ProjectSettings.selectedLanguage, null);
+            //Preferences.Set(ProjectSettings.selectedStation, null);
+            //Preferences.Set(ProjectSettings.selectedLanguage, null);
             MainPage = new MainPage();
 
         }

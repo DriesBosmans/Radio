@@ -10,12 +10,14 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
+using static MOB_RadioApp.Models.MetaInfo;
 
 namespace MOB_RadioApp.Api
 {
     public class DarFmApiCall
     {
         RestClient _client;
+        HttpClient _httpClient = new HttpClient();
         private const string baseUrl = "http://api.dar.fm/darstations.php";
         private const string streamingUrl = "http://api.dar.fm/uberstationurl.php";
         private const string partnerToken = "partner_token=3360242197";
@@ -62,45 +64,27 @@ namespace MOB_RadioApp.Api
             
             return stations;
         }
-        //public async Task<string> GetPlayUrlAsync(Station station)
-        //{
-        //    var playurl = "";
-        //    string url = streamingUrl + param +
-        //        $"station_id={station.StationId}" + and +
-        //        partnerToken + and + "callback=json";
+        public async Task<MetaData> GetCurrentlyPlayingAsync(Station station)
+        {
+            MetaData metaData = new MetaData();
+            var request = new HttpRequestMessage
+            {
+                Method = HttpMethod.Get,
 
-        //    var client = new HttpClient();
-        //    var request = new HttpRequestMessage
-        //    {
-        //        Method = HttpMethod.Get,
-        //        RequestUri = new Uri(url)
-        //    };
-        //    HttpResponseMessage response = await client.SendAsync(request);
-        //    //{
-        //    //    response.EnsureSuccessStatusCode();
-        //    //    var body = await response.Content.ReadAsStringAsync();
-        //    //}
-
-
-        //    //try
-        //    //{
-        //    //    IRestResponse response = await _client.ExecuteAsync(req);
-        //    //    if (response.IsSuccessful)
-        //    //    {
-        //    //        var json = response.Content
-        //    //            .Substring(response.Content.Length - 1, 1)
-        //    //            .Substring(0, 16);
-        //    //        Streamurl stream = JsonConvert.DeserializeObject<Streamurl>(json);
-
-        //    //    }
-
-        //    //}
-        //    //catch (Exception ex)
-        //    //{
-        //    //    playurl = null;
-        //    //}
-        //    //playurl = url;
-        //    return playurl;
-        //}
+                RequestUri = new Uri(baseUrl + $"/playlist.php?station_id={station.StationId}" +
+            $"&partner_token=" + partnerToken + "&callback=json")
+            };
+            try
+            {
+                HttpResponseMessage response = await _httpClient.SendAsync(request);
+                    {
+                    response.EnsureSuccessStatusCode();
+                    var body = await response.Content.ReadAsStringAsync();
+                    RootMeta rootmeta = JsonConvert.DeserializeObject<RootMeta>(body);
+                    metaData = rootmeta.MetaDatas[0];
+                }
+            } catch (Exception ex) { }
+            return metaData;
+        }
     }
 }
