@@ -43,7 +43,7 @@ namespace MOB_RadioApp.ViewModels
             });
         }
 
-
+        #region Fields
 
         const string countryCode = "countrycode";
         ApiService _apiService = new ApiService();
@@ -61,16 +61,18 @@ namespace MOB_RadioApp.ViewModels
         private bool _isPlaying = false;
         private string _activeSong;
         private string _activeArtist;
+        private string _searchText;
+        bool isRefreshing;
+        #endregion
 
         #region Properties
 
-        private string _searchText;
         public string SearchText
         {
             get { return _searchText; }
             set { SetValue(ref _searchText, value); }
         }
-        //filter selected
+      
         public FilterChoices ChoicesSelected
         {
             get {  return _filterChoices; }
@@ -83,7 +85,7 @@ namespace MOB_RadioApp.ViewModels
             set{ SetValue(ref _filteredStations, value); }
         }
 
-        bool isRefreshing;
+        
         public bool IsRefreshing
         {
             get => isRefreshing;
@@ -108,17 +110,17 @@ namespace MOB_RadioApp.ViewModels
         
         public string ActiveCallSign
         {
-            get { return ActiveStation?.Callsign; }
+            get { return ActiveStation?.Callsign.Trim(); }
             set { SetValue( ref _activeCallsign, value); }
         }
         public string ActiveArtist
         {
-            get { return _activeArtist; }
+            get { return _activeArtist?.Trim(); }
             set { SetValue( ref _activeArtist, value); }
         }
         public string ActiveSong
         {
-            get { return _activeSong; }
+            get { return _activeSong?.Trim(); }
             set { SetValue( ref _activeSong, value); }
         }
         public string PlayButton { get => _isPlaying ? "stop.png" : "play.png"; }
@@ -130,6 +132,7 @@ namespace MOB_RadioApp.ViewModels
                 OnPropertyChanged(nameof(PlayButton));
             }
         }
+
         #endregion
 
 
@@ -139,28 +142,32 @@ namespace MOB_RadioApp.ViewModels
         public ICommand RefreshCommand => new Command(ExecuteRefreshCommand);
         public ICommand ShowPopupCommand { get; }
         public ICommand ChoicesSelectedCommand { get; }
-//        public ICommand StationTappedCommand { get; }
         public ICommand StationSelectedCommand { get; }
         public ICommand PlayCommand => new Command(async () => await PlayAsync());
+
 
         #endregion
 
 
         #region Methods
-
-        private async Task PlayAsync()
+        
+        private async Task InitializeAsync()
         {
-            if (IsPlaying)
+            IsBusy = true;
+            _unfilteredStations = await _darfmapi.GetStationsAsync(await GetCountry());
+            _filteredStations = Filter(_unfilteredStations, Preferences.Get(ProjectSettings.selectedGenre, ""),
+                Preferences.Get(ProjectSettings.selectedLanguage, ""));
+
+            FilteredStations = _filteredStations;
+            OnPropertyChanged(nameof(FilteredStations));
+            Device.StartTimer(TimeSpan.FromSeconds(10), () =>
             {
-                await CrossMediaManager.Current.Stop();
-                IsPlaying = false;
-            }
-            else
-            {
-                await CrossMediaManager.Current.Play(ActiveStation.PlayUrl);
-                IsPlaying = true;
-            }
+                CheckForMetaAsync();
+
+                return true; // True = Repeat again, False = Stop the timer
+            });
         }
+        #region StationsControl
  
         private async Task StationSelectedAsync(Station station)
         {
@@ -190,7 +197,7 @@ namespace MOB_RadioApp.ViewModels
                 item.MediaType = MediaManager.Library.MediaType.Audio;
                 await CrossMediaManager.Current.Play(item);
                 IsPlaying = true;
-                //await CheckForMetaAsync();
+                await CheckForMetaAsync();
                 Preferences.Set(ProjectSettings.selectedStation, station.StationId);
                         
             }
@@ -227,22 +234,7 @@ namespace MOB_RadioApp.ViewModels
             IsRefreshing = false;
         }
 
-        private async Task InitializeAsync()
-        {
-            IsBusy = true;
-            _unfilteredStations = await _darfmapi.GetStationsAsync(await GetCountry());
-            _filteredStations = Filter(_unfilteredStations, Preferences.Get(ProjectSettings.selectedGenre, ""), 
-                Preferences.Get(ProjectSettings.selectedLanguage, ""));
-    
-            FilteredStations = _filteredStations;
-            OnPropertyChanged(nameof(FilteredStations));
-            Device.StartTimer(TimeSpan.FromSeconds(10), () =>
-            {
-                //CheckForMetaAsync();
-
-                return true; // True = Repeat again, False = Stop the timer
-            });
-        }
+       
 
         private RangedObservableCollection<Station> Filter(
             RangedObservableCollection<Station> unfiltered, string genre, string language)
@@ -272,14 +264,7 @@ namespace MOB_RadioApp.ViewModels
            
         }
        
-        private async Task CheckForMetaAsync()
-        {
-            MetaData metadata = await _darfmapi.GetCurrentlyPlayingAsync(ActiveStation);
-            ActiveSong = metadata.Title;
-            ActiveArtist = metadata.Artist;
-            OnPropertyChanged(nameof(ActiveSong));
-            OnPropertyChanged(nameof(ActiveArtist));
-        }
+        
         private async Task<string> GetCountry()
         {
             //var currentRegion = RegionInfo.CurrentRegion.TwoLetterISORegionName;
@@ -308,11 +293,7 @@ namespace MOB_RadioApp.ViewModels
         {
             ChoicesSelected = filterChoices;
         }
-        //private MediaManager.Library.MediaType GetMediaType( item)
-        //{
-
-        //    return item.MediaType;
-        //}
+       
         private Task ExecuteShowPopupCommand()
         {
             var popup = new FilterPopup(ChoicesSelected)
@@ -322,20 +303,51 @@ namespace MOB_RadioApp.ViewModels
          
             return Rg.Plugins.Popup.Services.PopupNavigation.Instance.PushAsync(popup);
         }
-        private Station GetStation(string id)
-        {if (id != null)
+        //private Station GetStation(string id)
+        //{
+        //    if (id != null)
+        //    {
+        //        foreach (Station s in AllStations.Stations)
+        //        {
+        //            if (id == s.StationId)
+        //            {
+        //                return s;
+        //            }
+        //        }
+        //        return null;
+        //    }
+        //    return null;
+        //}
+
+        #endregion
+        #region MediaplayerControl
+        private async Task PlayAsync()
+        {
+            if (IsPlaying)
             {
-                foreach (Station s in AllStations.Stations)
-                {
-                    if (id == s.StationId)
-                    {
-                        return s;
-                    }
-                }
-                return null;
+                await CrossMediaManager.Current.Stop();
+                IsPlaying = false;
             }
-            return null;
+            else
+            {
+                if (ActiveStation != null)
+                {
+                    
+                    await CrossMediaManager.Current.Play(ActiveStation?.PlayUrl);
+                    IsPlaying = true;
+                }
+
+            }
         }
+        private async Task CheckForMetaAsync()
+        {
+            MetaData metadata = await _darfmapi.GetCurrentlyPlayingAsync(ActiveStation);
+            ActiveSong = metadata.Title;
+            ActiveArtist = metadata.Artist;
+            OnPropertyChanged(nameof(ActiveSong));
+            OnPropertyChanged(nameof(ActiveArtist));
+        }
+        #endregion
         #endregion
     }
 }

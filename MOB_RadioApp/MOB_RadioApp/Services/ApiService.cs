@@ -14,16 +14,16 @@ namespace MOB_RadioApp.Services
     public class ApiService
     {
        
-        public async Task<RangedObservableCollection<OldStation>> GetStationsAsync2(string country, int offset = 0)
-        {
-            OpenRadioInfo<RangedObservableCollection<OldStation>> _openRadioInfo = new OpenRadioInfo<RangedObservableCollection<OldStation>>();
-            string type = "stations/bycountrycodeexact/";
-            string limiturl = $"?limit={ProjectSettings.Limit}&offset={offset}";
-            const string hideBroken = "&hidebroken=true";
-            string orderBy = $"&order=votes&reverse=true";
-            var stations = await _openRadioInfo.ApiCall(type, country, limiturl, hideBroken, orderBy);
-            return stations;
-        }
+        //public async Task<RangedObservableCollection<OldStation>> GetStationsAsync2(string country, int offset = 0)
+        //{
+        //    OpenRadioInfo<RangedObservableCollection<OldStation>> _openRadioInfo = new OpenRadioInfo<RangedObservableCollection<OldStation>>();
+        //    string type = "stations/bycountrycodeexact/";
+        //    string limiturl = $"?limit={ProjectSettings.Limit}&offset={offset}";
+        //    const string hideBroken = "&hidebroken=true";
+        //    string orderBy = $"&order=votes&reverse=true";
+        //    var stations = await _openRadioInfo.ApiCall(type, country, limiturl, hideBroken, orderBy);
+        //    return stations;
+        //}
 
         public async Task<ObservableCollection<Country>> GetCountriesAsync()
         {

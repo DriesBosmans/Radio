@@ -1,4 +1,6 @@
-﻿using System;
+﻿using MediaManager;
+using MOB_RadioApp.Services;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,6 +17,9 @@ namespace MOB_RadioApp.Controls
         public MediaplayerControl()
         {
             InitializeComponent();
+            //AnimationService.AnimateBackground(PurpleView);
         }
+
+       
     }
 }

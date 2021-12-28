@@ -20,6 +20,7 @@ namespace MOB_RadioApp.Api
         HttpClient _httpClient = new HttpClient();
         private const string baseUrl = "http://api.dar.fm/darstations.php";
         private const string streamingUrl = "http://api.dar.fm/uberstationurl.php";
+        private const string playlistUrl = "http://api.dar.fm/playlist.php";
         private const string partnerToken = "partner_token=3360242197";
         private const string param = "?";
         private const string and = "&";
@@ -71,8 +72,8 @@ namespace MOB_RadioApp.Api
             {
                 Method = HttpMethod.Get,
 
-                RequestUri = new Uri(baseUrl + $"/playlist.php?station_id={station.StationId}" +
-            $"&partner_token=" + partnerToken + "&callback=json")
+                RequestUri = new Uri(playlistUrl + $"?station_id={station.StationId}" + and +
+             partnerToken + "&callback=json")
             };
             try
             {

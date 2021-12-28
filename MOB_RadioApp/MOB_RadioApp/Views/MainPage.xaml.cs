@@ -19,8 +19,8 @@ namespace MOB_RadioApp
         public MainPage()
         {
             InitializeComponent();
-            //AnimationService.AnimateBackground(BlueView);
-            //AnimationService.AnimateBackground(PurpleView);
+            
+            
             //AnimationService.AnimateBackground(GreenView);
         }
     }

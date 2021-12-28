@@ -45,7 +45,7 @@
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-                <Label Grid.Row="0" FontSize="45" TextColor="White" HorizontalOptions="Center" Text="test"/>
+                <Label Grid.Row="0" FontSize="45" TextColor="White" HorizontalOptions="Center" Text="{Binding ActiveArtist}"/>
                 <Label Grid.Row="1" FontSize="30" TextColor="White" HorizontalOptions="Center" Text="{Binding ActiveSong}"/>
             </Grid>
             <StackLayout Orientation="Horizontal" Grid.Row="4"
@@ -63,21 +63,9 @@
                     </Image.GestureRecognizers>
                 </Image>
 
-                <Slider WidthRequest="350" 
-                        />
+            
             </StackLayout>
-            <!--  <xct:MediaElement ShowsPlaybackControls="False"
-                              
-                              Grid.Row="4"
-                             x:Name="xctMedia"
-                              AutoPlay="True"
-                            Source="{Binding ActiveStation.PlayUrl}"
-                              HorizontalOptions="Center"
-                              VerticalOptions="Center"
-                              HeightRequest="200"
-                              WidthRequest="200"
-                              KeepScreenOn="False"/>
-            -->
+
         </Grid>
         
     </Grid>
