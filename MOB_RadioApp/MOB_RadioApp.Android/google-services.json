@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "624204906401",
+    "firebase_url": "https://radioapp12002612-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "radioapp12002612",
+    "storage_bucket": "radioapp12002612.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:624204906401:android:dfd64c2b6e25adf39255e0",
+        "android_client_info": {
+          "package_name": "com.companyname.mob_radioapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "624204906401-4kh0ugm26dllv4g8p7224klpm6vn2tat.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDxXxXZxpU2-2DSpHx5GmbWAMIsvNs02s0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "624204906401-4kh0ugm26dllv4g8p7224klpm6vn2tat.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

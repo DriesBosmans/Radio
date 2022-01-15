@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text;
 using System.Xml.Serialization;
+using SQLite;
 
 namespace MOB_RadioApp.Models
 {
@@ -79,6 +80,7 @@ namespace MOB_RadioApp.Models
 
         [JsonProperty("dial")]
         public string Dial { get; set; }
+      
 
         [JsonProperty("station_id")]
         public string StationId { get; set; }

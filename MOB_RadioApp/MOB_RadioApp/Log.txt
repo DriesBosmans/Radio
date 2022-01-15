@@ -34,3 +34,9 @@ Nu gebruiken we de Xamarin Media Manager, wat geen view is, dus werken we met cu
 Verder gewerkt aan mediamanager
 
 28-12-21
+Authenticatie met firebase gemaakt
+1-1-22
+Lijst met favorieten toegevoegd. Favorieten kunnen aangeduid worden met dubbeltap
+
+13-1-22 SQLite database toegevoegd om favorieten op te slaan.
+15-1-22 SQLite database verder uitgewerkt

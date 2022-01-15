@@ -154,26 +154,6 @@ namespace App.Core.Controls
 
         #region Methods
 
-        //protected override void OnElementChanged(ElementChangedEventArgs<SearchBar> e)
-        //{
-        //    base.OnElementChanged(e);
-        //    if (Control != null)
-        //    {
-        //        var plateId = Resources.GetIdentifier("android:id/search_plate", null, null);
-        //        var plate = Control.FindViewById(plateId);
-        //        plate.SetBackgroundColor(Android.Graphics.Color.Transparent);
-
-        //        SearchView searchView = (base.Control as SearchView);
-        //        var searchIconId = searchView.Resources.GetIdentifier("android:id/search_map_icon", null, null);
-        //        var searchIcon = searchView.FindViewById(searchIconId);
-        //        searchView.SetIconifiedByDefault(false);
-        //        searchIcon.RemoveFromParent();
-
-        //        int textViewId = Resources.GetIdentifier("android:id/search_src_text", null, null);
-        //        EditText textView = (Control.FindViewById(textViewId) as EditText);
-        //        textView.TextAlignment = Android.Views.TextAlignment.ViewStart;
-        //    }
-        //}
 
         public async void SearchBar_TextChanged(object sender, TextChangedEventArgs e)
         {

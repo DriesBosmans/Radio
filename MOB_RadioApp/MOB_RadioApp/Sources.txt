@@ -65,3 +65,10 @@ https://medium.com/nerd-for-tech/xamarin-forms-country-picker-with-rg-plugins-po
 
 Xamarin Media Manager: 
 https://github.com/Baseflow/XamarinMediaManager
+
+Firebase
+firebase.google.com
+https://www.youtube.com/watch?v=liGTuuau29Y
+
+Adding database with SQLite-net
+https://www.youtube.com/watch?v=XFP8Np-uRWc

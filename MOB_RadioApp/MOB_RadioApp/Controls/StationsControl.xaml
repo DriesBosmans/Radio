@@ -70,6 +70,13 @@
                                               CommandParameter="{Binding .}"
                                               NumberOfTapsRequired="1"
                                              />
+                                    <TapGestureRecognizer Command="{Binding Source={RelativeSource 
+                                        AncestorType={x:Type viewmodels:MainViewModel}}, 
+                                        Path=DoubleTappedCommand}" 
+                                              CommandParameter="{Binding .}"
+                                              NumberOfTapsRequired="2"
+                                             />
+                                   
                                 </StackLayout.GestureRecognizers>
                             <Grid HeightRequest="100"
                                           Padding="7"

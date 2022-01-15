@@ -84,11 +84,11 @@ namespace MOB_RadioApp.Popups
         private void BtnConfirm_Clicked(object sender, EventArgs e)
         {
             ChoicesSelectedCommand?.Execute(SelectedFilterChoices);
-            Preferences.Set(ProjectSettings.selectedGenre, _selectedFilterChoices.FilterGenre);
+            Preferences.Set(Pref.selectedGenre, _selectedFilterChoices.FilterGenre);
            
-            Preferences.Set(ProjectSettings.selectedLanguage, _selectedFilterChoices.FilterLanguage);
+            Preferences.Set(Pref.selectedLanguage, _selectedFilterChoices.FilterLanguage);
             
-            MessagingCenter.Send(this, "x");
+            MessagingCenter.Send(this, "SettingsApplied");
             Rg.Plugins.Popup.Services.PopupNavigation.Instance.PopAsync();
         }
         private void LoadGenres()

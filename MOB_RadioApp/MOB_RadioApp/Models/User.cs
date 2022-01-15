@@ -8,8 +8,9 @@ namespace MOB_RadioApp.Models
     {
         public string EmailAddress { get; set;  }
         public string Password { get; set; }   
+        public string Region { get; set; }
         public List<int> FavoriteStations { get; set; }
-        public Dictionary<int,int> HistoryStations { get; set; }
+        
         
     }
 }

@@ -6,6 +6,7 @@ using Android.Runtime;
 using Android.OS;
 using FFImageLoading.Forms.Platform;
 using MediaManager;
+using Firebase;
 
 namespace MOB_RadioApp.Droid
 {
@@ -19,6 +20,7 @@ namespace MOB_RadioApp.Droid
     {
         protected override void OnCreate(Bundle savedInstanceState)
         {
+            
             base.OnCreate(savedInstanceState);
             Rg.Plugins.Popup.Popup.Init(this);
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
@@ -27,6 +29,7 @@ namespace MOB_RadioApp.Droid
             CrossMediaManager.Current.Init(this);
             LoadApplication(new App());
             Window.SetStatusBarColor(Android.Graphics.Color.Argb(255, 40, 49, 59));
+            FirebaseApp.InitializeApp(Application.Context);
         }
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults)
         {

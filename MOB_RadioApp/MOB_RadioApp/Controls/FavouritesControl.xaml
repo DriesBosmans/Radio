@@ -1,0 +1,128 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:magic="http://magic.com/schemas/gradients" xmlns:ffimageloading1="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms" xmlns:viewmodels="clr-namespace:MOB_RadioApp.ViewModels" xmlns:models="clr-namespace:MOB_RadioApp.Models" xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+             
+            
+             x:Class="MOB_RadioApp.Controls.FavouritesControl">
+    <Grid>
+        <magic:GradientView x:Name="RedView" Scale="1"  
+                                         VerticalOptions="FillAndExpand">
+            <magic:GradientView.GradientSource>
+                <magic:CssGradientSource>
+                    <x:String>
+
+                        <![CDATA[ 
+                        radial-gradient(circle at 52% 37%, hsla(165,0%,91%,0.05) 0%, hsla(165,0%,91%,0.05) 15%,transparent 15%, transparent 65%,transparent 65%, transparent 100%),
+                        radial-gradient(circle at 70% 3%, hsla(165,0%,91%,0.05) 0%, hsla(165,0%,91%,0.05) 33%,transparent 33%, transparent 62%,transparent 62%, transparent 100%),
+                        radial-gradient(circle at 38% 28%, hsla(165,0%,91%,0.05) 0%, hsla(165,0%,91%,0.05) 15%,transparent 15%, transparent 94%,transparent 94%, transparent 100%),
+                        radial-gradient(circle at 12% 92%, hsla(165,0%,91%,0.05) 0%, hsla(165,0%,91%,0.05) 1%,transparent 1%, transparent 19%,transparent 19%, transparent 100%),
+                        radial-gradient(circle at 50% 84%, hsla(165,0%,91%,0.05) 0%, hsla(165,0%,91%,0.05) 28%,transparent 28%, transparent 96%,transparent 96%, transparent 100%),
+                        radial-gradient(circle at 11% 43%, hsla(165,0%,91%,0.05) 0%, hsla(165,0%,91%,0.05) 20%,transparent 20%, transparent 63%,transparent 63%, transparent 100%),
+                        radial-gradient(circle at 45% 11%, hsla(165,0%,91%,0.05) 0%, hsla(165,0%,91%,0.05) 19%,transparent 19%, transparent 65%,transparent 65%, transparent 100%),
+                        radial-gradient(circle at 90% 54%, hsla(165,0%,91%,0.05) 0%, hsla(165,0%,91%,0.05) 11%,transparent 11%, transparent 19%,transparent 19%, transparent 100%),
+                        radial-gradient(circle at 23% 100%, hsla(165,0%,91%,0.05) 0%, hsla(165,0%,91%,0.05) 35%,transparent 35%, transparent 86%,transparent 86%, transparent 100%),
+                        linear-gradient(0deg, rgb(95, 19, 0),rgb(187, 23, 4)]]>
+                    </x:String>
+                </magic:CssGradientSource>
+            </magic:GradientView.GradientSource>
+        </magic:GradientView>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="70"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <StackLayout Grid.Column="0"
+                         Orientation="Horizontal">
+                <Image Source="{Binding AuthButton}"
+                   WidthRequest="50"
+                   Grid.Column="0"
+                       Margin="10"
+              >
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer  Command="{Binding Source={RelativeSource
+                AncestorType={x:Type viewmodels:MainViewModel}}, Path=AuthCommand}"
+                    />
+                    </Image.GestureRecognizers>
+                </Image>
+                <Label Text="{Binding IsSignedIn}"/>
+                <Label Text="{Binding Email}"
+                       IsVisible="{Binding IsSignedIn}"/>
+            </StackLayout>
+            <CollectionView Grid.Row="1"
+                                           ItemsSource="{Binding FavouriteStations}"
+                                        Margin="7"
+                                        SelectionMode="Single"
+                                        x:Name="Coll"
+                                        IsVisible="{Binding IsSignedIn}"
+                                >
+
+                <CollectionView.ItemsLayout>
+                    <GridItemsLayout Orientation="Vertical"
+                                                 Span="4"
+                                                 VerticalItemSpacing="5"
+                                                 HorizontalItemSpacing="6"/>
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+
+                    <DataTemplate>
+                        <StackLayout>
+
+                            <StackLayout.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding Source={RelativeSource 
+                                        AncestorType={x:Type viewmodels:MainViewModel}}, 
+                                        Path=StationSelectedCommand}" 
+                                              CommandParameter="{Binding .}"
+                                              NumberOfTapsRequired="1"
+                                             />
+                                <TapGestureRecognizer Command="{Binding Source={RelativeSource 
+                                        AncestorType={x:Type viewmodels:MainViewModel}}, 
+                                        Path=DoubleTappedCommand}" 
+                                              CommandParameter="{Binding .}"
+                                              NumberOfTapsRequired="2"
+                                             />
+                            </StackLayout.GestureRecognizers>
+                            <Grid HeightRequest="100"
+                                          Padding="7"
+                                >
+
+
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="4*"/>
+                                    <RowDefinition Height="2.9*"/>
+                                </Grid.RowDefinitions>
+                                <BoxView x:Name="BVbox"
+                                            Background="{StaticResource NotSelected}"
+                                                 Opacity="{Binding Opacity}"
+                                                 CornerRadius="5"
+                                                 Grid.Row="0"
+                                                 
+                                                 ></BoxView>
+                                <Image
+                                                        Source="{Binding Imageurl}"
+                                                                   
+                                               HorizontalOptions="Center"
+                                               HeightRequest="50"
+                                               Grid.Row="0"
+                                    
+                                               />
+                                <Label x:Name="LblStation" 
+                                               HorizontalOptions="CenterAndExpand"
+                                                  Text="{Binding Callsign}"
+                                               VerticalOptions="Start"
+                                               Grid.Row="1"
+                                               TextColor="{Binding TextColor}"
+                                               
+                                               LineBreakMode="WordWrap"
+                                               HorizontalTextAlignment="Center"
+                                               FontFamily="Orkney"
+                                               FontSize="13"
+                                       />
+                            </Grid>
+                        </StackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+        </Grid>
+    </Grid>
+</ContentView>

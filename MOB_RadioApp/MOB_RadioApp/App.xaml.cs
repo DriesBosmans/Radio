@@ -14,7 +14,8 @@ namespace MOB_RadioApp
     {
         public App()
         {
-            Preferences.Set(ProjectSettings.selectedStation, null);
+            
+            Preferences.Set(Pref.selectedStation, null);
             InitializeComponent();
             Device.SetFlags(new[] { "Brush_Experimental" });
             //Preferences.Set(ProjectSettings.selectedStation, null);
@@ -25,7 +26,7 @@ namespace MOB_RadioApp
 
         protected override async void OnStart()
         {
-     
+            
         }
 
         protected override void OnSleep()

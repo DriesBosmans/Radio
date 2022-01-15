@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<popups:PopupPage xmlns:popups="http://rotorgames.com" 
+                   xmlns="http://xamarin.com/schemas/2014/forms"
+                   xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+                   xmlns:pancakeView="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView" 
+                   xmlns:vm="clr-namespace:MOB_RadioApp.ViewModels"
+                   x:Class="MOB_RadioApp.Popups.AuthPopup">
+    <popups:PopupPage.Animation>
+        <popups:MoveAnimation
+            PositionIn="Top"
+            PositionOut="Top"
+            DurationIn="400"
+            DurationOut="300"
+            HasBackgroundAnimation="True"/>
+    </popups:PopupPage.Animation>
+    <pancakeView:PancakeView
+        CornerRadius="4,4,4,4"
+        VerticalOptions="Start"
+        
+        HorizontalOptions="FillAndExpand"
+        Margin="20,100,20,0"
+        Padding="16"
+        IsClippedToBounds="True"
+        BackgroundColor="{StaticResource NotSelected}">
+        <StackLayout>
+            <Entry x:Name="EnEmail"
+                   Placeholder="Email"
+                   Text="dries.bosmans@student.pxl.be"
+                   FontFamily="Orkney-Light.otf"/>
+            <Entry x:Name="EnPassword"
+                   Placeholder="Wachtwoord"
+                   Text="123456"
+                   FontFamily="Orkney-Light.otf"/>
+            <Button x:Name="BtnRegister"
+                    Text="Registreer"
+                    Clicked="BtnRegister_Clicked"
+                    FontFamily="Orkney-Light.otf"/>
+            <Button x:Name="BtnLogin"
+                    Text="Login"
+                    Clicked="BtnLogin_Clicked"
+                    FontFamily="Orkney-Light.otf"/>
+        </StackLayout>
+    </pancakeView:PancakeView>
+</popups:PopupPage>

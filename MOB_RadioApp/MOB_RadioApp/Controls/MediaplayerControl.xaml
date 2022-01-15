@@ -35,18 +35,18 @@
                                          Grid.Row="1"/>
             <Label Text="{Binding ActiveStation.Callsign}" 
                    Grid.Row="2"
-                   TextColor="White"
+                   
                    FontSize="40"
                    HorizontalOptions="Center"
-                   
+                   Style="{StaticResource Font}"
                    />
             <Grid Grid.Row="3" >
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-                <Label Grid.Row="0" FontSize="45" TextColor="White" HorizontalOptions="Center" Text="{Binding ActiveArtist}"/>
-                <Label Grid.Row="1" FontSize="30" TextColor="White" HorizontalOptions="Center" Text="{Binding ActiveSong}"/>
+                <Label Grid.Row="0" FontSize="45" Style="{StaticResource Font}" HorizontalOptions="Center" Text="{Binding ActiveArtist}"/>
+                <Label Grid.Row="1" FontSize="30" Style="{StaticResource Font}" HorizontalOptions="Center" Text="{Binding ActiveSong}"/>
             </Grid>
             <StackLayout Orientation="Horizontal" Grid.Row="4"
                          HorizontalOptions="Center">
