@@ -8,8 +8,8 @@
     x:Class="XamarinCountryPicker.Popups.ChooseCountryPopup">
    <popups:PopupPage.Animation>
         <popups:MoveAnimation
-            PositionIn="Bottom"
-            PositionOut="Bottom"
+            PositionIn="Top"
+            PositionOut="Top"
             DurationIn="400"
             DurationOut="300"
             HasBackgroundAnimation="True"/>
