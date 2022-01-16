@@ -27,12 +27,13 @@ namespace XamarinCountryPicker.Controls
 
         private void UpdateCountry(CountryModel model)
         {
-            CountryCodeLabel.Text = $"(+{model?.CountryCode})";
+            CountryCodeLabel.Text = model?.CountryCode;
             CountryNameLabel.Text = model?.CountryName;
             if (!string.IsNullOrEmpty(model?.FlagUrl))
             {
                 FlagImage.Source = ImageSource.FromUri(new Uri(model?.FlagUrl));
             }
+            
         }
     }
 }

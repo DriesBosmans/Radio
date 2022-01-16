@@ -3,20 +3,10 @@ using MOB_RadioApp.Api;
 using MOB_RadioApp.Models;
 using MOB_RadioApp.Popups;
 using MOB_RadioApp.Services;
-using MvvmHelpers;
-using Newtonsoft.Json;
-using SQLite;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Diagnostics;
-using System.Globalization;
 using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Essentials;
@@ -31,6 +21,9 @@ namespace MOB_RadioApp.ViewModels
 
     public class MainViewModel : BaseViewModel2
     {
+        /// <summary>
+        /// Constructor
+        /// </summary>
         public MainViewModel()
         {
             InitializeAsync();
@@ -54,13 +47,9 @@ namespace MOB_RadioApp.ViewModels
                 OnPropertyChanged(nameof(FavouriteStations));
 
             });
-
         }
 
         #region Fields
-
-        const string countryCode = "countrycode";
-        GetCountryCode _apiService = new GetCountryCode();
         DarFmApiCall _darfmapi = new DarFmApiCall();
         public string SelectedGenre = Preferences.Get(Pref.selectedGenre, "");
         public string SelectedLanguage = Preferences.Get(Pref.selectedLanguage, "");
@@ -72,14 +61,13 @@ namespace MOB_RadioApp.ViewModels
         private RangedObservableCollection<Station> _favourites = new RangedObservableCollection<Station>();
         private Station _activeStation;
         private string _activeImg;
-        private string _activeCallsign;
         private bool _isPlaying = false;
         private string _activeSong;
         private string _activeArtist;
         private string _searchText;
         private bool _isSignedIn;
         private bool isRefreshing;
-        public string _email;
+        private string _email;
         private CountryModel _selectedCountry;
         #endregion
 
@@ -184,9 +172,9 @@ namespace MOB_RadioApp.ViewModels
         public ICommand StationSelectedCommand => new Command<Station>(stat => StationSelectedAsync(stat));
         public ICommand PlayCommand => new Command(async () => await PlayAsync());
         public ICommand AuthCommand => new Command(async _ => await CheckAuthAsync());
-        public ICommand DoubleTappedCommand => new Command<Station>(stat => DoubleTappedAsync(stat));
+        public ICommand DoubleTappedCommand => new Command<Station>(async stat => await DoubleTappedAsync(stat));
         public ICommand ShowCountryPopupCommand => new Command(async _ => await ExecuteShowCountryPopupCommand());
-        public ICommand CountrySelectedCommand => new Command(country => ExecuteCountrySelectedCommand(country as CountryModel));
+        public ICommand CountrySelectedCommand => new Command(country => ExecuteCountrySelectedCommandAsync(country as CountryModel));
 
         #endregion
 
@@ -198,17 +186,7 @@ namespace MOB_RadioApp.ViewModels
         /// <returns></returns>
         private async Task InitializeAsync()
         {
-            SelectedCountry = CountryUtils.GetCountryModelByName("United States");
-          
-            _filterChoices = new FilterChoices(Preferences.Get(Pref.selectedGenre, ""),
-                Preferences.Get(Pref.selectedLanguage, ""));
-            IsBusy = true;
-            _unfilteredStations = await _darfmapi.GetStationsAsync(await GetCountry());
-            _filteredStations = Filter(_unfilteredStations, Preferences.Get(Pref.selectedGenre, ""),
-                Preferences.Get(Pref.selectedLanguage, ""));
-
-            FilteredStations = _filteredStations;
-            OnPropertyChanged(nameof(FilteredStations));
+            await GetStationsAsync();
 
             IsSignedIn = CheckIfSignedIn();
             OnPropertyChanged(nameof(IsSignedIn));
@@ -223,8 +201,34 @@ namespace MOB_RadioApp.ViewModels
                 return true; // True = Repeat again, False = Stop the timer
             });
         }
-        #region StationsControl
+        private async Task GetStationsAsync()
+        {
+            // Get country
+            _selectedCountry = CountryUtils.GetCountryModelByName(Preferences.Get(Pref.selectedCountry, "Belgium"));
 
+            // Get chosen filters
+            _filterChoices = new FilterChoices(Preferences.Get(Pref.selectedGenre, ""), Preferences.Get(Pref.selectedLanguage, ""));
+            IsBusy = true;
+            
+            // Get stations from Api
+            _unfilteredStations = await _darfmapi.GetStationsAsync(SelectedCountry.CountryCode.ToLower());
+
+            // Filter them
+            _filteredStations = Filter(_unfilteredStations, Preferences.Get(Pref.selectedGenre, ""), Preferences.Get(Pref.selectedLanguage, ""));
+
+            // Change property
+            FilteredStations = _filteredStations;
+            OnPropertyChanged(nameof(FilteredStations));
+            OnPropertyChanged(nameof(FavouriteStations));
+        }
+
+
+        #region StationsControl
+        /// <summary>
+        /// This gets called when station is selected
+        /// </summary>
+        /// <param name="station"></param>
+        /// <returns></returns>
         private async Task StationSelectedAsync(Station station)
         {
 
@@ -259,6 +263,9 @@ namespace MOB_RadioApp.ViewModels
             }
         }
 
+        /// <summary>
+        /// On Search
+        /// </summary>
         void SearchAction()
         {
             RangedObservableCollection<Station> _searchFilteredStations;
@@ -278,20 +285,28 @@ namespace MOB_RadioApp.ViewModels
             OnPropertyChanged(nameof(FilteredStations));
         }
 
-
+         /// <summary>
+         /// pull to refresh, not sure if this works, implemented this in the very beginning
+         /// </summary>
         async void ExecuteRefreshCommand()
         {
             if (IsRefreshing)
                 return;
             IsRefreshing = true;
 
-            FilteredStations.AddRange(await _darfmapi.GetStationsAsync(Preferences.Get(countryCode, "be")));
+            FilteredStations.AddRange(await _darfmapi.GetStationsAsync(Preferences.Get(Pref.selectedCountry, "be")));
             //Stations.AddRange(await _apiService.GetStationsAsync(Preferences.Get(countryCode,"be"),offset));
             IsRefreshing = false;
         }
 
 
-
+        /// <summary>
+        /// Filter method to filter stations
+        /// </summary>
+        /// <param name="unfiltered"></param>
+        /// <param name="genre"></param>
+        /// <param name="language"></param>
+        
         private RangedObservableCollection<Station> Filter(
             RangedObservableCollection<Station> unfiltered, string genre, string language)
         {
@@ -321,36 +336,19 @@ namespace MOB_RadioApp.ViewModels
         }
 
 
-        private async Task<string> GetCountry()
-        {
-            //var currentRegion = RegionInfo.CurrentRegion.TwoLetterISORegionName;
-            var currentRegion = Pref.Region;
-            //if (currentRegion != Preferences.Get(countryCode, ""))
-            //{
-            //    var countries = await _apiService.GetCountriesAsync();
-            //    var enumCountries = countries.AsEnumerable<CountryModel>();
-            //    var results = from c in enumCountries
-            //                  where c.Name.ToUpper() == currentRegion.ToUpper()
-            //                  select c;
-            //    if (results.Count() == 1)
-            //    {
-            //        Preferences.Set(countryCode, currentRegion);
-            //        return currentRegion;
-            //    }
-            //    else
-            //    {
-            //        Preferences.Set(countryCode, currentRegion);
-            //        return currentRegion;
-            //    }
-            //}
-            return currentRegion = "be";
-        }
-
+        /// <summary>
+        /// Called when filters are chosen
+        /// </summary>
+        /// <param name="filterChoices"></param>
         private void ExecuteFilterChoicesSelectedCommand(FilterChoices filterChoices)
         {
             ChoicesSelected = filterChoices;
         }
 
+        /// <summary>
+        /// Show popup
+        /// </summary>
+        /// <returns></returns>
         private Task ExecuteShowPopupCommand()
         {
             var popup = new FilterPopup(ChoicesSelected)
@@ -360,6 +358,12 @@ namespace MOB_RadioApp.ViewModels
 
             return Rg.Plugins.Popup.Services.PopupNavigation.Instance.PushAsync(popup);
         }
+
+        /// <summary>
+        /// Converts a list to a RangedObservableCollection
+        /// </summary>
+        /// <param name="ids"></param>
+        /// <returns></returns>
         private RangedObservableCollection<Station> ConvertToCollection(List<string> ids)
         {
             RangedObservableCollection<Station> stations = new RangedObservableCollection<Station>();
@@ -375,6 +379,11 @@ namespace MOB_RadioApp.ViewModels
             }
             return stations;
         }
+        /// <summary>
+        /// Doubletapping a Station adds it to favourites
+        /// </summary>
+        /// <param name="s"></param>
+        /// <returns></returns>
         private async Task DoubleTappedAsync(Station s)
         {
             if (CheckIfIsFavourite(s.StationId))
@@ -389,21 +398,14 @@ namespace MOB_RadioApp.ViewModels
             }
         }
 
-        private Task ExecuteShowCountryPopupCommand()
-        {
-            var popup = new ChooseCountryPopup(SelectedCountry)
-            {
-                CountrySelectedCommand = CountrySelectedCommand
-            };
-            return Rg.Plugins.Popup.Services.PopupNavigation.Instance.PushAsync(popup);
-        }
-
-        private void ExecuteCountrySelectedCommand(CountryModel country)
-        {
-            SelectedCountry = country;
-        }
+        
         #endregion
+
         #region MediaplayerControl
+        /// <summary>
+        /// Starts and stops playing the selected station
+        /// </summary>
+        /// <returns></returns>
         private async Task PlayAsync()
         {
             if (IsPlaying)
@@ -415,13 +417,16 @@ namespace MOB_RadioApp.ViewModels
             {
                 if (ActiveStation != null)
                 {
-
                     await CrossMediaManager.Current.Play(ActiveStation?.PlayUrl);
                     IsPlaying = true;
                 }
 
             }
         }
+        /// <summary>
+        /// This gets called every 10 seconds to check if there's available metadata (artist and song)
+        /// </summary>
+        /// <returns></returns>
         private async Task CheckForMetaAsync()
         {
             MetaData metadata = await _darfmapi.GetCurrentlyPlayingAsync(ActiveStation);
@@ -481,7 +486,25 @@ namespace MOB_RadioApp.ViewModels
             var popup = new AuthPopup();
             return Rg.Plugins.Popup.Services.PopupNavigation.Instance.PushAsync(popup);
         }
+        private Task ExecuteShowCountryPopupCommand()
+        {
+            var popup = new ChooseCountryPopup(SelectedCountry)
+            {
+                CountrySelectedCommand = CountrySelectedCommand
+            };
+            return Rg.Plugins.Popup.Services.PopupNavigation.Instance.PushAsync(popup);
+        }
 
+        private async Task ExecuteCountrySelectedCommandAsync(CountryModel country)
+        {
+            SelectedCountry = country;
+            Preferences.Set(Pref.selectedCountry, country.CountryName);
+            Preferences.Set(Pref.selectedLanguage, null);
+            Preferences.Set(Pref.selectedGenre, null);
+            _filterChoices = null;
+            OnPropertyChanged(nameof(FilterChoices));
+            await GetStationsAsync();
+        }
         #endregion
         #endregion
     }

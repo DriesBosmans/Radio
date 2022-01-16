@@ -32,13 +32,13 @@ namespace XamarinCountryPicker.Utils
         /// <returns>Complete Country Model with Region, Flag, Name and Code</returns>
         public static CountryModel GetCountryModelByName(string countryName)
         {
-            var phoneNumberUtil = PhoneNumberUtil.GetInstance();
+            //var phoneNumberUtil = PhoneNumberUtil.GetInstance();
             var isoCountries = GetCountriesByIso3166();
             var regionInfo = isoCountries.FirstOrDefault(c => c.EnglishName == countryName);
             return regionInfo != null
                 ? new CountryModel
                 {
-                    CountryCode = phoneNumberUtil.GetCountryCodeForRegion(regionInfo.TwoLetterISORegionName).ToString(),
+                    CountryCode = regionInfo.TwoLetterISORegionName,
                     CountryName = regionInfo.EnglishName,
                     FlagUrl = $"https://hatscripts.github.io/circle-flags/flags/{regionInfo.TwoLetterISORegionName.ToLower()}.svg",
                 }

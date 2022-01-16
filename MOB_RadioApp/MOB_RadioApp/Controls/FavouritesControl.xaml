@@ -28,27 +28,11 @@
         </magic:GradientView>
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="70"/>
+             
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
-            <StackLayout Grid.Column="0"
-                         Orientation="Horizontal">
-                <Image Source="{Binding AuthButton}"
-                   WidthRequest="50"
-                   Grid.Column="0"
-                       Margin="10"
-              >
-                    <Image.GestureRecognizers>
-                        <TapGestureRecognizer  Command="{Binding Source={RelativeSource
-                AncestorType={x:Type viewmodels:MainViewModel}}, Path=AuthCommand}"
-                    />
-                    </Image.GestureRecognizers>
-                </Image>
-                <Label Text="{Binding IsSignedIn}"/>
-                <Label Text="{Binding Email}"
-                       IsVisible="{Binding IsSignedIn}"/>
-            </StackLayout>
-            <CollectionView Grid.Row="1"
+            
+            <CollectionView Grid.Row="0"
                                            ItemsSource="{Binding FavouriteStations}"
                                         Margin="7"
                                         SelectionMode="Single"
@@ -58,7 +42,7 @@
 
                 <CollectionView.ItemsLayout>
                     <GridItemsLayout Orientation="Vertical"
-                                                 Span="4"
+                                                 Span="3"
                                                  VerticalItemSpacing="5"
                                                  HorizontalItemSpacing="6"/>
                 </CollectionView.ItemsLayout>
@@ -81,7 +65,7 @@
                                               NumberOfTapsRequired="2"
                                              />
                             </StackLayout.GestureRecognizers>
-                            <Grid HeightRequest="100"
+                            <Grid HeightRequest="130"
                                           Padding="7"
                                 >
 
@@ -101,7 +85,7 @@
                                                         Source="{Binding Imageurl}"
                                                                    
                                                HorizontalOptions="Center"
-                                               HeightRequest="50"
+                                               HeightRequest="60"
                                                Grid.Row="0"
                                     
                                                />

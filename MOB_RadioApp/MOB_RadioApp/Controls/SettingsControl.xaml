@@ -31,8 +31,26 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-
-        <ScrollView Grid.Row="1">
+        
+            <StackLayout Grid.Column="0"
+                         Grid.Row="0"
+                         Orientation="Horizontal">
+                <Image Source="{Binding AuthButton}"
+                   WidthRequest="50"
+                   Grid.Column="0"
+                       Margin="10"
+              >
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer  Command="{Binding Source={RelativeSource
+                AncestorType={x:Type viewmodels:MainViewModel}}, Path=AuthCommand}"
+                    />
+                    </Image.GestureRecognizers>
+                </Image>
+                <Label Text="{Binding IsSignedIn}"/>
+                <Label Text="{Binding Email}"
+                       IsVisible="{Binding IsSignedIn}"/>
+            </StackLayout>
+            <ScrollView Grid.Row="1">
             <StackLayout Orientation="Vertical" Padding="30,24,30,24" Spacing="10">
                  <Frame
                     CornerRadius="10"
@@ -61,7 +79,7 @@
                                Margin="10,0"
                                HorizontalOptions="Start"
                                VerticalOptions="CenterAndExpand"/>
-                        <Label Text="{Binding SelectedCountry.CountryCode, StringFormat='(+{0})'}"
+                        <Label Text="{Binding SelectedCountry.CountryCode}"
                                VerticalTextAlignment="Center"
                                Margin="20,0"
                                HorizontalTextAlignment="End"

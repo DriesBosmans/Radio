@@ -26,5 +26,6 @@ namespace MOB_RadioApp.Models
         public const string True = "True";
         public const string FirebaseToken = "FirebaseToken";
         public const string FirebaseRefreshToken = "FirebaseRefreshToken";
+        public const string selectedCountry = "selectedCountry";
     }
 }
