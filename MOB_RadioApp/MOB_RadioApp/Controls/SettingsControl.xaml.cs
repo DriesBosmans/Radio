@@ -19,7 +19,7 @@ namespace MOB_RadioApp.Controls
         public SettingsControl()
         {
             InitializeComponent();
-            SettingsStyle.StyleClass = Backgrounds.Colors[0];
+            SettingsStyle.StyleClass = Backgrounds.GetBackground().Color;
         }
      
     }

@@ -20,5 +20,6 @@
         public const string FirebaseToken = "FirebaseToken";
         public const string FirebaseRefreshToken = "FirebaseRefreshToken";
         public const string selectedCountry = "selectedCountry";
+        public const string background = "background";
     }
 }

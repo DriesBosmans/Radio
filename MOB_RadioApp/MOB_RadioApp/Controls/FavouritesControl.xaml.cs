@@ -16,7 +16,7 @@ namespace MOB_RadioApp.Controls
         public FavouritesControl()
         {
             InitializeComponent();
-            FavouritesStyle.StyleClass = Backgrounds.Colors[0];
+            FavouritesStyle.StyleClass = Backgrounds.GetBackground().Color;
         }
     }
 }

@@ -17,7 +17,7 @@ namespace MOB_RadioApp.Controls
         public MainView()
         {
             InitializeComponent();
-            StationsStyle.StyleClass = Backgrounds.Colors[0];
+            StationsStyle.StyleClass = Backgrounds.GetBackground().Color;
             // Animating the background slows the application too much down
             //AnimationService.AnimateBackground(BlueView);
         }

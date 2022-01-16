@@ -21,7 +21,7 @@ namespace MOB_RadioApp.Controls
             InitializeComponent();
             
             
-            MediaplayerStyle.StyleClass = Backgrounds.Colors[0];
+            MediaplayerStyle.StyleClass = Backgrounds.GetBackground().Color; ;
             
             //AnimationService.AnimateBackground(PurpleView);
         }

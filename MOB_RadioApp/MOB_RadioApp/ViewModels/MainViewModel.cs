@@ -86,6 +86,7 @@ namespace MOB_RadioApp.ViewModels
         private bool isRefreshing;
         private string _email;
         private CountryModel _selectedCountry;
+        private static Background _selectedBackground;
         #endregion
 
         #region Properties
@@ -176,7 +177,22 @@ namespace MOB_RadioApp.ViewModels
             get => _selectedCountry;
             set => SetValue(ref _selectedCountry, value);
         }
-        public IList<string> Backgrounda = Backgrounds.Colors[0];
+        public List<Background> Colors
+        {
+            get => Backgrounds.GetColors();
+        }
+        public  Background SelectedBackground
+        {
+            get { return _selectedBackground; }
+         
+            set
+            {
+               _selectedBackground = value;
+                Preferences.Set(Pref.background, SelectedBackground.Key.ToString());
+
+            }
+
+        }
 
         #endregion
 
