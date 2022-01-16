@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:magic="http://magic.com/schemas/gradients" xmlns:ffimageloading1="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms" xmlns:viewmodels="clr-namespace:MOB_RadioApp.ViewModels" xmlns:models="clr-namespace:MOB_RadioApp.Models" xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:magic="http://magic.com/schemas/gradients" xmlns:ffimageloading1="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms" xmlns:viewmodels="clr-namespace:MOB_RadioApp.ViewModels" xmlns:models="clr-namespace:MOB_RadioApp.Models" xmlns:xct="http://xamarin.com/schemas/2020/toolkit" xmlns:pancakeView="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
              x:Class="MOB_RadioApp.Controls.MediaplayerControl" 
             >
     
@@ -18,7 +18,7 @@
                                     radial-gradient(circle at 26% 14%, rgba(119, 119, 119,0.03) 0%, rgba(119, 119, 119,0.03) 35%,transparent 35%, transparent 100%),
                                     radial-gradient(circle at 81% 90%, rgba(42, 42, 42,0.03) 0%, rgba(42, 42, 42,0.03) 40%,transparent 40%, transparent 100%),
                                     radial-gradient(circle at 28% 100%, rgba(234, 234, 234,0.03) 0%, rgba(234, 234, 234,0.03) 56%,transparent 56%, transparent 100%),
-                                    linear-gradient(45deg, #a53182, #6C38D7)  ]]>
+                                    linear-gradient(45deg, #258ea6, #A53182  ]]>
                     </x:String>
                 </magic:CssGradientSource>
             </magic:GradientView.GradientSource>
@@ -31,8 +31,14 @@
                 <RowDefinition Height="0.7*"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <Image Source="{Binding ActiveStation.Imageurl}"
-                                         Grid.Row="1"/>
+            <Frame CornerRadius="30"
+                   Margin="30,20"
+                   Padding="0" Grid.Row="1">
+                <Image Source="{Binding ActiveStation.Imageurl}"
+                                         Grid.Row="1"
+                                         />
+            </Frame>
+           
             <Label Text="{Binding ActiveStation.Callsign}" 
                    Grid.Row="2"
                    
@@ -45,13 +51,13 @@
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-                <Label Grid.Row="0" FontSize="45" Style="{StaticResource Font}" HorizontalOptions="Center" Text="{Binding ActiveArtist}"/>
-                <Label Grid.Row="1" FontSize="30" Style="{StaticResource Font}" HorizontalOptions="Center" Text="{Binding ActiveSong}"/>
+                <Label Margin="30,0" Grid.Row="0" FontSize="45" Style="{StaticResource Font}" HorizontalOptions="Center" Text="{Binding ActiveArtist}"/>
+                <Label Margin="30,0" Grid.Row="1" FontSize="30" Style="{StaticResource Font}" HorizontalOptions="Center" Text="{Binding ActiveSong}"/>
             </Grid>
             <StackLayout Orientation="Horizontal" Grid.Row="4"
                          HorizontalOptions="Center">
 
-                <Image Grid.Row="4" Source="{Binding PlayButton}" Margin="10"
+                <Image Grid.Row="4" Source="{Binding PlayButton}"  Margin="10"
                    >
                     <Image.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding Source={RelativeSource 

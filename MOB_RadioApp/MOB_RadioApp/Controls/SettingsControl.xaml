@@ -6,7 +6,7 @@
 
 
 <Grid>
-    <magic:GradientView x:Name="GreenView" Scale="1.5" AnchorX="0.5" AnchorY="1" StyleClass="blueView" VerticalOptions="FillAndExpand">
+    <magic:GradientView x:Name="GreenView" StyleClass="blueView" VerticalOptions="FillAndExpand">
 
         <magic:GradientView.GradientSource>
             <magic:CssGradientSource>

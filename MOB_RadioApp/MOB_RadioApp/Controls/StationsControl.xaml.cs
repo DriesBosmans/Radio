@@ -16,6 +16,8 @@ namespace MOB_RadioApp.Controls
         public MainView()
         {
             InitializeComponent();
+
+            // Animating the background slows the application too much down
             //AnimationService.AnimateBackground(BlueView);
         }
     }

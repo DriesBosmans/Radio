@@ -4,6 +4,10 @@ using XamarinCountryPicker.Models;
 
 namespace XamarinCountryPicker.Controls
 {
+
+    /// <summary>
+    /// taken from https://medium.com/nerd-for-tech/xamarin-forms-country-picker-with-rg-plugins-popup-fec1a045f7c
+    /// </summary>
     public partial class CountryControl : StackLayout
     {
         public static readonly BindableProperty CountryProperty = BindableProperty.Create(

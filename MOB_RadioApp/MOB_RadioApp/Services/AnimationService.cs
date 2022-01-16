@@ -9,6 +9,8 @@ namespace MOB_RadioApp.Services
 {
     public class AnimationService
     {
+
+        //Animating the background slows the application down too much, but it was a cool idea
         public static async void AnimateBackground(MagicGradients.GradientView view, uint time = 45000)
         {
             

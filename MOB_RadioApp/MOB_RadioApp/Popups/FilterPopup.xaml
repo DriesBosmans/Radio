@@ -28,14 +28,14 @@
             <StackLayout Orientation="Horizontal" 
                          HorizontalOptions="FillAndExpand">
                 <Button x:Name="BtnCancel" 
-                    Text="Cancel"
+                    Text="Annuleren"
                         TextColor="Indigo"
                         BackgroundColor="Transparent"
                         Clicked="BtnCancel_Clicked"
                         HorizontalOptions="StartAndExpand" />
 
                 <Button x:Name="BtnConfirm"
-                    Text="Done" 
+                    Text="Opslaan" 
                         BackgroundColor="Transparent"
                         TextColor="Indigo"
                         Clicked="BtnConfirm_Clicked"

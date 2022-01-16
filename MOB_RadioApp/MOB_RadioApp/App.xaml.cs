@@ -18,13 +18,12 @@ namespace MOB_RadioApp
             Preferences.Set(Pref.selectedStation, null);
             InitializeComponent();
             Device.SetFlags(new[] { "Brush_Experimental" });
-            //Preferences.Set(ProjectSettings.selectedStation, null);
-            //Preferences.Set(ProjectSettings.selectedLanguage, null);
+
             MainPage = new MainPage();
 
         }
 
-        protected override async void OnStart()
+        protected override void OnStart()
         {
             
         }

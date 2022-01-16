@@ -18,7 +18,23 @@ using static MOB_RadioApp.Models.MetaInfo;
 
 namespace MOB_RadioApp.ViewModels
 {
-
+    /// <summary>
+    /// This is the main file in this project.
+    /// 
+    /// Because of how the tabview works, all the pages (stations, favourites, mediaplayer and settings) are
+    /// on the same view. I've split them up into different controls, to keep things tidy.
+    /// This file contains different sections (constructor, private fields, public properties, commands and
+    /// methods. Methods are further split up according to their respective controls.
+    /// 
+    /// I've used different popups - based on the countrypicker popup - which use the Messagingcenter to pass info back into the mainviewmodel,
+    /// because i couldn't get it to work with commands.
+    /// 
+    /// I've tried lot's of different things for selecting countries, pickers and such, nothing worked.
+    /// I fell back on using the countrypicker, which worked nicely.
+    /// Besides cleaning up, it was the last thing I did in this project
+    /// 
+    /// The countrypicker popup 
+    /// </summary>
     public class MainViewModel : BaseViewModel2
     {
         /// <summary>
@@ -171,7 +187,7 @@ namespace MOB_RadioApp.ViewModels
         public ICommand ChoicesSelectedCommand => new Command(_filterchoices => ExecuteFilterChoicesSelectedCommand(_filterchoices as FilterChoices));
         public ICommand StationSelectedCommand => new Command<Station>(stat => StationSelectedAsync(stat));
         public ICommand PlayCommand => new Command(async () => await PlayAsync());
-        public ICommand AuthCommand => new Command(async _ => await CheckAuthAsync());
+        public ICommand AuthCommand => new Command(async _ => await CheckforAuthentication());
         public ICommand DoubleTappedCommand => new Command<Station>(async stat => await DoubleTappedAsync(stat));
         public ICommand ShowCountryPopupCommand => new Command(async _ => await ExecuteShowCountryPopupCommand());
         public ICommand CountrySelectedCommand => new Command(country => ExecuteCountrySelectedCommandAsync(country as CountryModel));
@@ -437,7 +453,13 @@ namespace MOB_RadioApp.ViewModels
         }
         #endregion
         #region SettingsControl
-        private async Task CheckAuthAsync()
+
+        /// <summary>
+        /// If signed in, sign out
+        /// if signed out, sign in
+        /// </summary>
+        /// <returns></returns>
+        private async Task CheckforAuthentication()
         {
             if (IsSignedIn)
             {
@@ -450,9 +472,14 @@ namespace MOB_RadioApp.ViewModels
             }
             else
             {
-                await ShowPopup();
+                await ShowAuthPopUp();
             }
         }
+        /// <summary>
+        /// Checks if a station is a favourite
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         private bool CheckIfIsFavourite(string id)
         {
             bool b = false;
@@ -472,6 +499,10 @@ namespace MOB_RadioApp.ViewModels
             }
             return b;
         }
+        /// <summary>
+        /// Checks if the user is signed in
+        /// </summary>
+        /// <returns></returns>
         private bool CheckIfSignedIn()
         {
             if (Preferences.Get(Pref.IsSignedIn, "") == Pref.True)
@@ -481,11 +512,21 @@ namespace MOB_RadioApp.ViewModels
             else
                 return false;
         }
-        private Task ShowPopup()
+
+        /// <summary>
+        /// Show authentication popup
+        /// </summary>
+        /// <returns></returns>
+        private Task ShowAuthPopUp()
         {
             var popup = new AuthPopup();
             return Rg.Plugins.Popup.Services.PopupNavigation.Instance.PushAsync(popup);
         }
+
+        /// <summary>
+        /// Show Country popup
+        /// </summary>
+        /// <returns></returns>
         private Task ExecuteShowCountryPopupCommand()
         {
             var popup = new ChooseCountryPopup(SelectedCountry)
@@ -495,6 +536,11 @@ namespace MOB_RadioApp.ViewModels
             return Rg.Plugins.Popup.Services.PopupNavigation.Instance.PushAsync(popup);
         }
 
+        /// <summary>
+        /// Select a country
+        /// </summary>
+        /// <param name="country"></param>
+        /// <returns></returns>
         private async Task ExecuteCountrySelectedCommandAsync(CountryModel country)
         {
             SelectedCountry = country;
