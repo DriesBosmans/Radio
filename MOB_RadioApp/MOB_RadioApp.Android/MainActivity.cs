@@ -11,7 +11,7 @@ using Firebase;
 namespace MOB_RadioApp.Droid
 {
     [Activity(
-        Label = "Radio App", 
+        Label = "Radio", 
         Icon = "@mipmap/icon", 
         Theme = "@style/MainTheme", 
         MainLauncher = false, 

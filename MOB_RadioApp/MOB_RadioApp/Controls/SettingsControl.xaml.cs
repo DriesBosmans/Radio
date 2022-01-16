@@ -1,4 +1,5 @@
-﻿using MOB_RadioApp.Models;
+﻿using MOB_RadioApp.css;
+using MOB_RadioApp.Models;
 using MOB_RadioApp.Popups;
 using System;
 using System.Collections.Generic;
@@ -17,7 +18,8 @@ namespace MOB_RadioApp.Controls
     {
         public SettingsControl()
         {
-            InitializeComponent();         
+            InitializeComponent();
+            SettingsStyle.StyleClass = Backgrounds.Colors[0];
         }
      
     }

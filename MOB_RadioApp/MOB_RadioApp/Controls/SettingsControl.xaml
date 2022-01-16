@@ -5,33 +5,15 @@
              xmlns:forms="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms">
 
 
-<Grid>
-    <magic:GradientView x:Name="GreenView" StyleClass="blueView" VerticalOptions="FillAndExpand">
-
-        <magic:GradientView.GradientSource>
-            <magic:CssGradientSource>
-
-                <x:String>
-                    <![CDATA[
-                                    radial-gradient(circle at 46% 40%, rgba(228, 228, 228,0.06) 0%, rgba(228, 228, 228,0.06) 13%,transparent 13%, transparent 100%),
-                                    radial-gradient(circle at 11% 41%, rgba(198, 198, 198,0.06) 0%, rgba(198, 198, 198,0.06) 19%,transparent 19%, transparent 100%),
-                                    radial-gradient(circle at 52% 23%, rgba(14, 14, 14,0.06) 0%, rgba(14, 14, 14,0.06) 69%,transparent 69%, transparent 100%),
-                                    radial-gradient(circle at 13% 85%, rgba(148, 148, 148,0.06) 0%, rgba(148, 148, 148,0.06) 44%,transparent 44%, transparent 100%),
-                                    radial-gradient(circle at 57% 74%, rgba(232, 232, 232,0.06) 0%, rgba(232, 232, 232,0.06) 21%,transparent 21%, transparent 100%),
-                                    radial-gradient(circle at 59% 54%, rgba(39, 39, 39,0.06) 0%, rgba(39, 39, 39,0.06) 49%,transparent 49%, transparent 100%),
-                                    radial-gradient(circle at 98% 38%, rgba(157, 157, 157,0.06) 0%, rgba(157, 157, 157,0.06) 24%,transparent 24%, transparent 100%),
-                                    radial-gradient(circle at 8% 6%, rgba(60, 60, 60,0.06) 0%, rgba(60, 60, 60,0.06) 12%,transparent 12%, transparent 100%),
-                                    linear-gradient(159deg, rgb(148, 220, 10), #303C2A) ]]>
-                </x:String>
-            </magic:CssGradientSource>
-        </magic:GradientView.GradientSource>
-    </magic:GradientView>
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
-        
+        <magic:GradientView x:Name="SettingsStyle"  VerticalOptions="FillAndExpand"/>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
             <StackLayout Grid.Column="0"
                          Grid.Row="0"
                          Orientation="Horizontal">
@@ -51,8 +33,8 @@
                        IsVisible="{Binding IsSignedIn}"/>
             </StackLayout>
             <ScrollView Grid.Row="1">
-            <StackLayout Orientation="Vertical" Padding="30,24,30,24" Spacing="10">
-                 <Frame
+                <StackLayout Orientation="Vertical" Padding="30,24,30,24" Spacing="10">
+                    <Frame
                     CornerRadius="10"
                     VerticalOptions="Center"
                     HorizontalOptions="FillAndExpand"
@@ -61,35 +43,36 @@
                     BorderColor="Gray"
                     IsClippedToBounds="True"
                     BackgroundColor="White">
-                    <StackLayout Orientation="Horizontal"
+                        <StackLayout Orientation="Horizontal"
                                  HorizontalOptions="FillAndExpand"
                                  VerticalOptions="FillAndExpand">
-                        <StackLayout.GestureRecognizers>
-                            <TapGestureRecognizer Command="{Binding ShowCountryPopupCommand}"/>
-                        </StackLayout.GestureRecognizers>
-                        <forms:SvgCachedImage
+                            <StackLayout.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding ShowCountryPopupCommand}"/>
+                            </StackLayout.GestureRecognizers>
+                            <forms:SvgCachedImage
                             HeightRequest="26"
                             Source="{Binding SelectedCountry.FlagUrl}"
                             VerticalOptions="CenterAndExpand"
                             WidthRequest="26" 
                             Margin="20,10,0,10"/>
-                        <Label Text="{Binding SelectedCountry.CountryName}"
+                            <Label Text="{Binding SelectedCountry.CountryName}"
                                VerticalTextAlignment="Center"
                                HorizontalTextAlignment="Start"
                                Margin="10,0"
                                HorizontalOptions="Start"
                                VerticalOptions="CenterAndExpand"/>
-                        <Label Text="{Binding SelectedCountry.CountryCode}"
+                            <Label Text="{Binding SelectedCountry.CountryCode}"
                                VerticalTextAlignment="Center"
                                Margin="20,0"
                                HorizontalTextAlignment="End"
                                HorizontalOptions="EndAndExpand"
                                VerticalOptions="CenterAndExpand"/>
-                    </StackLayout>
-                </Frame>
-            </StackLayout>
-        </ScrollView>
-    </Grid>
+                        </StackLayout>
+                    </Frame>
+                </StackLayout>
+            </ScrollView>
+            <Picker />
+        </Grid>
 
-</Grid>
+    </Grid>
 </ContentView>

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MOB_RadioApp.css;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,6 +16,7 @@ namespace MOB_RadioApp.Controls
         public FavouritesControl()
         {
             InitializeComponent();
+            FavouritesStyle.StyleClass = Backgrounds.Colors[0];
         }
     }
 }

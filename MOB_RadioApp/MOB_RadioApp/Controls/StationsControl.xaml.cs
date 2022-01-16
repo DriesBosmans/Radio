@@ -1,4 +1,5 @@
-﻿using MOB_RadioApp.Services;
+﻿using MOB_RadioApp.css;
+using MOB_RadioApp.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,7 +17,7 @@ namespace MOB_RadioApp.Controls
         public MainView()
         {
             InitializeComponent();
-
+            StationsStyle.StyleClass = Backgrounds.Colors[0];
             // Animating the background slows the application too much down
             //AnimationService.AnimateBackground(BlueView);
         }

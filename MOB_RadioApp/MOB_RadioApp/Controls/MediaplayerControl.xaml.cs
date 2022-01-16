@@ -1,4 +1,5 @@
 ﻿using MediaManager;
+using MOB_RadioApp.css;
 using MOB_RadioApp.Services;
 using System;
 using System.Collections.Generic;
@@ -14,9 +15,14 @@ namespace MOB_RadioApp.Controls
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class MediaplayerControl : ContentView
     {
+      
         public MediaplayerControl()
         {
             InitializeComponent();
+            
+            
+            MediaplayerStyle.StyleClass = Backgrounds.Colors[0];
+            
             //AnimationService.AnimateBackground(PurpleView);
         }
 

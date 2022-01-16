@@ -6,7 +6,9 @@
              xmlns:viewmodels="clr-namespace:MOB_RadioApp.ViewModels" xmlns:controls="clr-namespace:App.Core.Controls"
              xmlns:custom="clr-namespace:MOB_RadioApp;assembly=MOB_RadioApp" xmlns:controls1="clr-namespace:MOB_RadioApp.Controls">
 
-    
+    <ContentPage.Resources>
+        <StyleSheetExtension Source="../css/style.css"/>
+    </ContentPage.Resources>
     <Grid>
         <Grid.BindingContext>
             <viewmodels:MainViewModel/>

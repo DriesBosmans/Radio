@@ -1,5 +1,6 @@
 ﻿using MediaManager;
 using MOB_RadioApp.Api;
+using MOB_RadioApp.css;
 using MOB_RadioApp.Models;
 using MOB_RadioApp.Popups;
 using MOB_RadioApp.Services;
@@ -175,6 +176,7 @@ namespace MOB_RadioApp.ViewModels
             get => _selectedCountry;
             set => SetValue(ref _selectedCountry, value);
         }
+        public IList<string> Backgrounda = Backgrounds.Colors[0];
 
         #endregion
 
