@@ -15,6 +15,13 @@
                 <Setter Property="FontFamily" Value="Orkney-Light.otf"/>
                 <Setter Property="TextColor" Value="{StaticResource Primary}"/>
             </Style>
+            <Style TargetType="BoxView"
+                   x:Key="SeparatorBoxView">
+                <Setter Property="HeightRequest" Value="1"/>
+                <Setter Property="Color" Value="Gray"/>
+                <Setter Property="HorizontalOptions" Value="FillAndExpand"/>
+                <Setter Property="Opacity" Value="0.1"/>
+            </Style>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

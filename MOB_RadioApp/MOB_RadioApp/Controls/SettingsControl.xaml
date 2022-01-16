@@ -1,15 +1,18 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:magic="http://magic.com/schemas/gradients" xmlns:viewmodels="clr-namespace:MOB_RadioApp.ViewModels" xmlns:sv="clr-namespace:AiForms.Renderers;assembly=SettingsView"
-             x:Class="MOB_RadioApp.Controls.SettingsControl">
-    <Grid>
-        <magic:GradientView x:Name="GreenView" Scale="1.5" AnchorX="0.5" AnchorY="1" StyleClass="blueView" VerticalOptions="FillAndExpand">
+             x:Class="MOB_RadioApp.Controls.SettingsControl"
+             xmlns:forms="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms">
 
-            <magic:GradientView.GradientSource>
-                <magic:CssGradientSource>
 
-                    <x:String>
-                        <![CDATA[
+<Grid>
+    <magic:GradientView x:Name="GreenView" Scale="1.5" AnchorX="0.5" AnchorY="1" StyleClass="blueView" VerticalOptions="FillAndExpand">
+
+        <magic:GradientView.GradientSource>
+            <magic:CssGradientSource>
+
+                <x:String>
+                    <![CDATA[
                                     radial-gradient(circle at 46% 40%, rgba(228, 228, 228,0.06) 0%, rgba(228, 228, 228,0.06) 13%,transparent 13%, transparent 100%),
                                     radial-gradient(circle at 11% 41%, rgba(198, 198, 198,0.06) 0%, rgba(198, 198, 198,0.06) 19%,transparent 19%, transparent 100%),
                                     radial-gradient(circle at 52% 23%, rgba(14, 14, 14,0.06) 0%, rgba(14, 14, 14,0.06) 69%,transparent 69%, transparent 100%),
@@ -19,15 +22,56 @@
                                     radial-gradient(circle at 98% 38%, rgba(157, 157, 157,0.06) 0%, rgba(157, 157, 157,0.06) 24%,transparent 24%, transparent 100%),
                                     radial-gradient(circle at 8% 6%, rgba(60, 60, 60,0.06) 0%, rgba(60, 60, 60,0.06) 12%,transparent 12%, transparent 100%),
                                     linear-gradient(159deg, rgb(148, 220, 10), #303C2A) ]]>
-                    </x:String>
-                </magic:CssGradientSource>
-            </magic:GradientView.GradientSource>
-        </magic:GradientView>
-        <StackLayout>
-            
-      
-            
-        </StackLayout>
-        
+                </x:String>
+            </magic:CssGradientSource>
+        </magic:GradientView.GradientSource>
+    </magic:GradientView>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <ScrollView Grid.Row="1">
+            <StackLayout Orientation="Vertical" Padding="30,24,30,24" Spacing="10">
+                 <Frame
+                    CornerRadius="10"
+                    VerticalOptions="Center"
+                    HorizontalOptions="FillAndExpand"
+                    Margin="0,40,0,0"
+                    Padding="0"
+                    BorderColor="Gray"
+                    IsClippedToBounds="True"
+                    BackgroundColor="White">
+                    <StackLayout Orientation="Horizontal"
+                                 HorizontalOptions="FillAndExpand"
+                                 VerticalOptions="FillAndExpand">
+                        <StackLayout.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding ShowCountryPopupCommand}"/>
+                        </StackLayout.GestureRecognizers>
+                        <forms:SvgCachedImage
+                            HeightRequest="26"
+                            Source="{Binding SelectedCountry.FlagUrl}"
+                            VerticalOptions="CenterAndExpand"
+                            WidthRequest="26" 
+                            Margin="20,10,0,10"/>
+                        <Label Text="{Binding SelectedCountry.CountryName}"
+                               VerticalTextAlignment="Center"
+                               HorizontalTextAlignment="Start"
+                               Margin="10,0"
+                               HorizontalOptions="Start"
+                               VerticalOptions="CenterAndExpand"/>
+                        <Label Text="{Binding SelectedCountry.CountryCode, StringFormat='(+{0})'}"
+                               VerticalTextAlignment="Center"
+                               Margin="20,0"
+                               HorizontalTextAlignment="End"
+                               HorizontalOptions="EndAndExpand"
+                               VerticalOptions="CenterAndExpand"/>
+                    </StackLayout>
+                </Frame>
+            </StackLayout>
+        </ScrollView>
     </Grid>
+
+</Grid>
 </ContentView>

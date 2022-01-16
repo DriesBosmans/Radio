@@ -21,6 +21,9 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Essentials;
 using Xamarin.Forms;
+using XamarinCountryPicker.Models;
+using XamarinCountryPicker.Popups;
+using XamarinCountryPicker.Utils;
 using static MOB_RadioApp.Models.MetaInfo;
 
 namespace MOB_RadioApp.ViewModels
@@ -77,6 +80,7 @@ namespace MOB_RadioApp.ViewModels
         private bool _isSignedIn;
         private bool isRefreshing;
         public string _email;
+        private CountryModel _selectedCountry;
         #endregion
 
         #region Properties
@@ -162,7 +166,11 @@ namespace MOB_RadioApp.ViewModels
             set { SetValue(ref _email, value); }
         }
         public string AuthButton { get => IsSignedIn ? "logout.png" : "login.png"; }
-
+        public CountryModel SelectedCountry
+        {
+            get => _selectedCountry;
+            set => SetValue(ref _selectedCountry, value);
+        }
 
         #endregion
 
@@ -177,6 +185,8 @@ namespace MOB_RadioApp.ViewModels
         public ICommand PlayCommand => new Command(async () => await PlayAsync());
         public ICommand AuthCommand => new Command(async _ => await CheckAuthAsync());
         public ICommand DoubleTappedCommand => new Command<Station>(stat => DoubleTappedAsync(stat));
+        public ICommand ShowCountryPopupCommand => new Command(async _ => await ExecuteShowCountryPopupCommand());
+        public ICommand CountrySelectedCommand => new Command(country => ExecuteCountrySelectedCommand(country as CountryModel));
 
         #endregion
 
@@ -188,6 +198,8 @@ namespace MOB_RadioApp.ViewModels
         /// <returns></returns>
         private async Task InitializeAsync()
         {
+            SelectedCountry = CountryUtils.GetCountryModelByName("United States");
+          
             _filterChoices = new FilterChoices(Preferences.Get(Pref.selectedGenre, ""),
                 Preferences.Get(Pref.selectedLanguage, ""));
             IsBusy = true;
@@ -313,24 +325,24 @@ namespace MOB_RadioApp.ViewModels
         {
             //var currentRegion = RegionInfo.CurrentRegion.TwoLetterISORegionName;
             var currentRegion = Pref.Region;
-            if (currentRegion != Preferences.Get(countryCode, ""))
-            {
-                var countries = await _apiService.GetCountriesAsync();
-                var enumCountries = countries.AsEnumerable<Country>();
-                var results = from c in enumCountries
-                              where c.Name.ToUpper() == currentRegion.ToUpper()
-                              select c;
-                if (results.Count() == 1)
-                {
-                    Preferences.Set(countryCode, currentRegion);
-                    return currentRegion;
-                }
-                else
-                {
-                    Preferences.Set(countryCode, currentRegion);
-                    return currentRegion;
-                }
-            }
+            //if (currentRegion != Preferences.Get(countryCode, ""))
+            //{
+            //    var countries = await _apiService.GetCountriesAsync();
+            //    var enumCountries = countries.AsEnumerable<CountryModel>();
+            //    var results = from c in enumCountries
+            //                  where c.Name.ToUpper() == currentRegion.ToUpper()
+            //                  select c;
+            //    if (results.Count() == 1)
+            //    {
+            //        Preferences.Set(countryCode, currentRegion);
+            //        return currentRegion;
+            //    }
+            //    else
+            //    {
+            //        Preferences.Set(countryCode, currentRegion);
+            //        return currentRegion;
+            //    }
+            //}
             return currentRegion = "be";
         }
 
@@ -375,6 +387,20 @@ namespace MOB_RadioApp.ViewModels
                 await SqlLiteService.AddFavourite(s);
                 _favourites.Add(s);
             }
+        }
+
+        private Task ExecuteShowCountryPopupCommand()
+        {
+            var popup = new ChooseCountryPopup(SelectedCountry)
+            {
+                CountrySelectedCommand = CountrySelectedCommand
+            };
+            return Rg.Plugins.Popup.Services.PopupNavigation.Instance.PushAsync(popup);
+        }
+
+        private void ExecuteCountrySelectedCommand(CountryModel country)
+        {
+            SelectedCountry = country;
         }
         #endregion
         #region MediaplayerControl
