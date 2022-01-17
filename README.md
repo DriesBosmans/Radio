@@ -16,6 +16,7 @@ Het is mijn bedoeling om de best mogelijke app te ontwikkelen. Ik steek er op di
 De app van Simon Schellaert is al vrij uitgebreid. Qua functionaliteiten ga ik niet heel veel meer kunnen doen dan hij deed. In tegenstelling tot Schellaert ga ik wel voorzien dat de app ook werkt met andere zenders dan die uit België. Ook ga ik proberen een filterfunctie te voorzien en ga ik mijn app er proberen beter te laten uitzien dan die van Schellaert, die ziet er vrij basic uit. Tot slot zal er geen extra reclame gestreamd worden. 
 
 ## Logboek
+
 28-10-2021
 Ik ben op 18 oktober aan mijn project begonnen. 
 Ik heb 7 commits gedaan op mijn eerste repo, en 7 op mijn tweede. Mijn eerste project was gebouwd in een shell,
@@ -30,6 +31,49 @@ Ik heb aan de zoekbalk in het mainwindow gewerkt.
 29-10-2021
 De zoekfunctie is in orde. Nu ga ik kijken of ik ook een filterfunctie kan fixen.
 Expander krijg ik niet geregeld, ik ga proberen settings te maken in een pop up.
+
+31-10-2021
+Ben twee dagen aan de filter functie bezig geweest, maar het werkt nu
+
+22-11-2021
+Joke geholpen
+
+6-12-2021
+Debuggen: error ivm databinding
+
+20-12-2021
+Api probleem opgelost, media-element geimplementeerd.
+
+26-12-2021
+Ben gestopt met het gebruik van het MediaElement van Xamarin communitytoolkit wegens niet mogelijk om op achtergrond te spelen
+en verschillende formaten niet ondersteund.
+Nu gebruiken we de Xamarin Media Manager, wat geen view is, dus werken we met custom transportknoppen.
+
+27-12-2021
+Verder gewerkt aan mediamanager
+
+28-12-21
+Authenticatie met firebase gemaakt. Registreren, inloggen en uitloggen lukt. Het is mij verder niet gelukt hier nog iets anders
+mee te doen. Hier ben ik lang aan bezig geweest.
+
+1-1-22
+Lijst met favorieten toegevoegd. Favorieten kunnen aangeduid worden met dubbeltap
+
+13-1-22 SQLite database toegevoegd om favorieten op te slaan.
+
+15-1-22 SQLite database verder uitgewerkt
+
+16-1-22 Na verschillende pogingen een picker met landen te installeren ben ik teruggevallen op de countrypicker, die ik ooit heb
+gebruikt om de popup vensters te maken. Met weinig aanpassingen heb ik deze kunnen implementeren in de radio-app.
+Nu kunnen radiozender van over de hele wereld opgezocht worden.
+Daarnaast heb ik de solution wat opgeruimd, summaries gemaakt en voorzien van commentaar.
+Ik twijfel eraan om VLC media player nog te installeren, omdat niet alle mediaformaten ondersteund worden. 
+
+Verder rest enkel nog een beetje styling, het zou er allemaal nog wat beter mogen uitzien.
+
+Het is mij gelukt om de gradient achtergronden in een apart css-bestand te zetten
+
+17-1-22 Verder aan styling gewerkt en knopanimaties verzorgd
 
 ## Link video
 ## Bronnen
@@ -77,7 +121,7 @@ https://lottiefiles.com/82130-radio
 MVVMhelpers
 https://github.com/jamesmontemagno/mvvm-helpers
 
-for data analysis
+json to csv voor data analyse
 https://www.convertcsv.com/json-to-csv.htm
 
 NEW API
@@ -94,6 +138,22 @@ https://adityadeshpandeadi.wordpress.com/2018/01/14/search-through-listview-item
 
 orkney font
 https://www.1001fonts.com/orkney-font.html
+
+Popup page and country picker
+https://medium.com/nerd-for-tech/xamarin-forms-country-picker-with-rg-plugins-popup-fec1a045f7c
+
+Xamarin Media Manager: 
+https://github.com/Baseflow/XamarinMediaManager
+
+Firebase
+firebase.google.com
+https://www.youtube.com/watch?v=liGTuuau29Y
+
+Adding database with SQLite-net
+https://www.youtube.com/watch?v=XFP8Np-uRWc
+
+Button animations
+https://xamgirl.com/plug-and-play-animations-in-xamarin-forms/
 
 ## Eerdere commits
 
