@@ -7,6 +7,7 @@ using MOB_RadioApp.Services;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -139,12 +140,12 @@ namespace MOB_RadioApp.ViewModels
         public string ActiveArtist
         {
             get { return _activeArtist?.Trim(); }
-            set { SetValue(ref _activeArtist, value); }
+            set { SetValue(ref _activeArtist, value.Trim()); }
         }
         public string ActiveSong
         {
             get { return _activeSong?.Trim(); }
-            set { SetValue(ref _activeSong, value); }
+            set { SetValue(ref _activeSong, value.Trim()); }
         }
         public string PlayButton { get => _isPlaying ? "stop.png" : "play.png"; }
 
@@ -168,8 +169,31 @@ namespace MOB_RadioApp.ViewModels
         }
         public string Email
         {
-            get { return _email?.Trim().Substring(0, _email.IndexOf('@')); }
-            set { SetValue(ref _email, value); }
+            get 
+            { 
+                
+                return _email?.Trim().Substring(0, _email.IndexOf('@')); 
+            }
+            set { SetValue(ref _email, value);
+                OnPropertyChanged(nameof(EmailToName));
+            }
+        }
+        public string EmailToName
+        {
+            get
+            {
+                if (_email == null)
+                    return "Jack";
+                TextInfo textinfo = new CultureInfo("en-US", false).TextInfo;
+                var eersteDeel = _email?.Trim().Substring(0, _email.IndexOf('@'));
+                if (eersteDeel.IndexOf('.') > -1)
+                {
+                    var voornaam = textinfo.ToTitleCase(eersteDeel.Substring(0, eersteDeel.IndexOf(".")));
+                    return voornaam;
+                }
+                eersteDeel = textinfo.ToTitleCase(eersteDeel);
+                return eersteDeel;
+            }
         }
         public string AuthButton { get => IsSignedIn ? "logout.png" : "login.png"; }
         public CountryModel SelectedCountry
@@ -209,6 +233,7 @@ namespace MOB_RadioApp.ViewModels
         public ICommand DoubleTappedCommand => new Command<Station>(async stat => await DoubleTappedAsync(stat));
         public ICommand ShowCountryPopupCommand => new Command(async _ => await ExecuteShowCountryPopupCommand());
         public ICommand CountrySelectedCommand => new Command(country => ExecuteCountrySelectedCommandAsync(country as CountryModel));
+        public ICommand BackgroundCommand => new Command(ChangeBackgrounds);
 
         #endregion
 
@@ -568,6 +593,13 @@ namespace MOB_RadioApp.ViewModels
             _filterChoices = null;
             OnPropertyChanged(nameof(FilterChoices));
             await GetStationsAsync();
+        }
+        /// <summary>
+        /// Because why not
+        /// </summary>
+        private void ChangeBackgrounds()
+        {
+            MessagingCenter.Send(this, "Background");
         }
         #endregion
         #endregion

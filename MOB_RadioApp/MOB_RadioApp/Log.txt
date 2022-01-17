@@ -51,3 +51,5 @@ Daarnaast heb ik de solution wat opgeruimd, summaries gemaakt en voorzien van co
 Ik twijfel eraan om VLC media player nog te installeren, omdat niet alle mediaformaten ondersteund worden. 
 
 Verder rest enkel nog een beetje styling, het zou er allemaal nog wat beter mogen uitzien.
+
+Het is mij gelukt om de gradient achtergronden in een apart css-bestand te zetten, maar het vertraagt de boel dus dat gaan we schrappen

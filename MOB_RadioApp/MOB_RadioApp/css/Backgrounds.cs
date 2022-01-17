@@ -17,7 +17,9 @@ namespace MOB_RadioApp.css
                 new Background(){Key = 2, Name = "Rood",  Color = new List<string> {"redView"}},
                 new Background(){Key = 3, Name = "Paars", Color = new List<string> {"purpleView"}},
                 new Background(){Key = 4, Name = "Groen", Color = new List<string> {"greenView"}},
-                new Background(){Key = 5, Name = "Zwart", Color = new List<string> {"blackView"}}
+                new Background(){Key = 5, Name = "Zwart", Color = new List<string> {"blackView"}},
+                new Background(){Key = 6, Name = "Blauw 2", Color = new List<string> {"blueNormalView"}},
+                new Background(){Key = 7, Name = "Groen 2", Color = new List<string> {"greenNormalView"}}
             };
             return backgrounds;
         }

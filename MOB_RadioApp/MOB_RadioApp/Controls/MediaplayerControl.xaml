@@ -13,8 +13,8 @@
                 <RowDefinition Height="0*"/>
                 <RowDefinition Height="2*"/>
                 <RowDefinition Height="0.5*"/>
+                <RowDefinition Height="0.6*"/>
                 <RowDefinition Height="0.7*"/>
-                <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <Frame CornerRadius="30"
                    Margin="30,20"
@@ -23,26 +23,33 @@
                                          Grid.Row="1"
                                          />
             </Frame>
-           
+            <BoxView Grid.Row="2"
+                     BackgroundColor="{x:StaticResource NotSelected}"
+                     Grid.RowSpan="3"
+                     Opacity="0.2"
+                     Margin="30,0,30,40"
+                     CornerRadius="30"/>
             <Label Text="{Binding ActiveStation.Callsign}" 
                    Grid.Row="2"
                    
                    FontSize="40"
+                  HorizontalTextAlignment="Center"
                    HorizontalOptions="Center"
+                   VerticalOptions="Center"
                    Style="{StaticResource Font}"
                    />
-            <Grid Grid.Row="3" >
+            <Grid Grid.Row="3"  >
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-                <Label Margin="30,0" Grid.Row="0" FontSize="45" Style="{StaticResource Font}" HorizontalOptions="Center" Text="{Binding ActiveArtist}"/>
-                <Label Margin="30,0" Grid.Row="1" FontSize="30" Style="{StaticResource Font}" HorizontalOptions="Center" Text="{Binding ActiveSong}"/>
+                <Label Margin="30,0" Grid.Row="0" FontSize="35" Style="{StaticResource Font}"  HorizontalOptions="Center" Text="{Binding ActiveArtist}"/>
+                <Label Margin="30,0" Grid.Row="1" FontSize="30" Style="{StaticResource Font}"  HorizontalOptions="Center" Text="{Binding ActiveSong}"/>
             </Grid>
-            <StackLayout Orientation="Horizontal" Grid.Row="4"
-                         HorizontalOptions="Center">
+            <StackLayout  Orientation="Horizontal" Grid.Row="4"
+                         HorizontalOptions="Center" VerticalOptions="Start" >
 
-                <Image Grid.Row="4" Source="{Binding PlayButton}"  Margin="10"
+                <Image Grid.Row="4" Source="{Binding PlayButton}"  Margin="20"
                    >
                     <Image.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding Source={RelativeSource 

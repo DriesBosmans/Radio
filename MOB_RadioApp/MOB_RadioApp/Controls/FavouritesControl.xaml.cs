@@ -1,4 +1,5 @@
 ﻿using MOB_RadioApp.css;
+using MOB_RadioApp.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,6 +18,10 @@ namespace MOB_RadioApp.Controls
         {
             InitializeComponent();
             FavouritesStyle.StyleClass = Backgrounds.GetBackground().Color;
+            MessagingCenter.Subscribe<MainViewModel>(this, "Background", (sender) =>
+            {
+                FavouritesStyle.StyleClass = Backgrounds.GetBackground().Color;
+            });
         }
     }
 }

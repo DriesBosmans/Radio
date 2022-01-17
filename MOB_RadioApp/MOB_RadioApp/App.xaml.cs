@@ -14,7 +14,7 @@ namespace MOB_RadioApp
     {
         public App()
         {
-            
+            Preferences.Clear();
             Preferences.Set(Pref.selectedStation, null);
             InitializeComponent();
             Device.SetFlags(new[] { "Brush_Experimental" });

@@ -1,6 +1,7 @@
 ﻿using MediaManager;
 using MOB_RadioApp.css;
 using MOB_RadioApp.Services;
+using MOB_RadioApp.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,7 +23,10 @@ namespace MOB_RadioApp.Controls
             
             
             MediaplayerStyle.StyleClass = Backgrounds.GetBackground().Color; ;
-            
+            MessagingCenter.Subscribe<MainViewModel>(this, "Background", (sender) =>
+            {
+                MediaplayerStyle.StyleClass = Backgrounds.GetBackground().Color;
+            });
             //AnimationService.AnimateBackground(PurpleView);
         }
 
