@@ -5,7 +5,7 @@
              xmlns:magic="http://magic.com/schemas/gradients"
              x:Class="MOB_RadioApp.Controls.MainView" 
              xmlns:xct="http://xamarin.com/schemas/2020/toolkit" 
-             xmlns:viewmodels="clr-namespace:MOB_RadioApp.ViewModels">
+             xmlns:viewmodels="clr-namespace:MOB_RadioApp.ViewModels" xmlns:behaviors="clr-namespace:MOB_RadioApp.Behaviors">
 
     <Grid  >
         <magic:GradientView x:Name="StationsStyle" VerticalOptions="FillAndExpand"/>
@@ -49,6 +49,10 @@
                     
                     <DataTemplate>
                             <StackLayout>
+                                <StackLayout.Behaviors>
+                                    <behaviors:ViewTappedButtonBehavior 
+                                                        AnimationType="Scale"/>
+                                </StackLayout.Behaviors>
 
                                 <StackLayout.GestureRecognizers>
                                     <TapGestureRecognizer Command="{Binding Source={RelativeSource 

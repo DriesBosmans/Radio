@@ -42,7 +42,7 @@ https://lottiefiles.com/82130-radio
 MVVMhelpers
 https://github.com/jamesmontemagno/mvvm-helpers
 
-for data analysis
+json to csv voor data analyse
 https://www.convertcsv.com/json-to-csv.htm
 
 NEW API
@@ -72,3 +72,6 @@ https://www.youtube.com/watch?v=liGTuuau29Y
 
 Adding database with SQLite-net
 https://www.youtube.com/watch?v=XFP8Np-uRWc
+
+Button animations
+https://xamgirl.com/plug-and-play-animations-in-xamarin-forms/

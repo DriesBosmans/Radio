@@ -21,3 +21,6 @@
 .greenNormalView {
     background: linear-gradient(360deg, rgb(26, 16, 35),rgb(12, 216, 57));
 }
+.pinkNormalView {
+    background: linear-gradient(15deg, rgba(32, 2, 133, 0.2),rgba(241, 62, 151, 0.2)),linear-gradient(90deg, rgb(246, 112, 73) 0%,rgb(230, 71, 141) 11%,rgb(206, 9, 242) 48%,rgb(254, 132, 39) 50%,rgb(238, 91, 107) 61%,rgb(214, 30, 208) 88%,rgb(222, 50, 174) 100%);
+}

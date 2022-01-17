@@ -25,7 +25,19 @@ namespace MOB_RadioApp.Controls
             {
                 SettingsStyle.StyleClass = Backgrounds.GetBackground().Color;
             });
-           
+
+            //google "askew"  
+            MessagingCenter.Subscribe<MainViewModel>(this, "askew", (sender) =>
+            {
+               
+                frm.Rotation = -2;
+                scrlvw.Rotation = 3;
+            });
+            MessagingCenter.Subscribe<MainViewModel>(this, "straight", (sender) =>
+            {
+                frm.Rotation = 0;
+                scrlvw.Rotation = 0;
+            });
         }
 
     }

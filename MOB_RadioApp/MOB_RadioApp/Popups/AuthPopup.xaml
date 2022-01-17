@@ -26,19 +26,29 @@
             <Entry x:Name="EnEmail"
                    Placeholder="Email"
                    Text="dries.bosmans@student.pxl.be"
-                   FontFamily="Orkney-Light.otf"/>
+                   FontFamily="Orkney-Light.otf"
+                   TextColor="{StaticResource Black}"
+                       
+                       />
             <Entry x:Name="EnPassword"
                    Placeholder="Wachtwoord"
                    Text="123456"
+                   TextColor="{StaticResource Black}"
+                      
+                       
                    FontFamily="Orkney-Light.otf"/>
             <Button x:Name="BtnRegister"
                     Text="Registreer"
                     Clicked="BtnRegister_Clicked"
-                    FontFamily="Orkney-Light.otf"/>
+                    TextColor="{StaticResource Black}"
+                        Font="{StaticResource Orkney}"/>
+
             <Button x:Name="BtnLogin"
                     Text="Login"
                     Clicked="BtnLogin_Clicked"
-                    FontFamily="Orkney-Light.otf"/>
+                    TextColor="{StaticResource Black}"
+                        Font="{StaticResource Orkney}"/>
+
         </StackLayout>
     </pancakeView:PancakeView>
 </popups:PopupPage>

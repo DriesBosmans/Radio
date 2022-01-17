@@ -1,24 +1,29 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:magic="http://magic.com/schemas/gradients" xmlns:ffimageloading1="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms" xmlns:viewmodels="clr-namespace:MOB_RadioApp.ViewModels" xmlns:models="clr-namespace:MOB_RadioApp.Models" xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
-             
-            
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:magic="http://magic.com/schemas/gradients" xmlns:ffimageloading1="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms" xmlns:viewmodels="clr-namespace:MOB_RadioApp.ViewModels" xmlns:models="clr-namespace:MOB_RadioApp.Models" xmlns:xct="http://xamarin.com/schemas/2020/toolkit" xmlns:behaviors="clr-namespace:MOB_RadioApp.Behaviors"
              x:Class="MOB_RadioApp.Controls.FavouritesControl">
     <Grid>
         <magic:GradientView x:Name="FavouritesStyle" VerticalOptions="FillAndExpand" />
 
         <Grid>
             <Grid.RowDefinitions>
-             
+                <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
-            
-            <CollectionView Grid.Row="0"
+            <Label Text="Tap twee keer om een favoriet toe te voegen."
+                   TextColor="{StaticResource NotSelected}"
+                        Font="{StaticResource Orkney}"
+                   HorizontalOptions="Center"
+                   HorizontalTextAlignment="Center"
+                   Margin="0,20,0,0"
+                   Grid.Row="0"
+                       />
+            <CollectionView Grid.Row="1"
                                            ItemsSource="{Binding FavouriteStations}"
                                         Margin="7"
                                         SelectionMode="Single"
                                         x:Name="Coll"
-                                        IsVisible="{Binding IsSignedIn}"
+                                       
                                 >
 
                 <CollectionView.ItemsLayout>
@@ -31,7 +36,10 @@
 
                     <DataTemplate>
                         <StackLayout>
-
+                            <StackLayout.Behaviors>
+                                <behaviors:ViewTappedButtonBehavior 
+                                                        AnimationType="Scale"/>
+                            </StackLayout.Behaviors>
                             <StackLayout.GestureRecognizers>
                                 <TapGestureRecognizer Command="{Binding Source={RelativeSource 
                                         AncestorType={x:Type viewmodels:MainViewModel}}, 

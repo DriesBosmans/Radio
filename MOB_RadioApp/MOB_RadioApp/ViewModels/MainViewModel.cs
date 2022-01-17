@@ -61,7 +61,7 @@ namespace MOB_RadioApp.ViewModels
                 Preferences.Set(Pref.IsSignedIn, Pref.True);
                 OnPropertyChanged(nameof(IsSignedIn));
                 _favourites = ConvertToCollection(SqlLiteService.GetFavourites().Result);
-            
+
                 OnPropertyChanged(nameof(FavouriteStations));
 
             });
@@ -169,12 +169,14 @@ namespace MOB_RadioApp.ViewModels
         }
         public string Email
         {
-            get 
-            { 
-                
-                return _email?.Trim().Substring(0, _email.IndexOf('@')); 
+            get
+            {
+
+                return _email?.Trim().Substring(0, _email.IndexOf('@'));
             }
-            set { SetValue(ref _email, value);
+            set
+            {
+                SetValue(ref _email, value);
                 OnPropertyChanged(nameof(EmailToName));
             }
         }
@@ -205,13 +207,13 @@ namespace MOB_RadioApp.ViewModels
         {
             get => Backgrounds.GetColors();
         }
-        public  Background SelectedBackground
+        public Background SelectedBackground
         {
             get { return _selectedBackground; }
-         
+
             set
             {
-               _selectedBackground = value;
+                _selectedBackground = value;
                 Preferences.Set(Pref.background, SelectedBackground.Key.ToString());
 
             }
@@ -268,7 +270,7 @@ namespace MOB_RadioApp.ViewModels
             // Get chosen filters
             _filterChoices = new FilterChoices(Preferences.Get(Pref.selectedGenre, ""), Preferences.Get(Pref.selectedLanguage, ""));
             IsBusy = true;
-            
+
             // Get stations from Api
             _unfilteredStations = await _darfmapi.GetStationsAsync(SelectedCountry.CountryCode.ToLower());
 
@@ -344,9 +346,9 @@ namespace MOB_RadioApp.ViewModels
             OnPropertyChanged(nameof(FilteredStations));
         }
 
-         /// <summary>
-         /// pull to refresh, not sure if this works, implemented this in the very beginning
-         /// </summary>
+        /// <summary>
+        /// pull to refresh, not sure if this works, implemented this in the very beginning
+        /// </summary>
         async void ExecuteRefreshCommand()
         {
             if (IsRefreshing)
@@ -365,7 +367,7 @@ namespace MOB_RadioApp.ViewModels
         /// <param name="unfiltered"></param>
         /// <param name="genre"></param>
         /// <param name="language"></param>
-        
+
         private RangedObservableCollection<Station> Filter(
             RangedObservableCollection<Station> unfiltered, string genre, string language)
         {
@@ -457,7 +459,7 @@ namespace MOB_RadioApp.ViewModels
             }
         }
 
-        
+
         #endregion
 
         #region MediaplayerControl
@@ -600,6 +602,11 @@ namespace MOB_RadioApp.ViewModels
         private void ChangeBackgrounds()
         {
             MessagingCenter.Send(this, "Background");
+            if (Preferences.Get(Pref.background, "") == 8.ToString())
+                MessagingCenter.Send(this, "askew");
+            if (Preferences.Get(Pref.background, "") != 8.ToString())
+                MessagingCenter.Send(this, "straight");
+
         }
         #endregion
         #endregion

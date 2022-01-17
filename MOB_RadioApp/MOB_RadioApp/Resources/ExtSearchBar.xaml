@@ -2,7 +2,7 @@
 <ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
             x:Class="App.Core.Controls.ExtSearchBar"
-             xmlns:custom="clr-namespace:MOB_RadioApp;assembly=MOB_RadioApp" xmlns:custom1="clr-namespace:MOB_RadioApp.Resources"
+             xmlns:custom="clr-namespace:MOB_RadioApp;assembly=MOB_RadioApp" xmlns:custom1="clr-namespace:MOB_RadioApp.Resources" xmlns:behaviors="clr-namespace:MOB_RadioApp.Behaviors"
              x:Name="Root">
     <Grid>
         <Grid.RowDefinitions>
@@ -37,6 +37,10 @@
             WidthRequest="25"            
             Aspect="AspectFit"
             Margin="0,0,20,0">
+            <Image.Behaviors>
+                <behaviors:ViewTappedButtonBehavior
+                                                        AnimationType="Scale"/>
+            </Image.Behaviors>
             <Image.GestureRecognizers>
                 <TapGestureRecognizer NumberOfTapsRequired="1" Tapped="IconFilter_Tapped" />
             </Image.GestureRecognizers>

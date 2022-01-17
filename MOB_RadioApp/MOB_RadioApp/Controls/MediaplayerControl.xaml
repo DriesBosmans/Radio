@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:magic="http://magic.com/schemas/gradients" xmlns:ffimageloading1="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms" xmlns:viewmodels="clr-namespace:MOB_RadioApp.ViewModels" xmlns:models="clr-namespace:MOB_RadioApp.Models" xmlns:xct="http://xamarin.com/schemas/2020/toolkit" xmlns:pancakeView="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:magic="http://magic.com/schemas/gradients" xmlns:ffimageloading1="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms" xmlns:viewmodels="clr-namespace:MOB_RadioApp.ViewModels" xmlns:models="clr-namespace:MOB_RadioApp.Models" xmlns:xct="http://xamarin.com/schemas/2020/toolkit" xmlns:pancakeView="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView" xmlns:behaviors="clr-namespace:MOB_RadioApp.Behaviors"
              x:Class="MOB_RadioApp.Controls.MediaplayerControl"
             >
     <ContentView.Resources>
@@ -51,6 +51,7 @@
 
                 <Image Grid.Row="4" Source="{Binding PlayButton}"  Margin="20"
                    >
+                    
                     <Image.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding Source={RelativeSource 
                                         AncestorType={x:Type viewmodels:MainViewModel}}, 
@@ -59,6 +60,10 @@
                                               NumberOfTapsRequired="1"
                                              />
                     </Image.GestureRecognizers>
+                    <Image.Behaviors>
+                        <behaviors:ViewTappedButtonBehavior 
+                                                        AnimationType="Fade"/>
+                    </Image.Behaviors>
                 </Image>
 
             

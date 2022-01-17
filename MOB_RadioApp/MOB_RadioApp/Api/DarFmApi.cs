@@ -38,8 +38,8 @@ namespace MOB_RadioApp.Api
                 partnerToken;
             _client = new RestClient(url);
             Root deserializedObject;
-            RestRequest request = new RestRequest(Method.GET);
-            try { IRestResponse response = await _client.ExecuteAsync(request);
+            RestRequest request = new RestRequest { Method = Method.Get };
+            try { var response = await _client.ExecuteAsync(request);
                 if (response.IsSuccessful)
                 {
                     deserializedObject = JsonConvert.DeserializeObject<Root>(response.Content);

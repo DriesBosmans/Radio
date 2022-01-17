@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using PhoneNumbers;
+
 using XamarinCountryPicker.Models;
 
 namespace XamarinCountryPicker.Utils

@@ -29,7 +29,7 @@
                          HorizontalOptions="FillAndExpand">
                 <Button x:Name="BtnCancel" 
                     Text="Annuleren"
-                        TextColor="Indigo"
+                        TextColor="{StaticResource Black}"
                         BackgroundColor="Transparent"
                         Clicked="BtnCancel_Clicked"
                         HorizontalOptions="StartAndExpand" />
@@ -37,7 +37,7 @@
                 <Button x:Name="BtnConfirm"
                     Text="Opslaan" 
                         BackgroundColor="Transparent"
-                        TextColor="Indigo"
+                        TextColor="{StaticResource Black}"
                         Clicked="BtnConfirm_Clicked"
                         HorizontalOptions="EndAndExpand" />
             </StackLayout>
@@ -49,7 +49,7 @@
                     SelectedIndexChanged="PckrGenre_SelectedIndexChanged"/>
             </StackLayout>
             <StackLayout Margin="10">
-                <Label Text="Language: "/>
+                <Label Text="Taal: "/>
                 <Picker x:Name="PckrLanguage" 
                   SelectedIndexChanged="PckrLanguage_SelectedIndexChanged" />
             </StackLayout>

@@ -1,4 +1,37 @@
-﻿28-10-2021
+﻿In dit project aanwezig: 8 schermen (splashscreen en popups meegeteld)
+- Bevat een vorm van inloggen (Firebase Auth)
+- Styles worden gebruikt (resourcedictionary)
+- Twee CollectionViews met zelf gedefinieerde cellen
+- er kan gefilterd en gezocht worden
+- Veel databinding
+- Settingspagina
+- Preferences
+- Compiled binding aanwezig
+- Twee behaviors
+- MVVM
+- API
+- Sqlite voor favorieten op te slaan
+
+Extra's
+- Media-element
+- Splash screen (SplashActivity.cs in Android)
+- Messagincenter
+- Commands
+- Magic gradients
+- Button animations
+- Popup vensters
+- refreshview
+- Tabview navigatie
+- custom renderers
+- Css
+- Controls
+- Custom font
+
+is niet aanwezig
+- Converter
+- Inloggen: er gebeurt verder niks eens ingelogd, het is mij niet gelukt meer data op te slaan
+
+28-10-2021
 Ik ben op 18 oktober aan mijn project begonnen. 
 Ik heb 7 commits gedaan op mijn eerste repo, en 7 op mijn tweede. Mijn eerste project was gebouwd in een shell,
 tot bleek dat ik geen tabview kon gebruiken, dus ben ik een nieuw project begonnen zonder shell.
@@ -52,4 +85,6 @@ Ik twijfel eraan om VLC media player nog te installeren, omdat niet alle mediafo
 
 Verder rest enkel nog een beetje styling, het zou er allemaal nog wat beter mogen uitzien.
 
-Het is mij gelukt om de gradient achtergronden in een apart css-bestand te zetten, maar het vertraagt de boel dus dat gaan we schrappen
+Het is mij gelukt om de gradient achtergronden in een apart css-bestand te zetten
+
+17-1-22 Verder aan styling gewerkt en knopanimaties verzorgd
