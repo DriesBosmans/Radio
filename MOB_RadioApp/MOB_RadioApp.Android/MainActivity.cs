@@ -5,7 +5,6 @@ using Android.Content.PM;
 using Android.Runtime;
 using Android.OS;
 using FFImageLoading.Forms.Platform;
-using MediaManager;
 using Firebase;
 
 namespace MOB_RadioApp.Droid
@@ -26,7 +25,6 @@ namespace MOB_RadioApp.Droid
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             CachedImageRenderer.Init(true);
-            CrossMediaManager.Current.Init(this);
             LoadApplication(new App());
             Window.SetStatusBarColor(Android.Graphics.Color.Argb(255, 40, 49, 59));
             FirebaseApp.InitializeApp(Application.Context);

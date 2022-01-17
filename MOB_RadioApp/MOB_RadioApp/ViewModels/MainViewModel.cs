@@ -1,5 +1,4 @@
 ﻿using LibVLCSharp.Shared;
-using MediaManager;
 using MOB_RadioApp.Api;
 using MOB_RadioApp.css;
 using MOB_RadioApp.Models;
@@ -315,12 +314,8 @@ namespace MOB_RadioApp.ViewModels
                 station.IsSelected = false;
                 Preferences.Set(Pref.selectedStation, null);
                 OnPropertyChanged(Preferences.Get(Pref.selectedStation, ""));
-
                 MediaPlayer.Stop();
-
                 LibVLC.Dispose();
-                //await CrossMediaManager.Current.Stop();
-
                 IsPlaying = false;
                 OnPropertyChanged(nameof(IsPlaying));
                 ActiveSong = null;
@@ -347,19 +342,11 @@ namespace MOB_RadioApp.ViewModels
                 station.PlayUrl = null;
                 station.PlayUrl = await DarFmApiStreaming.GetStreamAsync(station);
                 ActiveStation = station;
-
-
                 LibVLC = new LibVLC();
                 var media = new Media(LibVLC, station.PlayUrl, FromType.FromLocation);
                 MediaPlayer = new MediaPlayer(media) { EnableHardwareDecoding = true };
                 MediaPlayer.Buffering += MediaPlayer_Buffering;
                 MediaPlayer.Play();
-
-
-                //var item = await CrossMediaManager.Current.Extractor.CreateMediaItem(ActiveStation.PlayUrl);
-                //item.MediaType = MediaManager.Library.MediaType.Audio;
-                //await CrossMediaManager.Current.Play(item);
-
                 IsPlaying = true;
                 await CheckForMetaAsync();
                 Preferences.Set(Pref.selectedStation, station.StationId);
@@ -517,21 +504,14 @@ namespace MOB_RadioApp.ViewModels
             if (MediaPlayer.IsPlaying)
             {
                 MediaPlayer.Stop();
-
-                //await CrossMediaManager.Current.Stop();
                 IsPlaying = false;
             }
             else
             {
                 if (ActiveStation != null)
-                {
-
-                    // LibVLC = new LibVLC();
-                    //var media = new Media(LibVLC, ActiveStation.PlayUrl, FromType.FromLocation);
-                    //MediaPlayer = new MediaPlayer(media) { EnableHardwareDecoding = true, };
-                    // MediaPlayer.Buffering += MediaPlayer_Buffering;
+                { 
                     MediaPlayer.Play();
-                    //await CrossMediaManager.Current.Play(ActiveStation?.PlayUrl);
+                    
                     IsPlaying = true;
                 }
                 else
