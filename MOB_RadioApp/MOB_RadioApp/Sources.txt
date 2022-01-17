@@ -75,3 +75,6 @@ https://www.youtube.com/watch?v=XFP8Np-uRWc
 
 Button animations
 https://xamgirl.com/plug-and-play-animations-in-xamarin-forms/
+
+vlc mediaplayer
+https://github.com/coolc0ders/VLCXamarinDemo/tree/main/VLCDemo/VLCDemo

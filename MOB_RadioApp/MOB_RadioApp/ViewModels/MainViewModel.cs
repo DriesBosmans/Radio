@@ -1,4 +1,5 @@
-﻿using MediaManager;
+﻿using LibVLCSharp.Shared;
+using MediaManager;
 using MOB_RadioApp.Api;
 using MOB_RadioApp.css;
 using MOB_RadioApp.Models;
@@ -79,6 +80,8 @@ namespace MOB_RadioApp.ViewModels
         private RangedObservableCollection<Station> _favourites = new RangedObservableCollection<Station>();
         private Station _activeStation;
         private string _activeImg;
+        private LibVLC _libVLC;
+        private MediaPlayer _player;
         private bool _isPlaying = false;
         private string _activeSong;
         private string _activeArtist;
@@ -88,6 +91,7 @@ namespace MOB_RadioApp.ViewModels
         private string _email;
         private CountryModel _selectedCountry;
         private static Background _selectedBackground;
+
         #endregion
 
         #region Properties
@@ -135,6 +139,16 @@ namespace MOB_RadioApp.ViewModels
         {
             get { return ActiveStation?.Imageurl; }
             set { SetValue(ref _activeImg, value); }
+        }
+        public LibVLC LibVLC
+        {
+            get { return _libVLC; }
+            set { SetValue(ref _libVLC, value); }
+        }
+        public MediaPlayer MediaPlayer
+        {
+            get { return _player; }
+            set { SetValue(ref _player, value); }
         }
 
         public string ActiveArtist
@@ -230,7 +244,7 @@ namespace MOB_RadioApp.ViewModels
         public ICommand ShowPopupCommand => new Command(async _ => await ExecuteShowPopupCommand());
         public ICommand ChoicesSelectedCommand => new Command(_filterchoices => ExecuteFilterChoicesSelectedCommand(_filterchoices as FilterChoices));
         public ICommand StationSelectedCommand => new Command<Station>(stat => StationSelectedAsync(stat));
-        public ICommand PlayCommand => new Command(async () => await PlayAsync());
+        public ICommand PlayCommand => new Command(() => PlayAsync());
         public ICommand AuthCommand => new Command(async _ => await CheckforAuthentication());
         public ICommand DoubleTappedCommand => new Command<Station>(async stat => await DoubleTappedAsync(stat));
         public ICommand ShowCountryPopupCommand => new Command(async _ => await ExecuteShowCountryPopupCommand());
@@ -261,6 +275,9 @@ namespace MOB_RadioApp.ViewModels
 
                 return true; // True = Repeat again, False = Stop the timer
             });
+            Core.Initialize();
+
+
         }
         private async Task GetStationsAsync()
         {
@@ -293,16 +310,28 @@ namespace MOB_RadioApp.ViewModels
         private async Task StationSelectedAsync(Station station)
         {
 
-            if (station == null)
-            {
-                return;
-            }
             if (station.IsSelected == true)
             {
                 station.IsSelected = false;
                 Preferences.Set(Pref.selectedStation, null);
                 OnPropertyChanged(Preferences.Get(Pref.selectedStation, ""));
+
+                MediaPlayer.Stop();
+
+                LibVLC.Dispose();
+                //await CrossMediaManager.Current.Stop();
+
+                IsPlaying = false;
+                OnPropertyChanged(nameof(IsPlaying));
+                ActiveSong = null;
+                ActiveImg = null;
+                ActiveArtist = null;
                 _activeStation = null;
+                OnPropertyChanged(nameof(ActiveStation));
+                OnPropertyChanged(nameof(ActiveSong));
+                OnPropertyChanged(nameof(ActiveImg));
+                OnPropertyChanged(nameof(ActiveArtist));
+
             }
             else
             {
@@ -310,19 +339,35 @@ namespace MOB_RadioApp.ViewModels
                 {
                     s.IsSelected = false;
                 }
+                if (MediaPlayer != null)
+                    if (MediaPlayer.IsPlaying)
+                        MediaPlayer.Stop();
+
                 station.IsSelected = true;
                 station.PlayUrl = null;
                 station.PlayUrl = await DarFmApiStreaming.GetStreamAsync(station);
                 ActiveStation = station;
-                var item = await CrossMediaManager.Current.Extractor.CreateMediaItem(ActiveStation.PlayUrl);
-                item.MediaType = MediaManager.Library.MediaType.Audio;
-                await CrossMediaManager.Current.Play(item);
+
+
+                LibVLC = new LibVLC();
+                var media = new Media(LibVLC, station.PlayUrl, FromType.FromLocation);
+                MediaPlayer = new MediaPlayer(media) { EnableHardwareDecoding = true };
+                MediaPlayer.Buffering += MediaPlayer_Buffering;
+                MediaPlayer.Play();
+
+
+                //var item = await CrossMediaManager.Current.Extractor.CreateMediaItem(ActiveStation.PlayUrl);
+                //item.MediaType = MediaManager.Library.MediaType.Audio;
+                //await CrossMediaManager.Current.Play(item);
+
                 IsPlaying = true;
                 await CheckForMetaAsync();
                 Preferences.Set(Pref.selectedStation, station.StationId);
 
             }
         }
+
+
 
         /// <summary>
         /// On Search
@@ -467,23 +512,41 @@ namespace MOB_RadioApp.ViewModels
         /// Starts and stops playing the selected station
         /// </summary>
         /// <returns></returns>
-        private async Task PlayAsync()
+        private void PlayAsync()
         {
-            if (IsPlaying)
+            if (MediaPlayer.IsPlaying)
             {
-                await CrossMediaManager.Current.Stop();
+                MediaPlayer.Stop();
+
+                //await CrossMediaManager.Current.Stop();
                 IsPlaying = false;
             }
             else
             {
                 if (ActiveStation != null)
                 {
-                    await CrossMediaManager.Current.Play(ActiveStation?.PlayUrl);
+
+                    // LibVLC = new LibVLC();
+                    //var media = new Media(LibVLC, ActiveStation.PlayUrl, FromType.FromLocation);
+                    //MediaPlayer = new MediaPlayer(media) { EnableHardwareDecoding = true, };
+                    // MediaPlayer.Buffering += MediaPlayer_Buffering;
+                    MediaPlayer.Play();
+                    //await CrossMediaManager.Current.Play(ActiveStation?.PlayUrl);
                     IsPlaying = true;
+                }
+                else
+                {
+                    //await App.Current.MainPage.DisplayAlert("Foutje", "U heeft geen station meer geselecteerd", "Oké");
                 }
 
             }
         }
+
+        private void MediaPlayer_Buffering(object sender, MediaPlayerBufferingEventArgs e)
+        {
+
+        }
+
         /// <summary>
         /// This gets called every 10 seconds to check if there's available metadata (artist and song)
         /// </summary>

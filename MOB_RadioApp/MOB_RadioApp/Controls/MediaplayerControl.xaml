@@ -1,6 +1,11 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:magic="http://magic.com/schemas/gradients" xmlns:ffimageloading1="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms" xmlns:viewmodels="clr-namespace:MOB_RadioApp.ViewModels" xmlns:models="clr-namespace:MOB_RadioApp.Models" xmlns:xct="http://xamarin.com/schemas/2020/toolkit" xmlns:pancakeView="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView" xmlns:behaviors="clr-namespace:MOB_RadioApp.Behaviors"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:magic="http://magic.com/schemas/gradients" 
+             xmlns:ffimageloading1="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms" 
+             xmlns:viewmodels="clr-namespace:MOB_RadioApp.ViewModels" xmlns:models="clr-namespace:MOB_RadioApp.Models" 
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit" xmlns:pancakeView="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView" 
+             xmlns:behaviors="clr-namespace:MOB_RadioApp.Behaviors" xmlns:vlc="clr-namespace:LibVLCSharp.Forms.Shared;assembly=LibVLCSharp.Forms"
+             
              x:Class="MOB_RadioApp.Controls.MediaplayerControl"
             >
     <ContentView.Resources>
@@ -46,7 +51,8 @@
                 <Label Margin="30,0" Grid.Row="0" FontSize="35" Style="{StaticResource Font}"  HorizontalOptions="Center" Text="{Binding ActiveArtist}"/>
                 <Label Margin="30,0" Grid.Row="1" FontSize="30" Style="{StaticResource Font}"  HorizontalOptions="Center" Text="{Binding ActiveSong}"/>
             </Grid>
-            <StackLayout  Orientation="Horizontal" Grid.Row="4"
+            <vlc:MediaPlayerElement  MediaPlayer="{Binding MediaPlayer}" LibVLC="{Binding LibVLC}" Opacity="1" Grid.Row="0" Margin="0,0,0,80" />
+            <StackLayout IsVisible="True"  Orientation="Horizontal" Grid.Row="4"
                          HorizontalOptions="Center" VerticalOptions="Start" >
 
                 <Image Grid.Row="4" Source="{Binding PlayButton}"  Margin="20"
