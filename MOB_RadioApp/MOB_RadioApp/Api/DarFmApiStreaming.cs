@@ -15,8 +15,8 @@ namespace MOB_RadioApp.Api
         {
             string streamurl = "";
             string baseurl = "http://api.dar.fm/uberstationurl.php";
-            string requesturl = baseurl + $"?station_id={station.StationId}&partnerToken=3360242197&callback=json";
-            
+            string requesturl = baseurl + $"?station_id={station.StationId}&partnerToken=" + ProjectSettings.Token + "&callback=json";
+
             HttpClient httpClient = new HttpClient();
             var request = new HttpRequestMessage
             {

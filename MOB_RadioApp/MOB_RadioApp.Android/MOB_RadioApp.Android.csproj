@@ -171,7 +171,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MOB_RadioApp\MOB_RadioApp.csproj">
-      <Project>{27172535-4F78-4015-AABB-340B2030B8F8}</Project>
+      <Project>{C9094A29-FA16-4A94-A900-700F524BF722}</Project>
       <Name>MOB_RadioApp</Name>
     </ProjectReference>
   </ItemGroup>
@@ -219,9 +219,7 @@
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\heart.png" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Assets\fonts\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <ProjectExtensions>
     <VisualStudio>

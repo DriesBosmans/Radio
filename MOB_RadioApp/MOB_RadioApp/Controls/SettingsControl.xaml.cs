@@ -21,7 +21,7 @@ namespace MOB_RadioApp.Controls
         {
             InitializeComponent();
             SettingsStyle.StyleClass = Backgrounds.GetBackground().Color;
-            MessagingCenter.Subscribe<MainViewModel>(this, "Background", (sender) =>
+            MessagingCenter.Subscribe<MainViewModel>(this, ProjectSettings.background, (sender) =>
             {
                 SettingsStyle.StyleClass = Backgrounds.GetBackground().Color;
             });

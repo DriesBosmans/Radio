@@ -1,5 +1,6 @@
 ﻿
 using MOB_RadioApp.css;
+using MOB_RadioApp.Models;
 using MOB_RadioApp.Services;
 using MOB_RadioApp.ViewModels;
 using System;
@@ -16,20 +17,18 @@ namespace MOB_RadioApp.Controls
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class MediaplayerControl : ContentView
     {
-      
+
         public MediaplayerControl()
         {
             InitializeComponent();
-            
-            
+
+
             MediaplayerStyle.StyleClass = Backgrounds.GetBackground().Color; ;
-            MessagingCenter.Subscribe<MainViewModel>(this, "Background", (sender) =>
+            MessagingCenter.Subscribe<MainViewModel>(this, ProjectSettings.background, (sender) =>
             {
                 MediaplayerStyle.StyleClass = Backgrounds.GetBackground().Color;
             });
             //AnimationService.AnimateBackground(PurpleView);
         }
-
-       
     }
 }

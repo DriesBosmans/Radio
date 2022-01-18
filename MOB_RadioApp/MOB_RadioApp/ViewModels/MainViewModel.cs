@@ -49,16 +49,17 @@ namespace MOB_RadioApp.ViewModels
             // This lets this viewmodel know which filters have been applied and when
             MessagingCenter.Subscribe<FilterPopup>(this, "SettingsApplied", (sender) =>
             {
-                _filteredStations = Filter(_unfilteredStations, Preferences.Get(Pref.selectedGenre, ""), Preferences.Get(Pref.selectedLanguage, ""));
+                _filteredStations = Filter(_unfilteredStations, Preferences.Get(ProjectSettings.selectedGenre, ""), Preferences.Get(ProjectSettings.selectedLanguage, ""));
                 FilteredStations = _filteredStations;
                 OnPropertyChanged(nameof(FilteredStations));
             });
             // This lets this viewmodel know who has logged in and when
-            MessagingCenter.Subscribe<AuthPopup, string>(this, "email", (sender, arg) =>
+            MessagingCenter.Subscribe<AuthPopup, string>(this, ProjectSettings.Email, (sender, arg) =>
             {
                 Email = arg;
+                Preferences.Set(ProjectSettings.Email, arg);
                 OnPropertyChanged(nameof(Email)); IsSignedIn = true;
-                Preferences.Set(Pref.IsSignedIn, Pref.True);
+                Preferences.Set(ProjectSettings.IsSignedIn, ProjectSettings.True);
                 OnPropertyChanged(nameof(IsSignedIn));
                 _favourites = ConvertToCollection(SqlLiteService.GetFavourites().Result);
 
@@ -69,8 +70,8 @@ namespace MOB_RadioApp.ViewModels
 
         #region Fields
         DarFmApiCall _darfmapi = new DarFmApiCall();
-        public string SelectedGenre = Preferences.Get(Pref.selectedGenre, "");
-        public string SelectedLanguage = Preferences.Get(Pref.selectedLanguage, "");
+        public string SelectedGenre = Preferences.Get(ProjectSettings.selectedGenre, "");
+        public string SelectedLanguage = Preferences.Get(ProjectSettings.selectedLanguage, "");
         private FilterChoices _filterChoices;
         private RangedObservableCollection<Station> _filteredbygenre = new RangedObservableCollection<Station>();
         private RangedObservableCollection<Station> _filteredbylanguage = new RangedObservableCollection<Station>();
@@ -227,7 +228,7 @@ namespace MOB_RadioApp.ViewModels
             set
             {
                 _selectedBackground = value;
-                Preferences.Set(Pref.background, SelectedBackground.Key.ToString());
+                Preferences.Set(ProjectSettings.background, SelectedBackground.Key.ToString());
 
             }
 
@@ -264,6 +265,8 @@ namespace MOB_RadioApp.ViewModels
 
             IsSignedIn = CheckIfSignedIn();
             OnPropertyChanged(nameof(IsSignedIn));
+            _email = Preferences.Get(ProjectSettings.Email, "");
+            OnPropertyChanged(nameof(EmailToName));
 
             _favourites = ConvertToCollection(SqlLiteService.GetFavourites().Result);
             OnPropertyChanged(nameof(FavouriteStations));
@@ -281,17 +284,17 @@ namespace MOB_RadioApp.ViewModels
         private async Task GetStationsAsync()
         {
             // Get country
-            _selectedCountry = CountryUtils.GetCountryModelByName(Preferences.Get(Pref.selectedCountry, "Belgium"));
+            _selectedCountry = CountryUtils.GetCountryModelByName(Preferences.Get(ProjectSettings.selectedCountry, "Belgium"));
 
             // Get chosen filters
-            _filterChoices = new FilterChoices(Preferences.Get(Pref.selectedGenre, ""), Preferences.Get(Pref.selectedLanguage, ""));
+            _filterChoices = new FilterChoices(Preferences.Get(ProjectSettings.selectedGenre, ""), Preferences.Get(ProjectSettings.selectedLanguage, ""));
             IsBusy = true;
 
             // Get stations from Api
             _unfilteredStations = await _darfmapi.GetStationsAsync(SelectedCountry.CountryCode.ToLower());
 
             // Filter them
-            _filteredStations = Filter(_unfilteredStations, Preferences.Get(Pref.selectedGenre, ""), Preferences.Get(Pref.selectedLanguage, ""));
+            _filteredStations = Filter(_unfilteredStations, Preferences.Get(ProjectSettings.selectedGenre, ""), Preferences.Get(ProjectSettings.selectedLanguage, ""));
 
             // Change property
             FilteredStations = _filteredStations;
@@ -312,8 +315,8 @@ namespace MOB_RadioApp.ViewModels
             if (station.IsSelected == true)
             {
                 station.IsSelected = false;
-                Preferences.Set(Pref.selectedStation, null);
-                OnPropertyChanged(Preferences.Get(Pref.selectedStation, ""));
+                Preferences.Set(ProjectSettings.selectedStation, null);
+                OnPropertyChanged(Preferences.Get(ProjectSettings.selectedStation, ""));
                 MediaPlayer.Stop();
                 LibVLC.Dispose();
                 IsPlaying = false;
@@ -349,7 +352,7 @@ namespace MOB_RadioApp.ViewModels
                 MediaPlayer.Play();
                 IsPlaying = true;
                 await CheckForMetaAsync();
-                Preferences.Set(Pref.selectedStation, station.StationId);
+                Preferences.Set(ProjectSettings.selectedStation, station.StationId);
 
             }
         }
@@ -387,7 +390,7 @@ namespace MOB_RadioApp.ViewModels
                 return;
             IsRefreshing = true;
 
-            FilteredStations.AddRange(await _darfmapi.GetStationsAsync(Preferences.Get(Pref.selectedCountry, "be")));
+            FilteredStations.AddRange(await _darfmapi.GetStationsAsync(Preferences.Get(ProjectSettings.selectedCountry, "be")));
             //Stations.AddRange(await _apiService.GetStationsAsync(Preferences.Get(countryCode,"be"),offset));
             IsRefreshing = false;
         }
@@ -551,8 +554,8 @@ namespace MOB_RadioApp.ViewModels
         {
             if (IsSignedIn)
             {
-                Preferences.Remove(Pref.FirebaseToken);
-                Preferences.Set(Pref.IsSignedIn, null);
+                Preferences.Remove(ProjectSettings.FirebaseToken);
+                Preferences.Set(ProjectSettings.IsSignedIn, null);
                 IsSignedIn = false;
                 OnPropertyChanged(nameof(IsSignedIn));
 
@@ -593,7 +596,7 @@ namespace MOB_RadioApp.ViewModels
         /// <returns></returns>
         private bool CheckIfSignedIn()
         {
-            if (Preferences.Get(Pref.IsSignedIn, "") == Pref.True)
+            if (Preferences.Get(ProjectSettings.IsSignedIn, "") == ProjectSettings.True)
             {
                 return true;
             }
@@ -632,9 +635,9 @@ namespace MOB_RadioApp.ViewModels
         private async Task ExecuteCountrySelectedCommandAsync(CountryModel country)
         {
             SelectedCountry = country;
-            Preferences.Set(Pref.selectedCountry, country.CountryName);
-            Preferences.Set(Pref.selectedLanguage, null);
-            Preferences.Set(Pref.selectedGenre, null);
+            Preferences.Set(ProjectSettings.selectedCountry, country.CountryName);
+            Preferences.Set(ProjectSettings.selectedLanguage, null);
+            Preferences.Set(ProjectSettings.selectedGenre, null);
             _filterChoices = null;
             OnPropertyChanged(nameof(FilterChoices));
             await GetStationsAsync();
@@ -644,10 +647,10 @@ namespace MOB_RadioApp.ViewModels
         /// </summary>
         private void ChangeBackgrounds()
         {
-            MessagingCenter.Send(this, "Background");
-            if (Preferences.Get(Pref.background, "") == 8.ToString())
+            MessagingCenter.Send(this, ProjectSettings.background);
+            if (Preferences.Get(ProjectSettings.background, "") == 8.ToString())
                 MessagingCenter.Send(this, "askew");
-            if (Preferences.Get(Pref.background, "") != 8.ToString())
+            if (Preferences.Get(ProjectSettings.background, "") != 8.ToString())
                 MessagingCenter.Send(this, "straight");
 
         }

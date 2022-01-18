@@ -29,11 +29,11 @@ namespace MOB_RadioApp.Popups
         private async void BtnLogin_Clicked(object sender, EventArgs e)
         {
             await FirebaseAuth.LoginAsync(EnEmail.Text, EnPassword.Text);
-            if (Preferences.Get(Pref.IsSignedIn, "") == Pref.True &&
-                Preferences.Get(Pref.FirebaseRefreshToken, null) != null)
+            if (Preferences.Get(ProjectSettings.IsSignedIn, "") == ProjectSettings.True &&
+                Preferences.Get(ProjectSettings.FirebaseRefreshToken, null) != null)
             {
                 //MessagingCenter.Send(this, "loggedin");
-                MessagingCenter.Send(this, "email", EnEmail.Text);
+                MessagingCenter.Send(this, ProjectSettings.Email, EnEmail.Text);
             }
         }
     }

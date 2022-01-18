@@ -1,6 +1,5 @@
 ﻿using MOB_RadioApp.Api;
 using MOB_RadioApp.Models;
-using MOB_RadioApp.Views;
 using System;
 using System.Collections.ObjectModel;
 using Xamarin.Essentials;
@@ -15,7 +14,7 @@ namespace MOB_RadioApp
         public App()
         {
             //Preferences.Clear();
-            Preferences.Set(Pref.selectedStation, null);
+            Preferences.Set(ProjectSettings.selectedStation, null);
             InitializeComponent();
             Device.SetFlags(new[] { "Brush_Experimental" });
             MainPage = new MainPage();

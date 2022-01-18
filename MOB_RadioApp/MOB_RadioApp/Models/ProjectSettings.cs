@@ -1,10 +1,9 @@
 ﻿namespace MOB_RadioApp.Models
 {
-    public static class Pref
+    public static class ProjectSettings
     {
-        //Sets the number of stations returned by the api
-        public static int Limit = 160;
-
+        // Haven't found a secure way to store credentials
+        
         //Authentication for DarFm API
         public const uint Token = 3360242197;
 
@@ -21,5 +20,6 @@
         public const string FirebaseRefreshToken = "FirebaseRefreshToken";
         public const string selectedCountry = "selectedCountry";
         public const string background = "background";
+        public const string Email = "Email";
     }
 }

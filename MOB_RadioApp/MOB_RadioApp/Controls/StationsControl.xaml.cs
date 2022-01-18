@@ -1,4 +1,5 @@
 ﻿using MOB_RadioApp.css;
+using MOB_RadioApp.Models;
 using MOB_RadioApp.Services;
 using MOB_RadioApp.ViewModels;
 using System;
@@ -19,7 +20,7 @@ namespace MOB_RadioApp.Controls
         {
             InitializeComponent();
             StationsStyle.StyleClass = Backgrounds.GetBackground().Color;
-            MessagingCenter.Subscribe<MainViewModel>(this, "Background", (sender) =>
+            MessagingCenter.Subscribe<MainViewModel>(this, ProjectSettings.background, (sender) =>
             {
                 StationsStyle.StyleClass = Backgrounds.GetBackground().Color;
             });

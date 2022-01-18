@@ -17,6 +17,8 @@ namespace MOB_RadioApp.ViewModels
             OnPropertyChanged(propertyName);
         }
     }
+
+    // I use these from structuring pages
     #region Fields
     #endregion Fields
     #region Constructors
