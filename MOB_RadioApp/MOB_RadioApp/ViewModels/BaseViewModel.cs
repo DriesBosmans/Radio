@@ -7,6 +7,9 @@ using System.Text;
 
 namespace MOB_RadioApp.ViewModels
 {
+    /// <summary>
+    /// Not my code
+    /// </summary>
     public abstract class BaseViewModel2 :  BaseViewModel
     {
         protected void SetValue<T>(ref T backingField,T value, [CallerMemberName] string propertyName = null)

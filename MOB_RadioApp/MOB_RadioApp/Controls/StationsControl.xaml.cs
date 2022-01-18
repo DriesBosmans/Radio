@@ -18,7 +18,9 @@ namespace MOB_RadioApp.Controls
     {
         public MainView()
         {
+
             InitializeComponent();
+            // For changing the background
             StationsStyle.StyleClass = Backgrounds.GetBackground().Color;
             MessagingCenter.Subscribe<MainViewModel>(this, ProjectSettings.background, (sender) =>
             {

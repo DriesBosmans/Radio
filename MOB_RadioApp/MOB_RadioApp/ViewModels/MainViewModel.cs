@@ -23,7 +23,7 @@ namespace MOB_RadioApp.ViewModels
     /// <summary>
     /// This is the main file in this project.
     /// 
-    /// Because of how the tabview works, all the pages (stations, favourites, mediaplayer and settings) are
+    /// Because of how the tabview works, all of the pages (stations, favourites, mediaplayer and settings) are
     /// on the same view. I've split them up into different controls, to keep things tidy.
     /// This file contains different sections (constructor, private fields, public properties, commands and
     /// methods. Methods are further split up according to their respective controls.
@@ -33,9 +33,7 @@ namespace MOB_RadioApp.ViewModels
     /// 
     /// I've tried lot's of different things for selecting countries, pickers and such, nothing worked.
     /// I fell back on using the countrypicker, which worked nicely.
-    /// Besides cleaning up, it was the last thing I did in this project
     /// 
-    /// The countrypicker popup 
     /// </summary>
     public class MainViewModel : BaseViewModel2
     {
@@ -281,6 +279,10 @@ namespace MOB_RadioApp.ViewModels
 
 
         }
+        /// <summary>
+        /// Gets the stations, based on selected country and filter options
+        /// </summary>
+        /// <returns></returns>
         private async Task GetStationsAsync()
         {
             // Get country

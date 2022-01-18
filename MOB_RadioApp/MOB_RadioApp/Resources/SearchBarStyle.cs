@@ -5,5 +5,8 @@ using Xamarin.Forms;
 
 namespace MOB_RadioApp.Resources
 {
+    /// <summary>
+    /// this file is required
+    /// </summary>
     public class SearchBarStyle : SearchBar { }
 }

@@ -8,9 +8,13 @@ using Xamarin.Essentials;
 namespace MOB_RadioApp.css
 {
     public static class Backgrounds
-    {
+    {   /// <summary>
+    /// Get available backgrounds
+    /// </summary>
+    /// <returns></returns>
         public static List<Background> GetColors()
         {
+            // Backgrounds are stored in style.css
             List<Background> backgrounds = new List<Background>()
             {
                 new Background(){Key = 1, Name = "Default", Color = new List<string> {"blueView"}},
@@ -24,6 +28,10 @@ namespace MOB_RadioApp.css
             };
             return backgrounds;
         }
+        /// <summary>
+        /// Get current background
+        /// </summary>
+        /// <returns></returns>
         public static Background GetBackground()
         {
             return Backgrounds.GetColors().Where(x => x.Key == int.Parse(Preferences.Get(ProjectSettings.background, "1"))).FirstOrDefault() ;

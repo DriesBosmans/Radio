@@ -5,6 +5,9 @@ using System.Text;
 
 namespace MOB_RadioApp.Models
 {
+    /// <summary>
+    /// Additional properties for the Station model
+    /// </summary>
     public abstract class StationProps : BaseViewModel2
     {
         public bool IsFavorite { get; set; } = false;

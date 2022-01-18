@@ -15,6 +15,9 @@ using Xamarin.Forms.Xaml;
 
 namespace MOB_RadioApp.Popups
 {
+    /// <summary>
+    /// popup for filtering on genre and language
+    /// </summary>
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class FilterPopup : PopupPage
     {

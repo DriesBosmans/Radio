@@ -2,7 +2,7 @@
 {
     public static class ProjectSettings
     {
-        // Haven't found a secure way to store credentials
+        // Haven't found a secure way yet to store credentials
         
         //Authentication for DarFm API
         public const uint Token = 3360242197;

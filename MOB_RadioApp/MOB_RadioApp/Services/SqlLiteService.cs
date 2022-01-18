@@ -14,21 +14,11 @@ namespace MOB_RadioApp.Services
 {
     public class SqlLiteService : BaseDatabase
     {
-        //static SQLiteAsyncConnection _db;
-        //static async Task InitAsync()
-        //{
-        //    if (_db != null)
-        //        return;
-        //    string databasePath = Path.Combine(FileSystem.AppDataDirectory, "RadioApp.db3");
-        //    _db = new SQLiteAsyncConnection(databasePath, SQLiteOpenFlags.ReadWrite | SQLiteOpenFlags.Create | SQLiteOpenFlags.SharedCache);
-        //    if (!_db.TableMappings.Any(x => x.MappedType == typeof(SqlStation)))
-        //    {
-        //        await _db.EnableWriteAheadLoggingAsync().ConfigureAwait(false);
-        //        await _db.CreateTablesAsync(CreateFlags.None, typeof(SqlStation)).ConfigureAwait(false);
-
-        //    }
-        //}
-
+        /// <summary>
+        /// The only thing we store in SQLite are IDS
+        /// </summary>
+        /// <param name="s"></param>
+        /// <returns></returns>
         public static async Task AddFavourite(Station s)
         {
             var databaseConnection = await GetDatabaseConnection<SqlStation>().ConfigureAwait(false);

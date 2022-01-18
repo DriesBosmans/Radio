@@ -10,6 +10,7 @@ using Xamarin.Essentials;
 
 namespace MOB_RadioApp.Database
 {
+    // Not my code, taken from https://codetraveler.io/2019/11/26/efficiently-initializing-sqlite-database/
     public abstract class BaseDatabase
     {
         static readonly string _databasePath = Path.Combine(FileSystem.AppDataDirectory, "SqliteDatabase.db3");

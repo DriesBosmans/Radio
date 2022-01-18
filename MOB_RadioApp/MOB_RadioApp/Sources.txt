@@ -72,6 +72,7 @@ https://www.youtube.com/watch?v=liGTuuau29Y
 
 Adding database with SQLite-net
 https://www.youtube.com/watch?v=XFP8Np-uRWc
+https://codetraveler.io/2019/11/26/efficiently-initializing-sqlite-database/
 
 Button animations
 https://xamgirl.com/plug-and-play-animations-in-xamarin-forms/

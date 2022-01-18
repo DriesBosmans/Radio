@@ -22,7 +22,7 @@ namespace MOB_RadioApp.Controls
         {
             InitializeComponent();
 
-
+            //Change backgrounds
             MediaplayerStyle.StyleClass = Backgrounds.GetBackground().Color; ;
             MessagingCenter.Subscribe<MainViewModel>(this, ProjectSettings.background, (sender) =>
             {

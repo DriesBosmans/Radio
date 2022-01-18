@@ -16,6 +16,10 @@ using XamarinCountryPicker.Utils;
 
 namespace XamarinCountryPicker.Popups
 {
+    /// <summary>
+    /// Most of this code is taken from https://medium.com/nerd-for-tech/xamarin-forms-country-picker-with-rg-plugins-popup-fec1a045f7c
+    /// Only made minor adjustments
+    /// </summary>
     public partial class ChooseCountryPopup : PopupPage
     {
         #region Fields

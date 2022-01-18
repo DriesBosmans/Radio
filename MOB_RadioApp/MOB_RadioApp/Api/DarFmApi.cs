@@ -9,6 +9,9 @@ using static MOB_RadioApp.Models.MetaInfo;
 
 namespace MOB_RadioApp.Api
 {
+    /// <summary>
+    /// Here api calls are made to DarFM to get the available stations
+    /// </summary>
     public class DarFmApiCall
     {
         RestClient _client;
@@ -20,7 +23,11 @@ namespace MOB_RadioApp.Api
         private const string and = "&";
         private const string callback = "callback=json";
         private string exact = "exact=1";
-
+        /// <summary>
+        /// Finds stations based on the selected country
+        /// </summary>
+        /// <param name="country"></param>
+        /// <returns></returns>
         public async Task<RangedObservableCollection<Station>> GetStationsAsync(string country)
         {
             RangedObservableCollection<Station> stations = new RangedObservableCollection<Station>();
@@ -32,6 +39,7 @@ namespace MOB_RadioApp.Api
                 partnerToken + ProjectSettings.Token;
             _client = new RestClient(url);
             Root deserializedObject;
+            
             RestRequest request = new RestRequest { Method = Method.Get };
             try
             {
@@ -62,6 +70,11 @@ namespace MOB_RadioApp.Api
 
             return stations;
         }
+        /// <summary>
+        /// Get metadata (what song is currently playing. This method gets called ever 15 seconds
+        /// </summary>
+        /// <param name="station"></param>
+        /// <returns></returns>
         public async Task<MetaData> GetCurrentlyPlayingAsync(Station station)
         {
             MetaData metaData = new MetaData();

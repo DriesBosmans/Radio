@@ -15,6 +15,9 @@ namespace MOB_RadioApp.Popups
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class AuthPopup : Rg.Plugins.Popup.Pages.PopupPage
     {
+        /// <summary>
+        /// The popup for authentication
+        /// </summary>
         FirebaseAuth FirebaseAuth = new FirebaseAuth();
         public AuthPopup()
         {

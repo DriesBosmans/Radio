@@ -6,6 +6,10 @@ using Xamarin.Forms;
 namespace MOB_RadioApp.Behaviors
 
 {
+    /// <summary>
+    /// For animating the buttons, none of this code is mine
+    /// Taken from https://xamgirl.com/plug-and-play-animations-in-xamarin-forms/
+    /// </summary>
     public class ViewTappedButtonBehavior : Behavior<View>
     {
         public static readonly BindableProperty AnimationTypeProperty =

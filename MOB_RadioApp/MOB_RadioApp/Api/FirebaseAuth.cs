@@ -13,6 +13,9 @@ using System.Collections.ObjectModel;
 
 namespace MOB_RadioApp.Services
 {
+    /// <summary>
+    /// Only Register and login are currently used
+    /// </summary>
     public class FirebaseAuth
     {
         //FirebaseAuthProvider authProvider = new FirebaseAuthProvider(new FirebaseConfig(ProjectSettings.webApiKey));
@@ -72,8 +75,6 @@ namespace MOB_RadioApp.Services
                 await App.Current.MainPage.DisplayAlert("fatal error", "", "");
             }
         }
-
-        // These aren't used
         public async Task<List<string>> GetFavourites()
         {
            

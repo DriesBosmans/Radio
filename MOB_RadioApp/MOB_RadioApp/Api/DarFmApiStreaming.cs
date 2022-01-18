@@ -11,6 +11,11 @@ namespace MOB_RadioApp.Api
 {
     public class DarFmApiStreaming
     {
+        /// <summary>
+        /// This file get the streaming URLs from the API
+        /// </summary>
+        /// <param name="station"></param>
+        /// <returns></returns>
         public static async Task<string> GetStreamAsync(Station station)
         {
             string streamurl = "";

@@ -88,4 +88,7 @@ Verder rest enkel nog een beetje styling, het zou er allemaal nog wat beter moge
 Het is mij gelukt om de gradient achtergronden in een apart css-bestand te zetten
 
 17-1-22 Verder aan styling gewerkt en knopanimaties verzorgd
-VLC mediaplayer geinstalleerd
+VLC mediaplayer geinstalleerd wegens ondersteunt meer streamingformaten
+
+18-1-22
+Commentaar toegevoegd

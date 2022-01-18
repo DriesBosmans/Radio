@@ -7,6 +7,10 @@ using XamarinCountryPicker.Models;
 
 namespace XamarinCountryPicker.Utils
 {
+    /// <summary>
+    /// Not my code, taken from https://medium.com/nerd-for-tech/xamarin-forms-country-picker-with-rg-plugins-popup-fec1a045f7c
+    /// with minor changes
+    /// </summary>
     public static class CountryUtils
     {
         /// <summary>

@@ -8,7 +8,9 @@ using Xamarin.Forms.Xaml;
 namespace App.Core.Controls
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class ExtSearchBar : ContentView
+
+    // this code comes from https://gist.github.com/kevinmutlow/77cf36ff2b3ddeabddeda5115020bb8e
+    public partial class ExtSearchBar : ContentView
     {
         CancellationTokenSource cts = null;
 

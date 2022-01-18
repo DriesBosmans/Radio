@@ -18,6 +18,7 @@ namespace MOB_RadioApp.Controls
         public FavouritesControl()
         {
             InitializeComponent();
+            // Change backgrounds
             FavouritesStyle.StyleClass = Backgrounds.GetBackground().Color;
             MessagingCenter.Subscribe<MainViewModel>(this, ProjectSettings.background, (sender) =>
             {
