@@ -24,7 +24,7 @@ namespace MOB_RadioApp.Models
             }
         } 
         public string Opacity { get => IsSelected ? "0.9" : "0.3";} 
-        public string TextColor { get => IsSelected ? "white" : "#E0E0E0"; }
+        public string TextColor { get => IsSelected ? "#FFFFFFFF" : "#E0E0E0"; }
         private string _playUrl;
 
         public string PlayUrl

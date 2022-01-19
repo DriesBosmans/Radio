@@ -3,6 +3,7 @@ using MOB_RadioApp.Api;
 using MOB_RadioApp.css;
 using MOB_RadioApp.Models;
 using MOB_RadioApp.Popups;
+using MOB_RadioApp.Resources;
 using MOB_RadioApp.Services;
 using System;
 using System.Collections.Generic;
@@ -11,6 +12,7 @@ using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Xamarin.CommunityToolkit.Helpers;
 using Xamarin.Essentials;
 using Xamarin.Forms;
 using XamarinCountryPicker.Models;
@@ -47,7 +49,7 @@ namespace MOB_RadioApp.ViewModels
             // This lets this viewmodel know which filters have been applied and when
             MessagingCenter.Subscribe<FilterPopup>(this, "SettingsApplied", (sender) =>
             {
-                _filteredStations = Filter(_unfilteredStations, Preferences.Get(ProjectSettings.selectedGenre, ""), Preferences.Get(ProjectSettings.selectedLanguage, ""));
+                _filteredStations = Filter(_unfilteredStations, Preferences.Get(ProjectSettings.selectedGenre, ""), Preferences.Get(ProjectSettings.selectedFilterLanguage, ""));
                 FilteredStations = _filteredStations;
                 OnPropertyChanged(nameof(FilteredStations));
             });
@@ -69,7 +71,7 @@ namespace MOB_RadioApp.ViewModels
         #region Fields
         DarFmApiCall _darfmapi = new DarFmApiCall();
         public string SelectedGenre = Preferences.Get(ProjectSettings.selectedGenre, "");
-        public string SelectedLanguage = Preferences.Get(ProjectSettings.selectedLanguage, "");
+        public string SelectedFilterLanguage = Preferences.Get(ProjectSettings.selectedFilterLanguage, "");
         private FilterChoices _filterChoices;
         private RangedObservableCollection<Station> _filteredbygenre = new RangedObservableCollection<Station>();
         private RangedObservableCollection<Station> _filteredbylanguage = new RangedObservableCollection<Station>();
@@ -89,6 +91,13 @@ namespace MOB_RadioApp.ViewModels
         private string _email;
         private CountryModel _selectedCountry;
         private static Background _selectedBackground;
+        private ObservableCollection<Language> _supportedLanguages = new ObservableCollection<Language>
+        {
+            new Language(){Name = AppResources.English, CI="en" },
+            new Language(){Name = AppResources.Dutch, CI="nl"},
+            new Language(){Name = AppResources.French, CI = "fr" }
+        };
+        private Language _selectedLanguage;
 
         #endregion
 
@@ -231,6 +240,15 @@ namespace MOB_RadioApp.ViewModels
             }
 
         }
+        public ObservableCollection<Language> SupportedLanguages
+        {
+            get { return _supportedLanguages ; }
+        }
+        public Language SelectedLanguage
+        {
+            get { return _selectedLanguage; }
+            set { SetValue(ref _selectedLanguage, value);}
+        }
 
         #endregion
 
@@ -248,6 +266,7 @@ namespace MOB_RadioApp.ViewModels
         public ICommand ShowCountryPopupCommand => new Command(async _ => await ExecuteShowCountryPopupCommand());
         public ICommand CountrySelectedCommand => new Command(country => ExecuteCountrySelectedCommandAsync(country as CountryModel));
         public ICommand BackgroundCommand => new Command(ChangeBackgrounds);
+        public ICommand ChangeLanguageCommand => new Command(ChangeLanguage);
 
         #endregion
 
@@ -265,13 +284,17 @@ namespace MOB_RadioApp.ViewModels
             OnPropertyChanged(nameof(IsSignedIn));
             _email = Preferences.Get(ProjectSettings.Email, "");
             OnPropertyChanged(nameof(EmailToName));
-
+            var phonelanguage = SupportedLanguages.FirstOrDefault(l => l.CI == LocalizationResourceManager.Current.CurrentCulture.TwoLetterISOLanguageName);
+            _selectedLanguage = SupportedLanguages.Where(l => l.CI == Preferences.Get(ProjectSettings.Language, phonelanguage.CI)).FirstOrDefault() ;
+            OnPropertyChanged(nameof(SelectedLanguage));
             _favourites = ConvertToCollection(SqlLiteService.GetFavourites().Result);
             OnPropertyChanged(nameof(FavouriteStations));
+            OnPropertyChanged(nameof(SelectedBackground));
+
             // checks for meta data every 10 seconds
             Device.StartTimer(TimeSpan.FromSeconds(10), () =>
             {
-                CheckForMetaAsync();
+                _ = CheckForMetaAsync();
 
                 return true; // True = Repeat again, False = Stop the timer
             });
@@ -289,14 +312,14 @@ namespace MOB_RadioApp.ViewModels
             _selectedCountry = CountryUtils.GetCountryModelByName(Preferences.Get(ProjectSettings.selectedCountry, "Belgium"));
 
             // Get chosen filters
-            _filterChoices = new FilterChoices(Preferences.Get(ProjectSettings.selectedGenre, ""), Preferences.Get(ProjectSettings.selectedLanguage, ""));
+            _filterChoices = new FilterChoices(Preferences.Get(ProjectSettings.selectedGenre, ""), Preferences.Get(ProjectSettings.selectedFilterLanguage, ""));
             IsBusy = true;
 
             // Get stations from Api
             _unfilteredStations = await _darfmapi.GetStationsAsync(SelectedCountry.CountryCode.ToLower());
 
             // Filter them
-            _filteredStations = Filter(_unfilteredStations, Preferences.Get(ProjectSettings.selectedGenre, ""), Preferences.Get(ProjectSettings.selectedLanguage, ""));
+            _filteredStations = Filter(_unfilteredStations, Preferences.Get(ProjectSettings.selectedGenre, ""), Preferences.Get(ProjectSettings.selectedFilterLanguage, ""));
 
             // Change property
             FilteredStations = _filteredStations;
@@ -347,10 +370,13 @@ namespace MOB_RadioApp.ViewModels
                 station.PlayUrl = null;
                 station.PlayUrl = await DarFmApiStreaming.GetStreamAsync(station);
                 ActiveStation = station;
+
+                
                 LibVLC = new LibVLC();
                 var media = new Media(LibVLC, station.PlayUrl, FromType.FromLocation);
-                MediaPlayer = new MediaPlayer(media) { EnableHardwareDecoding = true };
-                MediaPlayer.Buffering += MediaPlayer_Buffering;
+
+                MediaPlayer = CreateMediaPlayer(station);
+
                 MediaPlayer.Play();
                 IsPlaying = true;
                 await CheckForMetaAsync();
@@ -359,7 +385,26 @@ namespace MOB_RadioApp.ViewModels
             }
         }
 
-
+        private MediaPlayer CreateMediaPlayer(Station station)
+        {
+            string[] options = new string[]
+            {
+                "--file-caching=300",
+                "-vvv",
+                "--rtsp-tcp",
+                "--network-caching=300"
+            };
+            LibVLC = new LibVLC(options);
+            MediaPlayer = new MediaPlayer(LibVLC) { EnableHardwareDecoding = true};
+            Media media = new Media(LibVLC, station.PlayUrl,FromType.FromLocation);
+            //media.AddOption(":network-caching=0");
+            media.AddOption(":clock-jitter=0");
+            media.AddOption(":clock-synchro=0");
+            media.AddOption(":file-caching=300");
+            media.AddOption(":codec=all");
+            MediaPlayer.Media = media;
+            return MediaPlayer;
+        }
 
         /// <summary>
         /// On Search
@@ -367,7 +412,7 @@ namespace MOB_RadioApp.ViewModels
         void SearchAction()
         {
             RangedObservableCollection<Station> _searchFilteredStations;
-            _filteredStations = Filter(_unfilteredStations, Preferences.Get(SelectedGenre, ""), Preferences.Get(SelectedLanguage, ""));
+            _filteredStations = Filter(_unfilteredStations, Preferences.Get(SelectedGenre, ""), Preferences.Get(SelectedFilterLanguage, ""));
             if (string.IsNullOrEmpty(SearchText))
             {
                 _searchFilteredStations = _filteredStations;
@@ -638,7 +683,7 @@ namespace MOB_RadioApp.ViewModels
         {
             SelectedCountry = country;
             Preferences.Set(ProjectSettings.selectedCountry, country.CountryName);
-            Preferences.Set(ProjectSettings.selectedLanguage, null);
+            Preferences.Set(ProjectSettings.selectedFilterLanguage, null);
             Preferences.Set(ProjectSettings.selectedGenre, null);
             _filterChoices = null;
             OnPropertyChanged(nameof(FilterChoices));
@@ -655,6 +700,12 @@ namespace MOB_RadioApp.ViewModels
             if (Preferences.Get(ProjectSettings.background, "") != 8.ToString())
                 MessagingCenter.Send(this, "straight");
 
+        }
+        private void ChangeLanguage()
+        {
+            LocalizationResourceManager.Current.CurrentCulture = CultureInfo.GetCultureInfo(SelectedLanguage.CI);
+            Preferences.Set(ProjectSettings.Language, SelectedLanguage.CI);
+               
         }
         #endregion
         #endregion

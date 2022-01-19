@@ -1,20 +1,27 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Application xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:magic="http://magic.com/schemas/gradients" xmlns:clr="clr-namespace:System;assembly=System.Runtime"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MOB_RadioApp.App"
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit" 
              >
     <Application.Resources>
 
         <ResourceDictionary>
-
+            <!-- Colors -->
             <Color x:Key="Primary">#FFFFFFFF</Color>
             <Color x:Key="NotSelected">#E0E0E0</Color>
             <Color x:Key="Black">#28313b</Color>
-            <Color x:Key="Yellow">#FFCF70</Color>
-            <Font x:Key="Orkney">Orkney-Light.otf</Font>
-            <Style x:Key="Font" TargetType="Label">
-                <Setter Property="FontFamily" Value="Orkney-Light.otf"/>
+            <Font x:Key="Font">Quicksand-SemiBold.ttf</Font>
+            
+            <Style x:Key="LabelStyle" TargetType="Label">
+                <Setter Property="FontFamily" Value="{StaticResource Font}"/>
                 <Setter Property="TextColor" Value="{StaticResource Primary}"/>
+            </Style>
+            <Style x:Key="TabViewStyle" TargetType="xct:TabViewItem">
+                <Setter Property="TextColor" Value="{StaticResource NotSelected}"/>
+                <Setter Property="TextColorSelected" Value="{StaticResource Primary}"/>
+                <Setter Property="FontFamily" Value="{StaticResource Font}"/>
+                <Setter Property="FontSize" Value="12"/>
             </Style>
             <Style TargetType="BoxView"
                    x:Key="SeparatorBoxView">

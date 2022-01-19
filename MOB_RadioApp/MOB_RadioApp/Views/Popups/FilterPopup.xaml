@@ -5,6 +5,7 @@
                    xmlns:pancakeView="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView" 
                    xmlns:vm="clr-namespace:MOB_RadioApp.ViewModels"
                    x:Class="MOB_RadioApp.Popups.FilterPopup"
+                   xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
                   >
    
     <popups:PopupPage.Animation>
@@ -17,39 +18,39 @@
     </popups:PopupPage.Animation>
     <pancakeView:PancakeView
         CornerRadius="4,4,4,4"
-        VerticalOptions="Center"
+        VerticalOptions="Start"
         
         HorizontalOptions="FillAndExpand"
-        Margin="0,40,0,0"
+              Margin="30,100,30,30"
         Padding="16"
         IsClippedToBounds="True"
-        BackgroundColor="White">
+        BackgroundColor="{StaticResource NotSelected}">
         <StackLayout >
             <StackLayout Orientation="Horizontal" 
                          HorizontalOptions="FillAndExpand">
                 <Button x:Name="BtnCancel" 
-                    Text="Annuleren"
+                    Text="{xct:Translate Cancel}"
                         TextColor="{StaticResource Black}"
                         BackgroundColor="Transparent"
                         Clicked="BtnCancel_Clicked"
                         HorizontalOptions="StartAndExpand" />
 
                 <Button x:Name="BtnConfirm"
-                    Text="Opslaan" 
+                    Text="{xct:Translate Confirm}" 
                         BackgroundColor="Transparent"
                         TextColor="{StaticResource Black}"
                         Clicked="BtnConfirm_Clicked"
                         HorizontalOptions="EndAndExpand" />
             </StackLayout>
             <StackLayout Margin="10">
-                <Label Text="Genre: " />
+                <Label Text="{xct:Translate Genre}" />
                 <Picker x:Name="PckrGenre"
                     
                         WidthRequest="600"
                     SelectedIndexChanged="PckrGenre_SelectedIndexChanged"/>
             </StackLayout>
             <StackLayout Margin="10">
-                <Label Text="Taal: "/>
+                <Label Text="{xct:Translate Language}"/>
                 <Picker x:Name="PckrLanguage" 
                   SelectedIndexChanged="PckrLanguage_SelectedIndexChanged" />
             </StackLayout>

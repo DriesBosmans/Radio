@@ -12,7 +12,7 @@
 
         //These strings are Preferences properties
         public const string selectedGenre = "selectedGenre";
-        public const string selectedLanguage = "selectedLanguage";
+        public const string selectedFilterLanguage = "selectedLanguage";
         public const string selectedStation = "selectedStation";
         public const string IsSignedIn = "IsSignedIn";
         public const string True = "True";
@@ -21,5 +21,6 @@
         public const string selectedCountry = "selectedCountry";
         public const string background = "background";
         public const string Email = "Email";
+        public const string Language = "Language";
     }
 }

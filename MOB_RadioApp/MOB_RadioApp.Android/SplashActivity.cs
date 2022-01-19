@@ -18,7 +18,7 @@ using MOB_RadioApp.Services;
 namespace MOB_RadioApp.Droid
 {
       
-    [Activity(Label = "MOB_RadioApp", Theme = "@style/Theme.Splash",
+    [Activity(Label = "Radio", Theme = "@style/Theme.Splash",
         MainLauncher = true,
         NoHistory = true)]
     public class SplashActivity : Activity, Animator.IAnimatorListener

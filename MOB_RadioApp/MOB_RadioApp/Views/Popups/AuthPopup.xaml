@@ -3,7 +3,7 @@
                    xmlns="http://xamarin.com/schemas/2014/forms"
                    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
                    xmlns:pancakeView="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView" 
-                   xmlns:vm="clr-namespace:MOB_RadioApp.ViewModels"
+                   xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
                    x:Class="MOB_RadioApp.Popups.AuthPopup">
     <popups:PopupPage.Animation>
         <popups:MoveAnimation
@@ -18,37 +18,44 @@
         VerticalOptions="Start"
         
         HorizontalOptions="FillAndExpand"
-        Margin="20,100,20,0"
+        Margin="30,100,30,0"
         Padding="16"
         IsClippedToBounds="True"
         BackgroundColor="{StaticResource NotSelected}">
         <StackLayout>
+            <StackLayout Orientation="Horizontal" 
+                         HorizontalOptions="FillAndExpand">
+                <Button x:Name="BtnRegister"
+                    Text="{xct:Translate SignUp}"
+                    Clicked="BtnRegister_Clicked"
+                    Background="Transparent"
+                    TextColor="{StaticResource Black}"
+                        Font="{StaticResource Font}"
+                        HorizontalOptions="StartAndExpand"/>
+
+                <Button x:Name="BtnLogin"
+                    Text="{xct:Translate SignIn}"
+                    Clicked="BtnLogin_Clicked"
+                    BackgroundColor="Transparent"
+                    TextColor="{StaticResource Black}"
+                        Font="{StaticResource Font}"
+                        HorizontalOptions="EndAndExpand"/>
+            </StackLayout>
             <Entry x:Name="EnEmail"
-                   Placeholder="Email"
+                   Placeholder="{xct:Translate Email}"
                    Text="dries.bosmans@student.pxl.be"
-                   FontFamily="Orkney-Light.otf"
+                   FontFamily="{StaticResource Font}"
                    TextColor="{StaticResource Black}"
                        
                        />
             <Entry x:Name="EnPassword"
-                   Placeholder="Wachtwoord"
+                   Placeholder="{xct:Translate Password}"
                    Text="123456"
                    TextColor="{StaticResource Black}"
                       
                        
-                   FontFamily="Orkney-Light.otf"/>
-            <Button x:Name="BtnRegister"
-                    Text="Registreer"
-                    Clicked="BtnRegister_Clicked"
-                    TextColor="{StaticResource Black}"
-                        Font="{StaticResource Orkney}"/>
-
-            <Button x:Name="BtnLogin"
-                    Text="Login"
-                    Clicked="BtnLogin_Clicked"
-                    TextColor="{StaticResource Black}"
-                        Font="{StaticResource Orkney}"/>
-
+                   FontFamily="{StaticResource Font}"/>
+           
         </StackLayout>
     </pancakeView:PancakeView>
 </popups:PopupPage>

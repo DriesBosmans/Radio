@@ -20,25 +20,25 @@
 
             <controls:ExtSearchBar     
                 Grid.Column="0"
-                Placeholder="Zoek..."
+                Placeholder="{xct:Translate Search}"
                 Text="{ Binding SearchText }"
-                TextChangedDelay="450"
+                TextChangedDelay="250"
                 TextChangedCommand="{ Binding SearchCommand }"
                 SearchCommand="{ Binding SearchCommand }"
                 HasFilterIcon="True"
                 FilterCommand="{ Binding FilterTappedCommand }" 
-                            xct:IconTintColorEffect.TintColor="White"
+                            xct:IconTintColorEffect.TintColor="{StaticResource Primary}"
                             />
             <RefreshView IsRefreshing="{Binding IsRefreshing, Mode=OneWay}"
                                      Command="{Binding RefreshCommand}"
                                      Grid.Row="1">
                 <CollectionView 
-                                           ItemsSource="{Binding FilteredStations}"
+                                        ItemsSource="{Binding FilteredStations}"
                                         Margin="7"
                                         SelectionMode="Single"
                                         x:Name="Coll"
                                 >
-                    
+
                     <CollectionView.ItemsLayout>
                         <GridItemsLayout Orientation="Vertical"
                                                  Span="4"
@@ -46,8 +46,8 @@
                                                  HorizontalItemSpacing="6"/>
                     </CollectionView.ItemsLayout>
                     <CollectionView.ItemTemplate>
-                    
-                    <DataTemplate>
+
+                        <DataTemplate>
                             <StackLayout>
                                 <StackLayout.Behaviors>
                                     <behaviors:ViewTappedButtonBehavior 
@@ -67,25 +67,24 @@
                                               CommandParameter="{Binding .}"
                                               NumberOfTapsRequired="2"
                                              />
-                                   
                                 </StackLayout.GestureRecognizers>
-                            <Grid HeightRequest="100"
+                                <Grid HeightRequest="100"
                                           Padding="7"
                                 >
-                                
-                                
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="4*"/>
-                                    <RowDefinition Height="2.9*"/>
-                                </Grid.RowDefinitions>
-                                <BoxView x:Name="BVbox"
+
+
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="4*"/>
+                                        <RowDefinition Height="2.9*"/>
+                                    </Grid.RowDefinitions>
+                                    <BoxView x:Name="BVbox"
                                             Background="{StaticResource NotSelected}"
                                                  Opacity="{Binding Opacity}"
                                                  CornerRadius="5"
                                                  Grid.Row="0"
                                                  
                                                  ></BoxView>
-                                <Image
+                                    <Image
                                                         Source="{Binding Imageurl}"
                                                                    
                                                HorizontalOptions="Center"
@@ -93,7 +92,7 @@
                                                Grid.Row="0"
                                     
                                                />
-                                <Label x:Name="LblStation" 
+                                    <Label x:Name="LblStation" 
                                                HorizontalOptions="CenterAndExpand"
                                                   Text="{Binding Callsign}"
                                                VerticalOptions="Start"
@@ -102,11 +101,11 @@
                                                
                                                LineBreakMode="WordWrap"
                                                HorizontalTextAlignment="Center"
-                                               FontFamily="Orkney"
+                                               FontFamily="{StaticResource Font}"
                                                FontSize="13"
-                                       FontAttributes="Bold"
+                                     
                                        />
-                            </Grid>
+                                </Grid>
                             </StackLayout>
                         </DataTemplate>
                     </CollectionView.ItemTemplate>

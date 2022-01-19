@@ -1,13 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:ffimageloading1="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:xct="http://xamarin.com/schemas/2020/toolkit" xmlns:magic="http://magic.com/schemas/gradients"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:xct="http://xamarin.com/schemas/2020/toolkit" 
              x:Class="MOB_RadioApp.MainPage"
              xmlns:viewmodels="clr-namespace:MOB_RadioApp.ViewModels" xmlns:controls="clr-namespace:App.Core.Controls"
              xmlns:custom="clr-namespace:MOB_RadioApp;assembly=MOB_RadioApp" xmlns:controls1="clr-namespace:MOB_RadioApp.Controls">
 
     <ContentPage.Resources>
-        <StyleSheetExtension Source="../css/style.css"/>
+        <StyleSheetExtension Source="../Resources/css/style.css"/>
     </ContentPage.Resources>
     <Grid>
         <Grid.BindingContext>
@@ -16,43 +15,34 @@
         <xct:TabView
                 TabStripPlacement="Bottom"
                 TabStripBackgroundColor="{StaticResource Black}"
-           
+                
                 TabStripHeight="60"
                 TabIndicatorColor="{StaticResource NotSelected}"
                 >
             <xct:TabViewItem
                     Icon="radio_2_100px.png"
-                    Text="Zenders"
-                    TextColor="{StaticResource NotSelected}"
-                    TextColorSelected="{StaticResource Primary}"
-                    
-                    FontSize="12">
+                    Text="{xct:Translate Stations}"
+                    Style="{StaticResource TabViewStyle}">
                 <controls1:MainView BindingContext="{Binding .}"/>
             </xct:TabViewItem>
             <xct:TabViewItem
                              Icon="heart.png"
-                             Text="Favorieten"
-                             TextColor="{StaticResource NotSelected}"
-                             TextColorSelected="{StaticResource Primary}"
-                             FontSize="12">
-                <controls1:FavouritesControl/>
+                             Text="{xct:Translate Bookmarks}"
+                             Style="{StaticResource TabViewStyle}">
+                <controls1:FavouritesControl BindingContext="{Binding .}"/>
             </xct:TabViewItem>
 
             <xct:TabViewItem
                     Icon="home_48px.png"
-                    Text="Home"
-                    TextColor="{StaticResource NotSelected}"
-                    TextColorSelected="{StaticResource Primary}"
-                    FontSize="12">
+                    Text="{xct:Translate Player}"
+                   Style="{StaticResource TabViewStyle}">
                 <controls1:MediaplayerControl BindingContext="{Binding .}"/>
             </xct:TabViewItem>
-            
+
             <xct:TabViewItem
                         Icon="settings_48px.png"
-                        Text="Instellingen"
-                        TextColor="{StaticResource NotSelected}"
-                        TextColorSelected="{StaticResource Primary}"
-                        FontSize="12">
+                        Text="{xct:Translate Settings}"
+                     Style="{StaticResource TabViewStyle}">
 
                 <controls1:SettingsControl BindingContext="{Binding .}"/>
             </xct:TabViewItem>

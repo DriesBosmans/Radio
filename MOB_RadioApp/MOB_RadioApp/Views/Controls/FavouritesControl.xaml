@@ -10,9 +10,9 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
-            <Label Text="Tap twee keer om een favoriet toe te voegen."
+            <Label Text="{xct:Translate TapTwice}"
                    TextColor="{StaticResource NotSelected}"
-                        Font="{StaticResource Orkney}"
+                        Font="{StaticResource Font}"
                    HorizontalOptions="Center"
                    HorizontalTextAlignment="Center"
                    Margin="0,20,0,0"
@@ -87,7 +87,7 @@
                                                
                                                LineBreakMode="WordWrap"
                                                HorizontalTextAlignment="Center"
-                                               FontFamily="Orkney"
+                                               FontFamily="{StaticResource Font}"
                                                FontSize="13"
                                        />
                             </Grid>

@@ -8,9 +8,7 @@
              
              x:Class="MOB_RadioApp.Controls.MediaplayerControl"
             >
-    <ContentView.Resources>
-        <StyleSheetExtension Source="../css/style.css"/>
-    </ContentView.Resources>
+
     <Grid >
         <magic:GradientView x:Name="MediaplayerStyle" VerticalOptions="FillAndExpand"/>
         <Grid>
@@ -18,7 +16,7 @@
                 <RowDefinition Height="0*"/>
                 <RowDefinition Height="2*"/>
                 <RowDefinition Height="0.5*"/>
-                <RowDefinition Height="0.6*"/>
+                <RowDefinition Height="1*"/>
                 <RowDefinition Height="0.7*"/>
             </Grid.RowDefinitions>
             <Frame CornerRadius="30"
@@ -36,20 +34,28 @@
                      CornerRadius="30"/>
             <Label Text="{Binding ActiveStation.Callsign}" 
                    Grid.Row="2"
-                   
-                   FontSize="40"
+            
+                   Margin="30,3"
+                   LineBreakMode="WordWrap"
+                   FontSize="30"
                   HorizontalTextAlignment="Center"
                    HorizontalOptions="Center"
                    VerticalOptions="Center"
-                   Style="{StaticResource Font}"
+                   Style="{StaticResource LabelStyle}"
                    />
-            <Grid Grid.Row="3"  >
+            <Grid Grid.Row="3"   Margin="35,0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-                <Label Margin="30,0" Grid.Row="0" FontSize="35" Style="{StaticResource Font}"  HorizontalOptions="Center" Text="{Binding ActiveArtist}"/>
-                <Label Margin="30,0" Grid.Row="1" FontSize="30" Style="{StaticResource Font}"  HorizontalOptions="Center" Text="{Binding ActiveSong}"/>
+                <Label  Grid.Row="0"  VerticalOptions="Center" VerticalTextAlignment="Center" FontSize="27" 
+                       Style="{StaticResource LabelStyle}" HorizontalTextAlignment="Center" 
+                       LineBreakMode="WordWrap"  HorizontalOptions="Center" Text="{Binding ActiveArtist}"/>
+                <Label  Grid.Row="1" FontSize="25" Style="{StaticResource LabelStyle}" 
+                       HorizontalTextAlignment="Center" VerticalOptions="Center"
+                       VerticalTextAlignment="Center" HorizontalOptions="Center" 
+                       LineBreakMode="WordWrap"
+                       Text="{Binding ActiveSong}"/>
             </Grid>
             <vlc:MediaPlayerElement  MediaPlayer="{Binding MediaPlayer}" LibVLC="{Binding LibVLC}" Opacity="1" Grid.Row="0" Margin="0,0,0,80" />
             <StackLayout IsVisible="True"  Orientation="Horizontal" Grid.Row="4"

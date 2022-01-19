@@ -5,7 +5,8 @@
              xmlns:viewmodels="clr-namespace:MOB_RadioApp.ViewModels"
              xmlns:behaviors="clr-namespace:Behaviors;assembly=Behaviors"
              x:Class="MOB_RadioApp.Controls.SettingsControl"
-             xmlns:forms="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms" xmlns:behaviors1="clr-namespace:MOB_RadioApp.Behaviors">
+             xmlns:forms="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms" xmlns:behaviors1="clr-namespace:MOB_RadioApp.Behaviors"
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit">
 
 
     <Grid>
@@ -20,7 +21,7 @@
                    Margin="30,20"
                    CornerRadius="30"
                      HeightRequest="100"
-                   BackgroundColor="white"
+                   BackgroundColor="{StaticResource NotSelected}"
                    Opacity="0.3"/>
             <StackLayout Grid.Column="0"
                          Grid.Row="0"
@@ -43,20 +44,20 @@
                     />
                         </Image.GestureRecognizers>
                     </Image>
-                <Label Text="Dag"
-                       Style="{StaticResource Font}"
+                <Label Text="{xct:Translate Hello}"
+                       Style="{StaticResource LabelStyle}"
                        IsVisible="{Binding IsSignedIn}"
                        FontSize="30"
                            Margin="10,0,0,0"
                        VerticalOptions="Center"
-                       WidthRequest="60"
-                       MinimumWidthRequest="40"
-                      
+                       WidthRequest="80"
+                       MinimumWidthRequest="60"
+                    
                            />
                 <Label Text="{Binding EmailToName}"
                        IsVisible="{Binding IsSignedIn}"
                        VerticalOptions="Center"
-                       Style="{StaticResource Font}"
+                       Style="{StaticResource LabelStyle}"
                        FontSize="30"
                        Margin="0,0,50,0"
                
@@ -69,12 +70,13 @@
                     <Frame
                     CornerRadius="10"
                     VerticalOptions="Center"
+                    
                     HorizontalOptions="FillAndExpand"
                     Margin="0,20,0,0"
                     Padding="0"
                     BorderColor="{StaticResource Black}"
                     IsClippedToBounds="True"
-                    BackgroundColor="White">
+                    BackgroundColor="{StaticResource NotSelected}">
                         <StackLayout Orientation="Horizontal"
                                  HorizontalOptions="FillAndExpand"
                                  VerticalOptions="FillAndExpand">
@@ -116,14 +118,36 @@
                     Padding="20,0"
                     BorderColor="{StaticResource Black}"
                     IsClippedToBounds="True"
-                    BackgroundColor="White">
+                    BackgroundColor="{StaticResource NotSelected}">
  
                 <Picker x:Name="pckr" ItemsSource="{Binding Colors}"  FontFamily="{StaticResource Font}" TitleColor="{StaticResource Black}"
-                                   TextColor="{StaticResource Black}" ItemDisplayBinding="{Binding Name}" Title="Achtergrond"
-                 SelectedItem="{Binding SelectedBackground}" Grid.Row="2"  >
+                                   TextColor="{StaticResource Black}" ItemDisplayBinding="{Binding Name}" Title="{xct:Translate Background}"
+                 SelectedItem="{Binding SelectedBackground, Mode=TwoWay}" Grid.Row="2"  >
                     <Picker.Behaviors>
                         <behaviors:EventHandlerBehavior EventName="SelectedIndexChanged">
                             <behaviors:InvokeCommandAction Command="{Binding BackgroundCommand}" />
+                        </behaviors:EventHandlerBehavior>
+                    </Picker.Behaviors>
+                </Picker>
+            </Frame>
+        <Frame Grid.Row="3"
+                   
+                    CornerRadius="10"
+                    VerticalOptions="Center"
+                    HorizontalOptions="FillAndExpand"
+                    Margin="30,24,30,24"
+                    Padding="20,0"
+                    BorderColor="{StaticResource Black}"
+                    IsClippedToBounds="True"
+                    BackgroundColor="{StaticResource NotSelected}">
+ 
+                <Picker ItemsSource="{Binding SupportedLanguages}"  FontFamily="{StaticResource Font}" TitleColor="{StaticResource Black}"
+                                   TextColor="{StaticResource Black}" ItemDisplayBinding="{Binding Name}" Title="{xct:Translate Language}"
+                 SelectedItem="{Binding SelectedLanguage, Mode=TwoWay}"   
+                       >
+                    <Picker.Behaviors>
+                        <behaviors:EventHandlerBehavior EventName="SelectedIndexChanged">
+                            <behaviors:InvokeCommandAction Command="{Binding ChangeLanguageCommand}" />
                         </behaviors:EventHandlerBehavior>
                     </Picker.Behaviors>
                 </Picker>

@@ -89,7 +89,7 @@ namespace MOB_RadioApp.Popups
             ChoicesSelectedCommand?.Execute(SelectedFilterChoices);
             Preferences.Set(ProjectSettings.selectedGenre, _selectedFilterChoices.FilterGenre);
            
-            Preferences.Set(ProjectSettings.selectedLanguage, _selectedFilterChoices.FilterLanguage);
+            Preferences.Set(ProjectSettings.selectedFilterLanguage, _selectedFilterChoices.FilterLanguage);
             
             MessagingCenter.Send(this, "SettingsApplied");
             Rg.Plugins.Popup.Services.PopupNavigation.Instance.PopAsync();

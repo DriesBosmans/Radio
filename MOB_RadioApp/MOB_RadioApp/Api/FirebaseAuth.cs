@@ -1,15 +1,11 @@
 ﻿using Firebase.Auth;
-using Firebase.Database;
 using MOB_RadioApp.Models;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Essentials;
 using Xamarin.Forms;
-using Firebase.Database.Query;
-using System.Collections.ObjectModel;
 
 namespace MOB_RadioApp.Services
 {

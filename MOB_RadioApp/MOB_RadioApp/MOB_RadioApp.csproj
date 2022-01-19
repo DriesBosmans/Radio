@@ -12,7 +12,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Assets\FontAwesome5Solid.otf" />
     <None Remove="Resources\Fonts\Orkney-Light.otf" />
     <None Remove="Resources\Fonts\Orkney-Medium.otf" />
   </ItemGroup>
@@ -54,29 +53,47 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Controls\StationsControl.xaml.cs">
+    <Compile Update="Views\Controls\StationsControl.xaml.cs">
       <DependentUpon>StationsControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\AppResources.fr.Designer.cs">
+      <DependentUpon>AppResources.fr.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Update="Resources\AppResources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>AppResources.resx</DependentUpon>
     </Compile>
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Update="Controls\FavouritesControl.xaml">
+    <EmbeddedResource Update="Views\Controls\FavouritesControl.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Controls\MediaplayerControl.xaml">
+    <EmbeddedResource Update="Views\Controls\MediaplayerControl.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Controls\SettingsControl.xaml">
+    <EmbeddedResource Update="Views\Controls\SettingsControl.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Controls\StationsControl.xaml">
+    <EmbeddedResource Update="Views\Controls\StationsControl.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Popups\AuthPopup.xaml">
+    <EmbeddedResource Update="Views\Popups\AuthPopup.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Popups\FilterPopup.xaml">
+    <EmbeddedResource Update="Views\Popups\FilterPopup.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\AppResources.fr.resx">
+      <LastGenOutput>AppResources.fr.Designer.cs</LastGenOutput>
+      <Generator>ResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\AppResources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>AppResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
 </Project>
