@@ -82,3 +82,7 @@ https://github.com/coolc0ders/VLCXamarinDemo/tree/main/VLCDemo/VLCDemo
 
 Selecting other languages
 https://www.youtube.com/watch?v=-t8sss0BHqo
+
+BluetoothLE connection
+https://www.youtube.com/watch?v=IFRqCHLloLA
+https://github.com/xabre/xamarin-bluetooth-le

@@ -64,10 +64,10 @@
                        
                        />
                 </StackLayout>
-            
-            <ScrollView Grid.Row="1" x:Name="scrlvw">
-                <StackLayout Orientation="Vertical" Padding="30,24,30,24" Spacing="10">
-                    <Frame
+            <StackLayout Grid.Row="1" >
+                <ScrollView Grid.Row="1" x:Name="scrlvw">
+                    <StackLayout Orientation="Vertical" Padding="30,24,30,24" Spacing="10">
+                        <Frame
                     CornerRadius="10"
                     VerticalOptions="Center"
                     
@@ -77,19 +77,19 @@
                     BorderColor="{StaticResource Black}"
                     IsClippedToBounds="True"
                     BackgroundColor="{StaticResource NotSelected}">
-                        <StackLayout Orientation="Horizontal"
+                            <StackLayout Orientation="Horizontal"
                                  HorizontalOptions="FillAndExpand"
                                  VerticalOptions="FillAndExpand">
-                            <StackLayout.GestureRecognizers>
-                                <TapGestureRecognizer Command="{Binding ShowCountryPopupCommand}"/>
-                            </StackLayout.GestureRecognizers>
-                            <forms:SvgCachedImage
+                                <StackLayout.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding ShowCountryPopupCommand}"/>
+                                </StackLayout.GestureRecognizers>
+                                <forms:SvgCachedImage
                             HeightRequest="26"
                             Source="{Binding SelectedCountry.FlagUrl}"
                             VerticalOptions="CenterAndExpand"
                             WidthRequest="26" 
                             Margin="20,10,0,10"/>
-                            <Label Text="{Binding SelectedCountry.CountryName}"
+                                <Label Text="{Binding SelectedCountry.CountryName}"
                                VerticalTextAlignment="Center"
                                    FontFamily="{StaticResource Font}"
                                    TextColor="{StaticResource Black}"
@@ -97,7 +97,7 @@
                                Margin="10,0"
                                HorizontalOptions="Start"
                                VerticalOptions="CenterAndExpand"/>
-                            <Label Text="{Binding SelectedCountry.CountryCode}"
+                                <Label Text="{Binding SelectedCountry.CountryCode}"
                                VerticalTextAlignment="Center"
                                     FontFamily="{StaticResource Font}"
                                    TextColor="{StaticResource Black}"
@@ -105,11 +105,11 @@
                                HorizontalTextAlignment="End"
                                HorizontalOptions="EndAndExpand"
                                VerticalOptions="CenterAndExpand"/>
-                        </StackLayout>
-                    </Frame>
-                </StackLayout>
-            </ScrollView>
-            <Frame Grid.Row="2"
+                            </StackLayout>
+                        </Frame>
+                    </StackLayout>
+                </ScrollView>
+                <Frame Grid.Row="2"
                     x:Name="frm"
                     CornerRadius="10"
                     VerticalOptions="Center"
@@ -119,18 +119,18 @@
                     BorderColor="{StaticResource Black}"
                     IsClippedToBounds="True"
                     BackgroundColor="{StaticResource NotSelected}">
- 
-                <Picker x:Name="pckr" ItemsSource="{Binding Colors}"  FontFamily="{StaticResource Font}" TitleColor="{StaticResource Black}"
+
+                    <Picker x:Name="pckr" ItemsSource="{Binding Colors}"  FontFamily="{StaticResource Font}" TitleColor="{StaticResource Black}"
                                    TextColor="{StaticResource Black}" ItemDisplayBinding="{Binding Name}" Title="{xct:Translate Background}"
                  SelectedItem="{Binding SelectedBackground, Mode=TwoWay}" Grid.Row="2"  >
-                    <Picker.Behaviors>
-                        <behaviors:EventHandlerBehavior EventName="SelectedIndexChanged">
-                            <behaviors:InvokeCommandAction Command="{Binding BackgroundCommand}" />
-                        </behaviors:EventHandlerBehavior>
-                    </Picker.Behaviors>
-                </Picker>
-            </Frame>
-        <Frame Grid.Row="3"
+                        <Picker.Behaviors>
+                            <behaviors:EventHandlerBehavior EventName="SelectedIndexChanged">
+                                <behaviors:InvokeCommandAction Command="{Binding BackgroundCommand}" />
+                            </behaviors:EventHandlerBehavior>
+                        </Picker.Behaviors>
+                    </Picker>
+                </Frame>
+                <Frame Grid.Row="3"
                    
                     CornerRadius="10"
                     VerticalOptions="Center"
@@ -140,18 +140,21 @@
                     BorderColor="{StaticResource Black}"
                     IsClippedToBounds="True"
                     BackgroundColor="{StaticResource NotSelected}">
- 
-                <Picker ItemsSource="{Binding SupportedLanguages}"  FontFamily="{StaticResource Font}" TitleColor="{StaticResource Black}"
+
+                    <Picker ItemsSource="{Binding SupportedLanguages}"  FontFamily="{StaticResource Font}" TitleColor="{StaticResource Black}"
                                    TextColor="{StaticResource Black}" ItemDisplayBinding="{Binding Name}" Title="{xct:Translate Language}"
                  SelectedItem="{Binding SelectedLanguage, Mode=TwoWay}"   
                        >
-                    <Picker.Behaviors>
-                        <behaviors:EventHandlerBehavior EventName="SelectedIndexChanged">
-                            <behaviors:InvokeCommandAction Command="{Binding ChangeLanguageCommand}" />
-                        </behaviors:EventHandlerBehavior>
-                    </Picker.Behaviors>
-                </Picker>
-            </Frame>
+                        <Picker.Behaviors>
+                            <behaviors:EventHandlerBehavior EventName="SelectedIndexChanged">
+                                <behaviors:InvokeCommandAction Command="{Binding ChangeLanguageCommand}" />
+                            </behaviors:EventHandlerBehavior>
+                        </Picker.Behaviors>
+                    </Picker>
+                </Frame>
+                <Button Command="{Binding Source={RelativeSource
+                AncestorType={x:Type viewmodels:MainViewModel}}, Path=ShowBluetoothPopupCommand}"/>
+            </StackLayout>
         </Grid>
 
     </Grid>

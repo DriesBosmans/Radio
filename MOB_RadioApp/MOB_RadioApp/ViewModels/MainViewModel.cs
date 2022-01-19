@@ -5,11 +5,16 @@ using MOB_RadioApp.Models;
 using MOB_RadioApp.Popups;
 using MOB_RadioApp.Resources;
 using MOB_RadioApp.Services;
+using MvvmCross;
+using Plugin.BLE;
+using Plugin.BLE.Abstractions.Contracts;
+using Plugin.BLE.Abstractions.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.CommunityToolkit.Helpers;
@@ -69,7 +74,7 @@ namespace MOB_RadioApp.ViewModels
         }
 
         #region Fields
-        DarFmApiCall _darfmapi = new DarFmApiCall();
+        readonly DarFmApiCall _darfmapi = new DarFmApiCall();
         public string SelectedGenre = Preferences.Get(ProjectSettings.selectedGenre, "");
         public string SelectedFilterLanguage = Preferences.Get(ProjectSettings.selectedFilterLanguage, "");
         private FilterChoices _filterChoices;
@@ -91,14 +96,20 @@ namespace MOB_RadioApp.ViewModels
         private string _email;
         private CountryModel _selectedCountry;
         private static Background _selectedBackground;
-        private ObservableCollection<Language> _supportedLanguages = new ObservableCollection<Language>
+        private readonly ObservableCollection<Language> _supportedLanguages = new ObservableCollection<Language>
         {
             new Language(){Name = AppResources.English, CI="en" },
             new Language(){Name = AppResources.Dutch, CI="nl"},
             new Language(){Name = AppResources.French, CI = "fr" }
         };
         private Language _selectedLanguage;
-
+        private readonly IBluetoothLE _ble;
+        private readonly IAdapter _adapter;
+        private readonly ObservableCollection<IDevice> _devices;
+        private IDevice _nativeDevice;
+        private IDevice _selectedDevice;
+        private readonly IList<IService> _services;
+        private readonly IService _service;
         #endregion
 
         #region Properties
@@ -242,12 +253,22 @@ namespace MOB_RadioApp.ViewModels
         }
         public ObservableCollection<Language> SupportedLanguages
         {
-            get { return _supportedLanguages ; }
+            get { return _supportedLanguages; }
         }
         public Language SelectedLanguage
         {
             get { return _selectedLanguage; }
-            set { SetValue(ref _selectedLanguage, value);}
+            set { SetValue(ref _selectedLanguage, value); }
+        }
+        public IDevice NativeDevice
+        {
+            get { return _nativeDevice; }
+            set => SetValue(ref _nativeDevice, value);
+        }
+        public IDevice SelectedDevice
+        {
+            get { return _selectedDevice; }
+            set => SetValue(ref _selectedDevice, value);
         }
 
         #endregion
@@ -264,10 +285,23 @@ namespace MOB_RadioApp.ViewModels
         public ICommand AuthCommand => new Command(async _ => await CheckforAuthentication());
         public ICommand DoubleTappedCommand => new Command<Station>(async stat => await DoubleTappedAsync(stat));
         public ICommand ShowCountryPopupCommand => new Command(async _ => await ExecuteShowCountryPopupCommand());
+        public ICommand ShowBluetoothPopupCommand => new Command(async _ => await ExecuteShowBluetoothPopupCommand());
         public ICommand CountrySelectedCommand => new Command(country => ExecuteCountrySelectedCommandAsync(country as CountryModel));
         public ICommand BackgroundCommand => new Command(ChangeBackgrounds);
         public ICommand ChangeLanguageCommand => new Command(ChangeLanguage);
 
+        #region bluetooth
+        //public ICommand ScanDevicesCommand => new Command(async _ => await ScanDevicesAsync());
+        //public ICommand StatusCommand => new Command(async _ => await StatusAsync());
+        //public ICommand ConnectCommand => new Command(async _ => await ConnectAsync());
+        //public ICommand ConnectToKnownDeviceCommand => new Command(async _ => await ConnectKnownDeviceAsync());
+        //public ICommand GetServicesCommand => new Command(async _ => await GetServicesAsync());
+        //public ICommand GetCharacteristicsCommand => new Command(async _ => await GetCharacteristicsAsync());
+        //public ICommand GetDescriptorsCommand => new Command(async _ => await GetDescriptorsAsync());
+        //public ICommand ReadWriteDescrCommand => new Command(async _ => await ReadWriteDescriptorsAsync());
+        //public ICommand ReadWriteCharCommand => new Command(async _ => await ReadWriteCharacteristicAsync());
+        //public ICommand UpdateCommand => new Command(async _ => await UpdateAsync());
+        #endregion
         #endregion
 
 
@@ -285,7 +319,7 @@ namespace MOB_RadioApp.ViewModels
             _email = Preferences.Get(ProjectSettings.Email, "");
             OnPropertyChanged(nameof(EmailToName));
             var phonelanguage = SupportedLanguages.FirstOrDefault(l => l.CI == LocalizationResourceManager.Current.CurrentCulture.TwoLetterISOLanguageName);
-            _selectedLanguage = SupportedLanguages.Where(l => l.CI == Preferences.Get(ProjectSettings.Language, phonelanguage.CI)).FirstOrDefault() ;
+            _selectedLanguage = SupportedLanguages.Where(l => l.CI == Preferences.Get(ProjectSettings.Language, phonelanguage.CI)).FirstOrDefault();
             OnPropertyChanged(nameof(SelectedLanguage));
             _favourites = ConvertToCollection(SqlLiteService.GetFavourites().Result);
             OnPropertyChanged(nameof(FavouriteStations));
@@ -298,7 +332,10 @@ namespace MOB_RadioApp.ViewModels
 
                 return true; // True = Repeat again, False = Stop the timer
             });
+            //VLC media player
             Core.Initialize();
+
+
 
 
         }
@@ -326,8 +363,6 @@ namespace MOB_RadioApp.ViewModels
             OnPropertyChanged(nameof(FilteredStations));
             OnPropertyChanged(nameof(FavouriteStations));
         }
-
-
         #region StationsControl
         /// <summary>
         /// This gets called when station is selected
@@ -371,7 +406,7 @@ namespace MOB_RadioApp.ViewModels
                 station.PlayUrl = await DarFmApiStreaming.GetStreamAsync(station);
                 ActiveStation = station;
 
-                
+
                 LibVLC = new LibVLC();
                 var media = new Media(LibVLC, station.PlayUrl, FromType.FromLocation);
 
@@ -395,8 +430,8 @@ namespace MOB_RadioApp.ViewModels
                 "--network-caching=300"
             };
             LibVLC = new LibVLC(options);
-            MediaPlayer = new MediaPlayer(LibVLC) { EnableHardwareDecoding = true};
-            Media media = new Media(LibVLC, station.PlayUrl,FromType.FromLocation);
+            MediaPlayer = new MediaPlayer(LibVLC) { EnableHardwareDecoding = true };
+            Media media = new Media(LibVLC, station.PlayUrl, FromType.FromLocation);
             //media.AddOption(":network-caching=0");
             media.AddOption(":clock-jitter=0");
             media.AddOption(":clock-synchro=0");
@@ -543,7 +578,6 @@ namespace MOB_RadioApp.ViewModels
 
 
         #endregion
-
         #region MediaplayerControl
         /// <summary>
         /// Starts and stops playing the selected station
@@ -559,9 +593,9 @@ namespace MOB_RadioApp.ViewModels
             else
             {
                 if (ActiveStation != null)
-                { 
+                {
                     MediaPlayer.Play();
-                    
+
                     IsPlaying = true;
                 }
                 else
@@ -705,9 +739,16 @@ namespace MOB_RadioApp.ViewModels
         {
             LocalizationResourceManager.Current.CurrentCulture = CultureInfo.GetCultureInfo(SelectedLanguage.CI);
             Preferences.Set(ProjectSettings.Language, SelectedLanguage.CI);
-               
+
+        }
+        private Task ExecuteShowBluetoothPopupCommand()
+        {
+            var popup = new BluetoothPopup();
+            return Rg.Plugins.Popup.Services.PopupNavigation.Instance.PushAsync(popup);
         }
         #endregion
+
         #endregion
+
     }
 }

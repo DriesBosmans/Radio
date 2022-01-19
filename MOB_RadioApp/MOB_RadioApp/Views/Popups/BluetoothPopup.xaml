@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<popups:PopupPage  xmlns:popups="http://rotorgames.com" 
+                   xmlns="http://xamarin.com/schemas/2014/forms"
+                   xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+                   xmlns:pancakeView="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView" 
+                   xmlns:vm="clr-namespace:MOB_RadioApp.ViewModels"
+                   x:Class="MOB_RadioApp.Popups.BluetoothPopup"
+                   xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+                  >
+
+    <popups:PopupPage.Animation>
+        <popups:MoveAnimation
+            PositionIn="Top"
+            PositionOut="Top"
+            DurationIn="400"
+            DurationOut="300"
+            HasBackgroundAnimation="True"/>
+    </popups:PopupPage.Animation>
+    <pancakeView:PancakeView
+        CornerRadius="4,4,4,4"
+        VerticalOptions="Start"
+        
+        HorizontalOptions="FillAndExpand"
+              Margin="30,100,30,30"
+        Padding="16"
+        IsClippedToBounds="True"
+        BackgroundColor="{StaticResource NotSelected}">
+        <StackLayout >
+            <StackLayout Orientation="Horizontal" 
+                         HorizontalOptions="FillAndExpand">
+                <Button x:Name="BtnCancel" 
+                    Text="{xct:Translate Cancel}"
+                        TextColor="{StaticResource Black}"
+                        BackgroundColor="Transparent"
+                       
+                        HorizontalOptions="StartAndExpand" />
+
+                <Button x:Name="BtnConfirm"
+                    Text="{xct:Translate Confirm}" 
+                        BackgroundColor="Transparent"
+                        TextColor="{StaticResource Black}"
+                        
+                        HorizontalOptions="EndAndExpand" />
+            </StackLayout>
+            <ListView
+                ItemsSource="{Binding Devices}"/>
+            <Button Text="Scan"
+                    Clicked="Button_Clicked"/>
+        </StackLayout>
+    </pancakeView:PancakeView>
+</popups:PopupPage>
