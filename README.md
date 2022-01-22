@@ -3,13 +3,13 @@
 * Onderwerp: <gekozen&goedgekeurd onderwerp>
 
 
-![Schermafbeelding 2022-01-22 150948](https://user-images.githubusercontent.com/73179981/150642594-d95c1afd-c840-44b0-8a3e-16406ad77834.png)
+
 ![Schermafbeelding 2022-01-22 150922](https://user-images.githubusercontent.com/73179981/150642596-8a9966c9-8b06-4f1b-941d-e8979c2c0603.png)
 ![Schermafbeelding 2022-01-22 150739](https://user-images.githubusercontent.com/73179981/150642597-ab9c52fd-9cbe-4d06-b78d-2f10d0cdb4fe.png)
 ![Schermafbeelding 2022-01-22 150835](https://user-images.githubusercontent.com/73179981/150642601-014adc9e-abde-430e-8a82-5ed1efee7fad.png)
+![Schermafbeelding 2022-01-22 150948](https://user-images.githubusercontent.com/73179981/150642594-d95c1afd-c840-44b0-8a3e-16406ad77834.png)
 
-
-## Korte uitleg doel applicatie (uiteindelijk aangevuld met screenshots)
+## Korte uitleg doel applicatie 
 Mijn project wordt een app om radio te streamen en is gebaseerd op Radio Belgium van Simon Schellaert. Hij wordt voorlopig enkel voor android ontwikkeld. De app zal de volgende schermen bevatten:
 •	Een mainpage: een collectionview van radiozenders met zoek-, en filterfunctionaliteiten (filter op taal en genre)
 •	Een pagina met de favoriete zenders van de gebruiker
@@ -21,7 +21,7 @@ De Api die hoofdzakelijk gebruikt wordt is DarFm. Ook die van Spotify zou ik mog
 De data die wordt bijgehouden zijn naast de inloggegevens, een geschiedenis van beluisterde nummers met links naar youtube en spotify. Een geschiedenis van beluisterde zenders (+ aantal minuten geluisterd). Een lijst van favoriete zenders die de gebruiker zelf kan samenstellen. De regio van de gebruiker, zodat hij standaard enkel lokale zenders voorgeschoteld krijgt. Gebruikersgegevens zou ik opslaan op Firebase. Ik ga uitzoeken hoe het zit met afbeeldingen te cachen. Ik kan later eventueel uitbreiden naar podcasts, maar voorlopig ga ik het bij enkel radiozenders houden.
    
 Het is mijn bedoeling om de best mogelijke app te ontwikkelen. Ik steek er op dit moment ook zowat al mijn tijd in. Twee schermen zijn min of meer klaar. Ik zit nu al aan 18 commits. MVVM zal volledig geïmplementeerd worden. 
-De app van Simon Schellaert is al vrij uitgebreid. Qua functionaliteiten ga ik niet heel veel meer kunnen doen dan hij deed. In tegenstelling tot Schellaert ga ik wel voorzien dat de app ook werkt met andere zenders dan die uit België. Ook ga ik proberen een filterfunctie te voorzien en ga ik mijn app er proberen beter te laten uitzien dan die van Schellaert, die ziet er vrij basic uit. Tot slot zal er geen extra reclame gestreamd worden. 
+De app van Simon Schellaert is al vrij uitgebreid. Qua functionaliteiten ga ik niet heel veel meer kunnen doen dan hij deed. In tegenstelling tot Schellaert ga ik wel voorzien dat de app ook werkt met andere zenders dan die uit België. Ook ga ik proberen een filterfunctie te voorzien en ga ik mijn app er proberen beter te laten uitzien dan die van Schellaert, die ziet er vrij basic uit. Tot slot zal er geen extra reclame gestreamd worden. Edit: Uiteindelijk ben ik dezelfde api gaan gebruiken als Schellaert, de reclame zit daar ingebakken.
 
 ## Toekomst
 
@@ -46,13 +46,13 @@ In dit project aanwezig: 8 schermen (splashscreen en popups meegeteld)
 
 Extra's
 - Media-element
-- Splash screen (SplashActivity.cs in Android) (wordt volledig overgeslagen voor sneller te kunnen starten, maar het was een korte animatie)
-- Messagincenter
+- Splash screen (SplashActivity.cs in Android) (wordt volledig overgeslagen om sneller te kunnen starten, maar het was een korte animatie)
+- Messagingcenter
 - Commands
 - Magic gradients
 - Button animations
 - Popup vensters
-- refreshview
+- refreshview (compleet overbodig)
 - Tabview navigatie
 - custom renderers
 - Css
@@ -126,6 +126,12 @@ VLC mediaplayer geinstalleerd wegens ondersteunt meer streamingformaten
 Commentaar toegevoegd
 Begonnen aan overgang naar tweetalig
 
+21-1-22
+De app is nu drietalig. Het brengt weinig werk met zich mee om meerdere talen toe te voegen. Achtergronden ook trouwens.
+
+22-1-22
+De video opgenomen. Ik ken wel wat van audio en heb er ook wat mee gespeeld. De bron van de muziek komt van de app(op het einde van het clipje hakkelt hij) maar is niet live. De zender in kwestie is er een uit Chicago. Ik zocht iets jazzy maar hetgeen er op nostalgie bezig was, was mij te druk.
+
 
 ## Link video
 
@@ -145,7 +151,7 @@ https://devblogs.microsoft.com/xamarin/xamarinforms-4-8-gradients-brushes/
 https://www.gradientmagic.com/
 Magic gradients NuGet package
 
-Animated background
+Animated background (werd enkel in het begin gebruikt, vertraagd de app te veel)
 https://www.youtube.com/watch?v=ejDwwc1Iq1s&ab_channel=OludayoAlli
 
 set background status bar
@@ -192,13 +198,13 @@ https://stackoverflow.com/questions/42845478/xamarin-remove-searchbar-underline-
 Search method
 https://adityadeshpandeadi.wordpress.com/2018/01/14/search-through-listview-items-in-xamarin-forms/
 
-orkney font
+orkney font (niet meer gebruikt, ik gebruik Quicksand nu)
 https://www.1001fonts.com/orkney-font.html
 
 Popup page and country picker
 https://medium.com/nerd-for-tech/xamarin-forms-country-picker-with-rg-plugins-popup-fec1a045f7c
 
-Xamarin Media Manager: 
+Xamarin Media Manager: (niet meer gebruikt, overgestapt op VLC)
 https://github.com/Baseflow/XamarinMediaManager
 
 Firebase
