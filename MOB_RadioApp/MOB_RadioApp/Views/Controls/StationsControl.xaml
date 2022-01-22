@@ -84,14 +84,18 @@
                                                  Grid.Row="0"
                                                  
                                                  ></BoxView>
-                                    <Image
-                                                        Source="{Binding Imageurl}"
-                                                                   
+                                    <Image                         
                                                HorizontalOptions="Center"
                                                HeightRequest="50"
                                                Grid.Row="0"
-                                    
-                                               />
+                                    >
+                                        <Image.Source>
+                                            <UriImageSource Uri="{Binding Imageurl}"
+                                                            CacheValidity="14"
+                                                            CachingEnabled="True"/>
+                                        </Image.Source>
+                                    </Image>
+                                               
                                     <Label x:Name="LblStation" 
                                                HorizontalOptions="CenterAndExpand"
                                                   Text="{Binding Callsign}"

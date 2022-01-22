@@ -22,9 +22,15 @@
             <Frame CornerRadius="30"
                    Margin="30,20"
                    Padding="0" Grid.Row="1">
-                <Image Source="{Binding ActiveStation.Imageurl}"
+                <Image 
                                          Grid.Row="1"
-                                         />
+                                         >
+                    <Image.Source>
+                        <UriImageSource Uri="{Binding ActiveStation.Imageurl}"
+                                                            CacheValidity="14"
+                                                            CachingEnabled="True"/>
+                    </Image.Source>
+                </Image>
             </Frame>
             <BoxView Grid.Row="2"
                      BackgroundColor="{x:StaticResource NotSelected}"
