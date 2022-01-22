@@ -1,6 +1,14 @@
 # Project C# Mobile 2021-2022: RadioApp
 * Naam: Dries Bosmans
 * Onderwerp: <gekozen&goedgekeurd onderwerp>
+
+
+![Schermafbeelding 2022-01-22 150948](https://user-images.githubusercontent.com/73179981/150642594-d95c1afd-c840-44b0-8a3e-16406ad77834.png)
+![Schermafbeelding 2022-01-22 150922](https://user-images.githubusercontent.com/73179981/150642596-8a9966c9-8b06-4f1b-941d-e8979c2c0603.png)
+![Schermafbeelding 2022-01-22 150739](https://user-images.githubusercontent.com/73179981/150642597-ab9c52fd-9cbe-4d06-b78d-2f10d0cdb4fe.png)
+![Schermafbeelding 2022-01-22 150835](https://user-images.githubusercontent.com/73179981/150642601-014adc9e-abde-430e-8a82-5ed1efee7fad.png)
+
+
 ## Korte uitleg doel applicatie (uiteindelijk aangevuld met screenshots)
 Mijn project wordt een app om radio te streamen en is gebaseerd op Radio Belgium van Simon Schellaert. Hij wordt voorlopig enkel voor android ontwikkeld. De app zal de volgende schermen bevatten:
 •	Een mainpage: een collectionview van radiozenders met zoek-, en filterfunctionaliteiten (filter op taal en genre)
@@ -14,6 +22,44 @@ De data die wordt bijgehouden zijn naast de inloggegevens, een geschiedenis van 
    
 Het is mijn bedoeling om de best mogelijke app te ontwikkelen. Ik steek er op dit moment ook zowat al mijn tijd in. Twee schermen zijn min of meer klaar. Ik zit nu al aan 18 commits. MVVM zal volledig geïmplementeerd worden. 
 De app van Simon Schellaert is al vrij uitgebreid. Qua functionaliteiten ga ik niet heel veel meer kunnen doen dan hij deed. In tegenstelling tot Schellaert ga ik wel voorzien dat de app ook werkt met andere zenders dan die uit België. Ook ga ik proberen een filterfunctie te voorzien en ga ik mijn app er proberen beter te laten uitzien dan die van Schellaert, die ziet er vrij basic uit. Tot slot zal er geen extra reclame gestreamd worden. 
+
+## Toekomst
+
+Ik ben van plan dit op Google Play te zetten na een paar aanpassingen. Het inloggen moet nuttig zijn of ik haal het er helemaal uit. De achtergronden kunnen duidelijker. Verder nog wat styling, het kan allemaal nog net iets beter. Fontsize dynamisch maken op basis van de lengte van de strings. Ik ben met bluetooth bezig, maar is nog niet af. 
+Het zou ook iets performanter mogen, het is te traag, al weet ik niet meteen hoe ik dit zou kunnen verbeteren.
+
+## Inbegrepen
+
+In dit project aanwezig: 8 schermen (splashscreen en popups meegeteld)
+- Bevat een vorm van inloggen (Firebase Auth)
+- Styles worden gebruikt (resourcedictionary)
+- Twee CollectionViews met zelf gedefinieerde cellen
+- er kan gefilterd en gezocht worden
+- Veel databinding
+- Settingspagina
+- Preferences
+- Compiled binding aanwezig
+- Twee behaviors
+- MVVM
+- API
+- Sqlite voor favorieten op te slaan
+
+Extra's
+- Media-element
+- Splash screen (SplashActivity.cs in Android) (wordt volledig overgeslagen voor sneller te kunnen starten, maar het was een korte animatie)
+- Messagincenter
+- Commands
+- Magic gradients
+- Button animations
+- Popup vensters
+- refreshview
+- Tabview navigatie
+- custom renderers
+- Css
+- Controls
+- Custom font
+- Meertalig
+
 
 ## Logboek
 
@@ -74,14 +120,24 @@ Verder rest enkel nog een beetje styling, het zou er allemaal nog wat beter moge
 Het is mij gelukt om de gradient achtergronden in een apart css-bestand te zetten
 
 17-1-22 Verder aan styling gewerkt en knopanimaties verzorgd
+VLC mediaplayer geinstalleerd wegens ondersteunt meer streamingformaten
+
+18-1-22
+Commentaar toegevoegd
+Begonnen aan overgang naar tweetalig
+
 
 ## Link video
+
+https://www.youtube.com/watch?v=JrWUEvThohs
+
 ## Bronnen
+
 UI design inspiration
 grialkit.com
 
 api
-https://api.radio-browser.info/
+https://api.radio-browser.info/ (oude)
 
 Colors
 https://coolors.co/a53182-6c38d7-5e1dae-ffffff-39116e
@@ -154,6 +210,12 @@ https://www.youtube.com/watch?v=XFP8Np-uRWc
 
 Button animations
 https://xamgirl.com/plug-and-play-animations-in-xamarin-forms/
+
+vlc mediaplayer
+https://github.com/coolc0ders/VLCXamarinDemo/tree/main/VLCDemo/VLCDemo
+
+Selecting other languages
+https://www.youtube.com/watch?v=-t8sss0BHqo
 
 ## Eerdere commits
 
