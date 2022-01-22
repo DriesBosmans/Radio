@@ -26,7 +26,7 @@ namespace MOB_RadioApp.Droid
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             CachedImageRenderer.Init(true);
             LoadApplication(new App());
-            Window.SetStatusBarColor(Android.Graphics.Color.Argb(255, 40, 49, 59));
+            Window.SetStatusBarColor(Android.Graphics.Color.Argb(255, 25, 30, 36));
             FirebaseApp.InitializeApp(Application.Context);
         }
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults)

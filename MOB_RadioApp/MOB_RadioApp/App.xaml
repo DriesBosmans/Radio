@@ -10,7 +10,7 @@
             <!-- Colors -->
             <Color x:Key="Primary">#FFFFFFFF</Color>
             <Color x:Key="NotSelected">#E0E0E0</Color>
-            <Color x:Key="Black">#28313b</Color>
+            <Color x:Key="Black">#191e24</Color>
             <Font x:Key="Font">Quicksand-SemiBold.ttf</Font>
             
             <Style x:Key="LabelStyle" TargetType="Label">
