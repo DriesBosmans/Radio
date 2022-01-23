@@ -25,7 +25,7 @@ De app van Simon Schellaert is al vrij uitgebreid. Qua functionaliteiten ga ik n
 
 ## Toekomst
 
-Ik ben van plan dit op Google Play te zetten na een paar aanpassingen. Het inloggen moet nuttig zijn of ik haal het er helemaal uit. De achtergronden kunnen duidelijker. Verder nog wat styling, het kan allemaal nog net iets beter. Fontsize dynamisch maken op basis van de lengte van de strings. Ik ben met bluetooth bezig, maar is nog niet af. 
+Ik ben van plan dit op Google Play te zetten na een paar aanpassingen. Het inloggen moet nuttig zijn of ik haal het er helemaal uit. De achtergronden kunnen duidelijker. Verder nog wat styling, het kan allemaal nog net iets beter. Ik ben met bluetooth bezig, maar is nog niet af. 
 Het zou ook iets performanter mogen, het is te traag, al weet ik niet meteen hoe ik dit zou kunnen verbeteren.
 
 ## Inbegrepen
@@ -43,6 +43,7 @@ In dit project aanwezig: 8 schermen (splashscreen en popups meegeteld)
 - MVVM
 - API
 - Sqlite voor favorieten op te slaan
+- Converter (stringlength naar fontsize)
 
 Extra's
 - Media-element
@@ -132,6 +133,9 @@ De app is nu drietalig. Het brengt weinig werk met zich mee om meerdere talen to
 22-1-22
 De video opgenomen. Ik ken wel wat van audio en heb er ook wat mee gespeeld. De bron van de muziek komt van de app(op het einde van het clipje hakkelt hij) maar is niet live. De zender in kwestie is er een uit Chicago. Ik zocht iets jazzy maar hetgeen er op nostalgie bezig was, was mij te druk.
 
+23-1-22
+Laatste commit voor de review
+Heb er toch nog een converter in verwerkt (fontsize past zich aan aan de lengte van de string)
 
 ## Link video
 
@@ -222,6 +226,9 @@ https://github.com/coolc0ders/VLCXamarinDemo/tree/main/VLCDemo/VLCDemo
 
 Selecting other languages
 https://www.youtube.com/watch?v=-t8sss0BHqo
+
+Converter
+https://askxammy.com/learning-about-converters-in-xamarin-forms/
 
 ## Eerdere commits
 
