@@ -4,11 +4,12 @@
              xmlns:ffimageloading1="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms" 
              xmlns:viewmodels="clr-namespace:MOB_RadioApp.ViewModels" xmlns:models="clr-namespace:MOB_RadioApp.Models" 
              xmlns:xct="http://xamarin.com/schemas/2020/toolkit" xmlns:pancakeView="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView" 
-             xmlns:behaviors="clr-namespace:MOB_RadioApp.Behaviors" xmlns:vlc="clr-namespace:LibVLCSharp.Forms.Shared;assembly=LibVLCSharp.Forms"
-             
+             xmlns:behaviors="clr-namespace:MOB_RadioApp.Behaviors" xmlns:vlc="clr-namespace:LibVLCSharp.Forms.Shared;assembly=LibVLCSharp.Forms" xmlns:converters="clr-namespace:MOB_RadioApp.Converters"
              x:Class="MOB_RadioApp.Controls.MediaplayerControl"
             >
-
+    <ContentView.Resources>
+        <converters:StringLengthToFontSizeConverter x:Key="StringConverter"/>
+    </ContentView.Resources>
     <Grid >
         <magic:GradientView x:Name="MediaplayerStyle" VerticalOptions="FillAndExpand"/>
         <Grid>
@@ -17,12 +18,12 @@
                 <RowDefinition Height="2*"/>
                 <RowDefinition Height="0.5*"/>
                 <RowDefinition Height="1*"/>
-                <RowDefinition Height="0.7*"/>
+                <RowDefinition Height="0.8*"/>
             </Grid.RowDefinitions>
             <Frame CornerRadius="30"
                    Margin="30,20"
                    Padding="0" Grid.Row="1">
-                <Image 
+                <Image  Margin="30" 
                                          Grid.Row="1"
                                          >
                     <Image.Source>
@@ -41,23 +42,27 @@
             <Label Text="{Binding ActiveStation.Callsign}" 
                    Grid.Row="2"
             
-                   Margin="30,3"
+                   Margin="35,3"
                    LineBreakMode="WordWrap"
-                   FontSize="30"
+                   FontSize="{Binding ActiveStation.Callsign, Converter={StaticResource StringConverter}, ConverterParameter=3}" 
                   HorizontalTextAlignment="Center"
                    HorizontalOptions="Center"
                    VerticalOptions="Center"
-                   Style="{StaticResource LabelStyle}"
+                   TextColor="{x:StaticResource Primary}"
+                   FontFamily="{x:StaticResource Flower}"
                    />
             <Grid Grid.Row="3"   Margin="35,0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-                <Label  Grid.Row="0"  VerticalOptions="Center" VerticalTextAlignment="Center" FontSize="27" 
+                <Label  Grid.Row="0"  VerticalOptions="Center" VerticalTextAlignment="Center" 
+                         FontSize="{Binding ActiveArtist, Converter={StaticResource StringConverter}, ConverterParameter=4}" 
                        Style="{StaticResource LabelStyle}" HorizontalTextAlignment="Center" 
                        LineBreakMode="WordWrap"  HorizontalOptions="Center" Text="{Binding ActiveArtist}"/>
-                <Label  Grid.Row="1" FontSize="25" Style="{StaticResource LabelStyle}" 
+                <Label  Grid.Row="1" 
+                         FontSize="{Binding ActiveSong, Converter={StaticResource StringConverter}, ConverterParameter=4}" 
+                        Style="{StaticResource LabelStyle}" 
                        HorizontalTextAlignment="Center" VerticalOptions="Center"
                        VerticalTextAlignment="Center" HorizontalOptions="Center" 
                        LineBreakMode="WordWrap"

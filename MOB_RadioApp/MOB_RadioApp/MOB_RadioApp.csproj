@@ -12,6 +12,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\Fonts\IndieFlower-Regular.ttf" />
     <None Remove="Resources\Fonts\Orkney-Light.otf" />
     <None Remove="Resources\Fonts\Orkney-Medium.otf" />
   </ItemGroup>
@@ -20,6 +21,7 @@
     <EmbeddedResource Include="Assets\FontAwesome5Solid.otf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Fonts\IndieFlower-Regular.ttf" />
     <EmbeddedResource Include="Resources\Fonts\Orkney-Light.otf" />
     <EmbeddedResource Include="Resources\Fonts\Orkney-Medium.otf" />
   </ItemGroup>

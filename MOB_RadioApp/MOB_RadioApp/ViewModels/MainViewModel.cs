@@ -80,6 +80,7 @@ namespace MOB_RadioApp.ViewModels
         private RangedObservableCollection<Station> _favourites = new RangedObservableCollection<Station>();
         private Station _activeStation;
         private string _activeImg;
+        private int _fontSize;
         private LibVLC _libVLC;
         private MediaPlayer _player;
         private bool _isPlaying = false;
@@ -146,6 +147,11 @@ namespace MOB_RadioApp.ViewModels
         {
             get { return ActiveStation?.Imageurl; }
             set { SetValue(ref _activeImg, value); }
+        }
+        public int FontSize
+        {
+            get { return _fontSize; }
+            set { SetValue(ref _fontSize, value);}
         }
         public LibVLC LibVLC
         {

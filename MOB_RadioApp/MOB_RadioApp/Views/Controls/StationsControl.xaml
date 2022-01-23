@@ -5,8 +5,10 @@
              xmlns:magic="http://magic.com/schemas/gradients"
              x:Class="MOB_RadioApp.Controls.MainView" 
              xmlns:xct="http://xamarin.com/schemas/2020/toolkit" 
-             xmlns:viewmodels="clr-namespace:MOB_RadioApp.ViewModels" xmlns:behaviors="clr-namespace:MOB_RadioApp.Behaviors">
-
+             xmlns:viewmodels="clr-namespace:MOB_RadioApp.ViewModels" xmlns:behaviors="clr-namespace:MOB_RadioApp.Behaviors" xmlns:converters="clr-namespace:MOB_RadioApp.Converters">
+    <ContentView.Resources>
+        <converters:StringLengthToFontSizeConverter x:Key="StringConverter"/>
+    </ContentView.Resources>
     <Grid  >
         <magic:GradientView x:Name="StationsStyle" VerticalOptions="FillAndExpand"/>
 
@@ -15,20 +17,16 @@
                 <RowDefinition Height="50"/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
-
-
-
             <controls:ExtSearchBar     
                 Grid.Column="0"
                 Placeholder="{xct:Translate Search}"
                 Text="{ Binding SearchText }"
-                TextChangedDelay="250"
+                TextChangedDelay="200"
                 TextChangedCommand="{ Binding SearchCommand }"
                 SearchCommand="{ Binding SearchCommand }"
                 HasFilterIcon="True"
                 FilterCommand="{ Binding FilterTappedCommand }" 
-                            xct:IconTintColorEffect.TintColor="{StaticResource Primary}"
-                            />
+                xct:IconTintColorEffect.TintColor="{StaticResource Primary}"/>
             <RefreshView IsRefreshing="{Binding IsRefreshing, Mode=OneWay}"
                                      Command="{Binding RefreshCommand}"
                                      Grid.Row="1">
@@ -74,20 +72,22 @@
 
 
                                     <Grid.RowDefinitions>
-                                        <RowDefinition Height="4*"/>
-                                        <RowDefinition Height="3.4*"/>
+                                        <RowDefinition Height="5*"/>
+                                        <RowDefinition Height="2.2*"/>
                                     </Grid.RowDefinitions>
                                     <BoxView x:Name="BVbox"
                                             Background="{StaticResource NotSelected}"
                                                  Opacity="{Binding Opacity}"
-                                                 CornerRadius="5"
+                                                 CornerRadius="7"
                                                  Grid.Row="0"
                                                  
                                                  ></BoxView>
                                     <Image                         
                                                HorizontalOptions="Center"
-                                               HeightRequest="50"
+                                               HeightRequest="80"
                                                Grid.Row="0"
+                                        Margin="11"
+                                        
                                     >
                                         <Image.Source>
                                             <UriImageSource Uri="{Binding Imageurl}"
@@ -95,7 +95,7 @@
                                                             CachingEnabled="True"/>
                                         </Image.Source>
                                     </Image>
-                                               
+
                                     <Label x:Name="LblStation" 
                                                HorizontalOptions="CenterAndExpand"
                                                   Text="{Binding Callsign}"
@@ -103,10 +103,10 @@
                                                Grid.Row="1"
                                                TextColor="{Binding TextColor}"
                                                
-                                               LineBreakMode="WordWrap"
+                                               LineBreakMode="CharacterWrap"
                                                HorizontalTextAlignment="Center"
                                                FontFamily="{StaticResource Font}"
-                                               FontSize="13"
+                                               FontSize="{Binding Callsign, Converter={StaticResource StringConverter}, ConverterParameter=1}" 
                                      
                                        />
                                 </Grid>

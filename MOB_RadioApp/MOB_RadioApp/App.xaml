@@ -12,7 +12,7 @@
             <Color x:Key="NotSelected">#E0E0E0</Color>
             <Color x:Key="Black">#191e24</Color>
             <Font x:Key="Font">Quicksand-SemiBold.ttf</Font>
-            
+            <Font x:Key="Flower">IndieFlower-Regular.ttf</Font>
             <Style x:Key="LabelStyle" TargetType="Label">
                 <Setter Property="FontFamily" Value="{StaticResource Font}"/>
                 <Setter Property="TextColor" Value="{StaticResource Primary}"/>
@@ -20,7 +20,7 @@
             <Style x:Key="TabViewStyle" TargetType="xct:TabViewItem">
                 <Setter Property="TextColor" Value="{StaticResource NotSelected}"/>
                 <Setter Property="TextColorSelected" Value="{StaticResource Primary}"/>
-                <Setter Property="FontFamily" Value="{StaticResource Font}"/>
+                <Setter Property="FontFamily" Value="{StaticResource Flower}"/>
                 <Setter Property="FontSize" Value="12"/>
             </Style>
             <Style TargetType="BoxView"

@@ -1,7 +1,10 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:magic="http://magic.com/schemas/gradients" xmlns:ffimageloading1="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms" xmlns:viewmodels="clr-namespace:MOB_RadioApp.ViewModels" xmlns:models="clr-namespace:MOB_RadioApp.Models" xmlns:xct="http://xamarin.com/schemas/2020/toolkit" xmlns:behaviors="clr-namespace:MOB_RadioApp.Behaviors"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:magic="http://magic.com/schemas/gradients" xmlns:ffimageloading1="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms" xmlns:viewmodels="clr-namespace:MOB_RadioApp.ViewModels" xmlns:models="clr-namespace:MOB_RadioApp.Models" xmlns:xct="http://xamarin.com/schemas/2020/toolkit" xmlns:behaviors="clr-namespace:MOB_RadioApp.Behaviors" xmlns:converters="clr-namespace:MOB_RadioApp.Converters"
              x:Class="MOB_RadioApp.Controls.FavouritesControl">
+    <ContentView.Resources>
+        <converters:StringLengthToFontSizeConverter x:Key="StringConverter"/>
+    </ContentView.Resources>
     <Grid>
         <magic:GradientView x:Name="FavouritesStyle" VerticalOptions="FillAndExpand" />
 
@@ -60,8 +63,8 @@
 
 
                                 <Grid.RowDefinitions>
-                                    <RowDefinition Height="4*"/>
-                                    <RowDefinition Height="2.9*"/>
+                                    <RowDefinition Height="5*"/>
+                                    <RowDefinition Height="2*"/>
                                 </Grid.RowDefinitions>
                                 <BoxView x:Name="BVbox"
                                             Background="{StaticResource NotSelected}"
@@ -94,7 +97,7 @@
                                                LineBreakMode="WordWrap"
                                                HorizontalTextAlignment="Center"
                                                FontFamily="{StaticResource Font}"
-                                               FontSize="13"
+                                               FontSize="{Binding Callsign, Converter={StaticResource StringConverter}, ConverterParameter=2}" 
                                        />
                             </Grid>
                         </StackLayout>
