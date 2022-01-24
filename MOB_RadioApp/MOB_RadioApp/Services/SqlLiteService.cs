@@ -40,8 +40,12 @@ namespace MOB_RadioApp.Services
             var listStations = await AttemptAndRetry(() => databaseConnection.Table<SqlStation>().ToListAsync()).ConfigureAwait(false);
             //var list = await _db.Table<SqlStation>().ToListAsync();
             List<string> favourites = new List<string>();
+            favourites.Add("16431");
+            favourites.Add("118214");
+            favourites.Add("4949");
             foreach (var stat in listStations)
             {
+                
                 favourites.Add(stat.Id);
             }
             return favourites;

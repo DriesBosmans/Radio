@@ -42,7 +42,7 @@
                 <Label Text="{xct:Translate Hello}"
                        Style="{StaticResource LabelStyle}"
                        IsVisible="{Binding IsSignedIn}"
-                       FontSize="30"
+                       FontSize="25"
                            Margin="10,0,0,0"
                        VerticalOptions="Center"
                        WidthRequest="80"
@@ -53,8 +53,8 @@
                        IsVisible="{Binding IsSignedIn}"
                        VerticalOptions="Center"
                        Style="{StaticResource LabelStyle}"
-                       FontSize="30"
-                       Margin="0,0,50,0"
+                       FontSize="25"
+                       Margin="0,0,30,0"
                
                        
                        />

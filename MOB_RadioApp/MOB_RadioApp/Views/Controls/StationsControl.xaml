@@ -73,7 +73,7 @@
 
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="5*"/>
-                                        <RowDefinition Height="2.2*"/>
+                                        <RowDefinition Height="2.5*"/>
                                     </Grid.RowDefinitions>
                                     <BoxView x:Name="BVbox"
                                             Background="{StaticResource NotSelected}"

@@ -15,22 +15,24 @@
         <xct:TabView
                 TabStripPlacement="Bottom"
                 TabStripBackgroundColor="{StaticResource Black}"
-                
+              
                 TabStripHeight="60"
                 TabIndicatorColor="{StaticResource NotSelected}"
                 >
+            <xct:TabViewItem
+                            IsSelected="True"
+                             Icon="heart.png"
+                             Text="{xct:Translate Bookmarks}"
+                             Style="{StaticResource TabViewStyle}">
+                <controls1:FavouritesControl BindingContext="{Binding .}"/>
+            </xct:TabViewItem>
             <xct:TabViewItem
                     Icon="radio_2_100px.png"
                     Text="{xct:Translate Stations}"
                     Style="{StaticResource TabViewStyle}">
                 <controls1:MainView BindingContext="{Binding .}"/>
             </xct:TabViewItem>
-            <xct:TabViewItem
-                             Icon="heart.png"
-                             Text="{xct:Translate Bookmarks}"
-                             Style="{StaticResource TabViewStyle}">
-                <controls1:FavouritesControl BindingContext="{Binding .}"/>
-            </xct:TabViewItem>
+
 
             <xct:TabViewItem
                     Icon="home_48px.png"
