@@ -137,10 +137,6 @@ De video opgenomen. Ik ken wel wat van audio en heb er ook wat mee gespeeld. De 
 Laatste commit voor de review
 Heb er toch nog een converter in verwerkt (fontsize past zich aan aan de lengte van de string)
 
-## Link video
-
-https://www.youtube.com/watch?v=JrWUEvThohs
-
 ## Bronnen
 
 UI design inspiration
